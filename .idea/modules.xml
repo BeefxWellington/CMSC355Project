@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/CMSC355Proj.iml" filepath="$PROJECT_DIR$/.idea/CMSC355Proj.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/My2Cents.iml" filepath="$PROJECT_DIR$/.idea/modules/My2Cents.iml" group="My2Cents" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="My2Cents/app" />
+    </modules>
+  </component>
+</project>
