@@ -10,14 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9c4741d8-9c48-4668-819f-abe1b3ac7ab3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/my2cents/RegisterActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/my2cents/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/my2cents/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_second.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_second.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,10 +164,14 @@
       <screen x="3840" y="0" width="2560" height="1440" />
     </state>
     <state x="3936" y="100" width="2368" height="1244" key="com.android.tools.idea.avdmanager.AvdListDialog/3840.0.2560.1440/0.0.3840.2160@3840.0.2560.1440" timestamp="1600375052709" />
-    <state x="3178" y="676" key="com.intellij.ide.util.TipDialog" timestamp="1600401200481">
+    <state x="3178" y="676" key="com.intellij.ide.util.TipDialog" timestamp="1600484603645">
       <screen x="1920" y="23" width="1920" height="988" />
     </state>
-    <state x="3178" y="676" key="com.intellij.ide.util.TipDialog/1920.23.1920.988/0.23.1920.1057@1920.23.1920.988" timestamp="1600401200481" />
+    <state x="3178" y="676" key="com.intellij.ide.util.TipDialog/1920.23.1920.988/0.23.1920.1057@1920.23.1920.988" timestamp="1600484603645" />
     <state x="2516" y="1447" key="com.intellij.ide.util.TipDialog/3840.0.2560.1440/0.0.3840.2160@3840.0.2560.1440" timestamp="1600367327601" />
+    <state x="680" y="23" width="1068" height="874" key="dock-window-1" timestamp="1600485531838">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state x="680" y="23" width="1068" height="874" key="dock-window-1/1920.23.1920.988/0.23.1920.1057@1920.23.1920.988" timestamp="1600485531838" />
   </component>
 </project>
