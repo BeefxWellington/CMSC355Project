@@ -1,12 +1,12 @@
 package com.example.my2cents;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -17,6 +17,7 @@ public class RegisterActivity extends AppCompatActivity {
     private TextView goBack;
 
     // add firebase here and imports on top
+    // need to add goBack listener and activity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
