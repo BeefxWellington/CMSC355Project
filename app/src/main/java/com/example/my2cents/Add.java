@@ -4,9 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
+
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,12 +25,14 @@ public class Add extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    Spinner InputType;
+
+
 
     public Add() {
         // Required empty public constructor
 
     }
+
 
     /**
      * Use this factory method to create a new instance of
@@ -52,22 +55,22 @@ public class Add extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
 
-         //   setUpSpinner(view);
+
         }
+
     }
 
-    public void setUpSpinner(View view){
-        InputType = (Spinner) view.findViewById(R.id.spinner);
-    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_add, container, false);
+
 
     }
 
