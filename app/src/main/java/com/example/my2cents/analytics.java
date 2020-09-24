@@ -24,8 +24,8 @@ import java.util.List;
 public class analytics extends Fragment {
 
     private AnyChartView anyChartView;
-    private String[] months = {"Jan", "Feb", "March"};
-    private int[] expenditures = {20, 50, 100, 500};
+    private String[] months = {"Jan", "Feb", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+    private int[] expenditures = {20, 50, 100, 500, 1000, 1200, 1500, 50, 180, 200, 70, 350};
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -87,7 +87,18 @@ public class analytics extends Fragment {
             dataEntries.add(new ValueDataEntry(months[i], expenditures[i]));
         }
         pie.data(dataEntries);
-        anyChartView.setBackgroundColor("black");
+        anyChartView.setBackgroundColor("#ffffff"); //sets LOADING background color
+        pie.background().fill("#ffffff");
+        pie.background("#ffffff");
+
+        pie.normal().outline().enabled(true);
+        pie.normal().outline().width("5%");
+        pie.hovered().outline().width("10%");
+        pie.selected().outline().width("3");
+        pie.selected().outline().fill("#455a64");
+        pie.selected().outline().stroke(null);
+        pie.selected().outline().offset(2);
+
         anyChartView.setChart(pie);
     }
 }
