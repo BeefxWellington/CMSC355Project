@@ -1,12 +1,20 @@
 package com.example.my2cents;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
+
+import com.anychart.AnyChart;
+import com.anychart.AnyChartView;
+import com.anychart.chart.common.dataentry.DataEntry;
+import com.anychart.chart.common.dataentry.ValueDataEntry;
+import com.anychart.charts.Pie;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +22,10 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class analytics extends Fragment {
+
+    private AnyChartView anyChartView;
+    private String[] months = {"Jan", "Feb", "March"};
+    private int[] expenditures = {20, 50, 100, 500};
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,6 +71,23 @@ public class analytics extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_analytics, container, false);
+        View v = inflater.inflate(R.layout.fragment_analytics, container, false);
+
+        anyChartView = v.findViewById(R.id.piechart);
+        setupPieChart();
+
+        return v;
+    }
+
+    public void setupPieChart() {
+        Pie pie = AnyChart.pie();
+        List<DataEntry> dataEntries = new ArrayList<>();
+
+        for (int i=0;i < months.length; i++) {
+            dataEntries.add(new ValueDataEntry(months[i], expenditures[i]));
+        }
+        pie.data(dataEntries);
+        anyChartView.setBackgroundColor("black");
+        anyChartView.setChart(pie);
     }
 }
