@@ -1,12 +1,13 @@
 package com.example.my2cents;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import androidx.fragment.app.Fragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +15,8 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class Add extends Fragment {
+
+    private Button addBtn;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,6 +62,17 @@ public class Add extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add, container, false);
+        View v = inflater.inflate(R.layout.fragment_add, container, false);
+
+        addBtn = v.findViewById(R.id.addBtn);
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent startIntent = new Intent(getActivity(), MainActivity.class);
+                startActivity(startIntent);
+            }
+        });
+
+        return v;
     }
 }
