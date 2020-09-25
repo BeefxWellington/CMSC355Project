@@ -74,4 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    public void validate(String userName, String userPassword){
+
+    }
 }
