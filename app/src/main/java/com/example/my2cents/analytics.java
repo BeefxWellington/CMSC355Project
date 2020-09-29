@@ -87,9 +87,9 @@ public class analytics extends Fragment {
             dataEntries.add(new ValueDataEntry(months[i], expenditures[i]));
         }
         pie.data(dataEntries);
-        anyChartView.setBackgroundColor("#ffffff"); //sets LOADING background color
-        pie.background().fill("#ffffff");
-        pie.background("#ffffff");
+        anyChartView.setBackgroundColor("black"); //sets LOADING background color
+        pie.background().fill("black");
+        pie.background("black");
 
         pie.normal().outline().enabled(true);
         pie.normal().outline().width("5%");
