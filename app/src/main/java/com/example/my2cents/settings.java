@@ -1,19 +1,20 @@
 package com.example.my2cents;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link settings#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class settings extends Fragment {
+public class settings extends Fragment implements View.OnClickListener{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -53,12 +54,52 @@ public class settings extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//                             Bundle savedInstanceState) {
+//        // Inflate the layout for this fragment
+//        return inflater.inflate(R.layout.fragment_settings, container, false);
+//    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                         Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false);
+        View view = inflater.inflate(R.layout.fragment_settings, container, false);
+        Button b1 = (Button)view.findViewById(R.id.button_notifsettings);
+        Button b2 = (Button)view.findViewById(R.id.button_passsettings);
+        Button b3 = (Button)view.findViewById(R.id.button_userguide);
+        Button b4 = (Button)view.findViewById(R.id.button_usersettings);
+        b1.setOnClickListener(this);
+        b2.setOnClickListener(this);
+        b3.setOnClickListener(this);
+        b4.setOnClickListener(this);
+        return view;
+    }
+    @Override
+    public void onClick(View view) {
+
+        FragmentManager fr = getFragmentManager();
+
+        switch(view.getId()) {
+            case R.id.button_notifsettings:
+                Notifications notifications = new Notifications();
+                fr.beginTransaction().replace(R.id.settings_layout, notifications).commit();
+                break;
+            case R.id.button_usersettings:
+                UserSettings usersettings = new UserSettings();
+                fr.beginTransaction().replace(R.id.settings_layout, usersettings).commit();
+                break;
+            case R.id.button_passsettings:
+                PasswordSettings passwordsettings = new PasswordSettings();
+                fr.beginTransaction().replace(R.id.settings_layout, passwordsettings).commit();
+                break;
+            case R.id.button_userguide:
+                UserGuide userguide = new UserGuide();
+                fr.beginTransaction().replace(R.id.settings_layout, userguide).commit();
+                break;
+        }
     }
 }
