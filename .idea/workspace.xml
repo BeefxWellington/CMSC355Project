@@ -194,10 +194,10 @@
       <screen x="-3840" y="0" width="3840" height="2160" />
     </state>
     <state x="-1380" y="1378" key="AndroidCreateResourceFileDialog/0.0.2560.1440/-3840.0.3840.2160@-3840.0.3840.2160" timestamp="1600496900644" />
-    <state x="510" y="57" key="CommitChangelistDialog2" timestamp="1601505699098">
+    <state x="510" y="57" key="CommitChangelistDialog2" timestamp="1601505731759">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state x="510" y="57" key="CommitChangelistDialog2/0.23.1440.877@0.23.1440.877" timestamp="1601505699098" />
+    <state x="510" y="57" key="CommitChangelistDialog2/0.23.1440.877@0.23.1440.877" timestamp="1601505731759" />
     <state x="2664" y="298" key="FileChooserDialogImpl" timestamp="1600298443949">
       <screen x="0" y="0" width="3840" height="2160" />
     </state>
@@ -238,10 +238,10 @@
       <screen x="-3840" y="0" width="3840" height="2160" />
     </state>
     <state x="-1459" y="1265" key="SettingsEditor/0.0.2560.1440/-3840.0.3840.2160@-3840.0.3840.2160" timestamp="1600512250484" />
-    <state x="47" y="201" key="Vcs.Push.Dialog.v2" timestamp="1601505450796">
+    <state x="47" y="201" key="Vcs.Push.Dialog.v2" timestamp="1601505775666">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state x="47" y="201" key="Vcs.Push.Dialog.v2/0.23.1440.877@0.23.1440.877" timestamp="1601505450796" />
+    <state x="47" y="201" key="Vcs.Push.Dialog.v2/0.23.1440.877@0.23.1440.877" timestamp="1601505775666" />
     <state x="144" y="150" width="3552" height="1866" key="com.android.tools.idea.avdmanager.AvdListDialog" timestamp="1600557437668">
       <screen x="0" y="0" width="3840" height="2160" />
     </state>
@@ -258,6 +258,10 @@
       <screen x="-3840" y="0" width="3840" height="2160" />
     </state>
     <state x="-1703" y="1226" width="1632" height="1066" key="dock-window-1/0.0.2560.1440/-3840.0.3840.2160@-3840.0.3840.2160" timestamp="1600397794365" />
+    <state x="453" y="181" key="git4idea.branch.GitSmartOperationDialog" timestamp="1601505830571">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="453" y="181" key="git4idea.branch.GitSmartOperationDialog/0.23.1440.877@0.23.1440.877" timestamp="1601505830571" />
     <state x="200" y="211" key="psd.add.library.dependency.panel.dimension" timestamp="1601350273577">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
