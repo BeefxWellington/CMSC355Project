@@ -24,12 +24,12 @@ public class HomeAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return 0;
+        return models.size();
     }
 
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-        return false;
+        return view.equals(object);
     }
 
     @NonNull
