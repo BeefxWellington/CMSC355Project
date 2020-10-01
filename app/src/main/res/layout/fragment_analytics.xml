@@ -13,13 +13,38 @@
     <com.anychart.AnyChartView
         android:id="@+id/piechart"
         android:layout_width="0dp"
-        android:layout_height="500dp"
+        android:layout_height="400dp"
         android:background="@drawable/background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.634" />
+        app:layout_constraintVertical_bias="0.0"
+        />
+
+    <Button
+        android:id="@+id/btn_notifications"
+        android:layout_width="241dp"
+        android:layout_height="67dp"
+        android:text="notify"
+        android:background="@drawable/redbutton"
+        android:textColor="@color/white"
+        android:fontFamily="@font/avenirregular"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.84000003"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:text="BUTTON"
+        app:cornerRadius="8dp"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        tools:ignore="MissingConstraints"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
