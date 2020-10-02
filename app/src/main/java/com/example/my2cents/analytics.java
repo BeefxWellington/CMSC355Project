@@ -2,9 +2,7 @@ package com.example.my2cents;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 
 import com.anychart.AnyChart;
@@ -40,8 +39,8 @@ public class analytics extends Fragment {
     /** notifications test variables **/
     private Button btn_notifications;
     private final String CHANNEL_ID = "bills";
-    private final int NOTIFCATIONS_ID = 001;
-    private Context mContext;
+    public final int NOTIFICATIONS_ID = 001;
+    public Context mContext;
     private Resources mResources;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -84,6 +83,12 @@ public class analytics extends Fragment {
         }
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(mContext);
+        mContext = context;
+    }
+
     //treat this as regular onCreate to store Java code
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -96,18 +101,29 @@ public class analytics extends Fragment {
             @Override
             public void onClick(View v) {
                 String message = "Hello! I'm a notification!";
+                //creating notification
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext, CHANNEL_ID)
+                        //set icon in the status bar for
                         .setSmallIcon(R.drawable.ic_money)
+                        //set title of notification
                         .setContentTitle("My2Cents Notification")
+                        //set message of notification
+                        .setContentText("This should be a message below the notification")
+                        //dismiss notification on tap
                         .setAutoCancel(true);
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("message", message);
 
-                PendingIntent contentIntent = PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                builder.setContentIntent(contentIntent);
+                /** This code is for when you want to tap the notification and be transported to another screen **/
+//                Intent intent = new Intent(getActivity(), MainActivity.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                intent.putExtra("message", message);
+//
+//                PendingIntent contentIntent = PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//                builder.setContentIntent(contentIntent);
 
-                createNotificationChannel(builder);
+                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(mContext);
+                notificationManager.notify(NOTIFICATIONS_ID, builder.build());
+
+                //createNotificationChannel(builder);
             }
         });
 
@@ -158,7 +174,7 @@ public class analytics extends Fragment {
             channelBills.enableLights(true);
             channelBills.enableVibration(true);
 
-            notificationManager.notify(0, builder.build());
+            notificationManager.notify(NOTIFICATIONS_ID, builder.build());
         }
     }
 }
