@@ -82,6 +82,7 @@ public class settings extends Fragment implements View.OnClickListener{
     public void onClick(View view) {
 
         FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.addToBackStack(null);
 
         switch(view.getId()) {
             case R.id.button_notifsettings:
@@ -98,4 +99,5 @@ public class settings extends Fragment implements View.OnClickListener{
                 break;
         }
     }
+
 }
