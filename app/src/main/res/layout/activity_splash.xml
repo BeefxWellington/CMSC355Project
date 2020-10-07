@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".splash">
+    tools:context=".splash"
+    tools:ignore="ExtraText">
 
     <TextView
         android:id="@+id/textView"
@@ -27,13 +28,14 @@
         android:layout_width="360dp"
         android:layout_height="289dp"
         android:contentDescription="@string/crab_with_coins"
-        android:src="@drawable/Picture1"
+        android:src="@drawable/picture1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.213"
 
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
