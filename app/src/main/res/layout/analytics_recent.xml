@@ -7,7 +7,7 @@
     tools:context=".AnalyticsRecent">
 
     <TextView
-        android:text="Charts Fragment"
+        android:text="Recent Fragment"
         android:textSize="30sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"

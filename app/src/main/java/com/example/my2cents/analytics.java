@@ -70,7 +70,7 @@ public class analytics extends Fragment {
 
         adapter.addFragment(new AnalyticsCharts(), "Charts");
         adapter.addFragment(new AnalyticsRecent(), "Recent");
-        adapter.addFragment(new AnalyticsRecent(), "Upcoming");
+        adapter.addFragment(new AnalyticsUpcoming(), "Upcoming");
 
         viewPager.setAdapter(adapter);
     }

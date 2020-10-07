@@ -1,5 +1,6 @@
 package com.example.my2cents;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,12 @@ import androidx.fragment.app.Fragment;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
+
+import java.util.ArrayList;
 
 
 public class AnalyticsCharts extends Fragment {
@@ -30,11 +37,8 @@ public class AnalyticsCharts extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*
-        setPieChart();
-        setBarChart();
-        setLineChart();
-        */
+
+
     }
 
     @Override
@@ -44,17 +48,16 @@ public class AnalyticsCharts extends Fragment {
 
         scrollView = v.findViewById(R.id.chartScroll);
 
-
-        pieChart = v.findViewById(R.id.pieChart);
-        barChart = v.findViewById(R.id.barChart);
-        lineChart = v.findViewById(R.id.lineChart);
+        setPieChart();
+        setBarChart();
+        setLineChart();
 
 
         // Inflate the layout for this fragment
         return v;
     }
 
-    /*
+
     public void setPieChart() {
         pieChart = v.findViewById(R.id.pieChart);
 
@@ -88,7 +91,7 @@ public class AnalyticsCharts extends Fragment {
         lineChart = v.findViewById(R.id.lineChart);
     }
 
-     */
+
 
 
 }
