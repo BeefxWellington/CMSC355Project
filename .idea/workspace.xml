@@ -10,10 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9c4741d8-9c48-4668-819f-abe1b3ac7ab3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -33,12 +31,7 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
-        <projects_view>
-          <tree_state>
-            <expand />
-            <select />
-          </tree_state>
-        </projects_view>
+        <projects_view />
       </state>
     </system>
   </component>
@@ -61,6 +54,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1hc6qJHufgNUilQ6lyufCJMLO2Z" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -72,7 +66,7 @@
     <property name="ResourceManagerPrefKey.ResourceType" value="DRAWABLE" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="/run/media/AndroidStudioProjects/Project" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Project-Backup" />
     <property name="memory.settings.postsync.last.time.stamp" value="1601500551502" />
     <property name="project.structure.last.edited" value="Dependencies" />
     <property name="project.structure.proportion" value="0.17" />
@@ -193,11 +187,11 @@
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="510" y="57" key="CommitChangelistDialog2/0.23.1440.877@0.23.1440.877" timestamp="1601505731759" />
-    <state x="5616" y="559" key="FileChooserDialogImpl" timestamp="1601596228169">
+    <state x="5616" y="559" key="FileChooserDialogImpl" timestamp="1602046580445">
       <screen x="3840" y="360" width="2560" height="1440" />
     </state>
     <state x="2664" y="298" key="FileChooserDialogImpl/3840.0.2560.1440/0.0.3840.2160@0.0.3840.2160" timestamp="1600298443949" />
-    <state x="5616" y="559" key="FileChooserDialogImpl/3840.360.2560.1440/0.0.3840.2160@3840.360.2560.1440" timestamp="1601596228169" />
+    <state x="5616" y="559" key="FileChooserDialogImpl/3840.360.2560.1440/0.0.3840.2160@3840.360.2560.1440" timestamp="1602046580445" />
     <state width="1398" height="230" key="GridCell.Tab.0.bottom" timestamp="1601351671734">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
