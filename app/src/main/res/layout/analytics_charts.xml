@@ -34,7 +34,7 @@
                 android:layout_margin="15dp"
                 android:layout_gravity="center"
                 android:layout_width="350dp"
-                android:layout_height="350dp">
+                android:layout_height="300dp">
             </com.github.mikephil.charting.charts.BarChart>
 
             <com.github.mikephil.charting.charts.LineChart

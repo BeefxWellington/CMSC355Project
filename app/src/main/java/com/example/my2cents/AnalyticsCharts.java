@@ -12,6 +12,9 @@ import androidx.fragment.app.Fragment;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -71,7 +74,7 @@ public class AnalyticsCharts extends Fragment {
         categories.add(new PieEntry(5.5f, "Others"));
 
         PieDataSet pieDataSet = new PieDataSet(categories, "Categories");
-        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        pieDataSet.setColors(ColorTemplate.PASTEL_COLORS);
         pieDataSet.setValueTextColor(Color.DKGRAY);
         pieDataSet.setValueTextSize(15f);
 
@@ -85,6 +88,30 @@ public class AnalyticsCharts extends Fragment {
 
     public void setBarChart(){
         barChart = v.findViewById(R.id.barChart);
+
+        ArrayList<BarEntry> months = new ArrayList<>();
+        months.add(new BarEntry(1, 1300));
+        months.add(new BarEntry(2, 1200));
+        months.add(new BarEntry(3, 1350));
+        months.add(new BarEntry(4, 1500));
+        months.add(new BarEntry(5, 1400));
+        months.add(new BarEntry(6, 1100));
+        months.add(new BarEntry(7, 1300));
+        months.add(new BarEntry(8, 1250));
+        months.add(new BarEntry(9, 1570));
+        months.add(new BarEntry(10, 1590));
+        months.add(new BarEntry(11, 1310));
+        months.add(new BarEntry(12, 1400));
+
+        BarDataSet barDataSet = new BarDataSet(months, "Months");
+        barDataSet.setColors(ColorTemplate.PASTEL_COLORS);
+        barDataSet.setValueTextColor(Color.DKGRAY);
+        barDataSet.setValueTextSize(10f);
+
+        BarData barData = new BarData(barDataSet);
+        barChart.setData(barData);
+        barChart.getDescription().setEnabled(false);
+        barChart.animate();
     }
 
     public void setLineChart(){
