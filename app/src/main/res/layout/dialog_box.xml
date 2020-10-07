@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/white"
+        android:text="Input"
+        android:textSize="50sp"
+        android:fontFamily="@font/agnetha"
+/>
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/typeSpinner"
+
+        />
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="20dp"
+
+        android:id="@+id/categorySpinner"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginHorizontal="10dp"
+        android:hint="Amount"
+        android:layout_marginTop="50dp"
+        android:id="@+id/amountEt"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/red"
+        android:fontFamily="@font/avenirregular"
+        android:textSize="40dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="100dp"
+        android:id="@+id/saveBtn"
+/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:textColor="@color/red"
+        android:backgroundTint="@color/white"
+        android:fontFamily="@font/avenirregular"
+        android:textSize="40dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/cancelBtn"/>
+</LinearLayout>
