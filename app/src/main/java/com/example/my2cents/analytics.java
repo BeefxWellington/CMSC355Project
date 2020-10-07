@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
@@ -17,7 +16,7 @@ public class analytics extends Fragment {
     View v;
     ViewPager viewPager;
     TabLayout tabLayout;
-    PagerAdapter adapter;
+    AnalyticsAdapter adapter;
 
     public analytics(){
         //Required empty public constructor
@@ -67,7 +66,7 @@ public class analytics extends Fragment {
     }
 
     private void setUpViewPager(ViewPager viewPager) {
-        AnalyticsAdapter adapter = new AnalyticsAdapter(getChildFragmentManager());
+        adapter = new AnalyticsAdapter(getChildFragmentManager());
 
         adapter.addFragment(new AnalyticsCharts(), "Charts");
         adapter.addFragment(new AnalyticsRecent(), "Recent");
