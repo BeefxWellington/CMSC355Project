@@ -38,13 +38,9 @@ public class AnalyticsCharts extends Fragment {
         // Required empty public constructor
     }
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
@@ -57,7 +53,6 @@ public class AnalyticsCharts extends Fragment {
         setPieChart();
         setBarChart();
         setLineChart();
-
 
         // Inflate the layout for this fragment
         return v;
@@ -108,7 +103,7 @@ public class AnalyticsCharts extends Fragment {
 
         BarDataSet barDataSet = new BarDataSet(months, "Months");
         barDataSet.setColors(ColorTemplate.PASTEL_COLORS);
-        barDataSet.setValueTextColor(Color.DKGRAY);
+        barDataSet.setValueTextColor(Color.WHITE);
         barDataSet.setValueTextSize(10f);
 
         BarData barData = new BarData(barDataSet);
@@ -129,7 +124,7 @@ public class AnalyticsCharts extends Fragment {
         LineDataSet lineDataSet = new LineDataSet(weeks, "Weeks");
         lineDataSet.setColors(ColorTemplate.PASTEL_COLORS);
         lineDataSet.setValueTextColor(Color.DKGRAY);
-        lineDataSet.setValueTextSize(15f);
+        lineDataSet.setValueTextSize(10f);
 
         LineData lineData = new LineData(lineDataSet);
         lineChart.setData(lineData);
@@ -137,8 +132,6 @@ public class AnalyticsCharts extends Fragment {
         lineChart.animate();
 
     }
-
-
 
 
 }

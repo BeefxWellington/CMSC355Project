@@ -9,9 +9,16 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9c4741d8-9c48-4668-819f-abe1b3ac7ab3" name="Default Changelist" comment="">
+    <list default="true" id="9c4741d8-9c48-4668-819f-abe1b3ac7ab3" name="Default Changelist" comment="Update charts spacing,">
+      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/my2cents/AnalyticsCharts.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/my2cents/AnalyticsCharts.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/analytics_charts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/analytics_charts.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,7 +193,21 @@
       <option name="project" value="LOCAL" />
       <updated>1602115105403</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Add line graph and temporary data set">
+      <created>1602119731993</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1602119731993</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Add chart/graph titles">
+      <created>1602119820638</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1602119820638</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -196,7 +217,9 @@
     <MESSAGE value="Created tabs and pager for analytics page" />
     <MESSAGE value="Add pie chart and temporary data set" />
     <MESSAGE value="Add bar graph and temporary data set" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add bar graph and temporary data set" />
+    <MESSAGE value="Add line graph and temporary data set" />
+    <MESSAGE value="Add chart/graph titles" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add chart/graph titles" />
   </component>
   <component name="WindowStateProjectService">
     <state x="178" y="200" key="#PSD" timestamp="1601872331740">
@@ -219,10 +242,10 @@
       <screen x="-3840" y="0" width="3840" height="2160" />
     </state>
     <state x="-1380" y="1378" key="AndroidCreateResourceFileDialog/0.0.2560.1440/-3840.0.3840.2160@-3840.0.3840.2160" timestamp="1600496900644" />
-    <state x="397" y="75" key="CommitChangelistDialog2" timestamp="1602119795018">
+    <state x="397" y="75" key="CommitChangelistDialog2" timestamp="1602120468047">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state x="397" y="75" key="CommitChangelistDialog2/0.23.1440.877@0.23.1440.877" timestamp="1602119795018" />
+    <state x="397" y="75" key="CommitChangelistDialog2/0.23.1440.877@0.23.1440.877" timestamp="1602120468047" />
     <state x="2664" y="298" key="FileChooserDialogImpl" timestamp="1600298443949">
       <screen x="0" y="0" width="3840" height="2160" />
     </state>
