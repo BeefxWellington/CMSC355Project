@@ -15,6 +15,9 @@ import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -116,6 +119,23 @@ public class AnalyticsCharts extends Fragment {
 
     public void setLineChart(){
         lineChart = v.findViewById(R.id.lineChart);
+
+        ArrayList<Entry> weeks = new ArrayList<>();
+        weeks.add(new Entry(1, 320));
+        weeks.add(new Entry(2, 260));
+        weeks.add(new Entry(3, 370));
+        weeks.add(new Entry(4, 250));
+
+        LineDataSet lineDataSet = new LineDataSet(weeks, "Weeks");
+        lineDataSet.setColors(ColorTemplate.PASTEL_COLORS);
+        lineDataSet.setValueTextColor(Color.DKGRAY);
+        lineDataSet.setValueTextSize(15f);
+
+        LineData lineData = new LineData(lineDataSet);
+        lineChart.setData(lineData);
+        lineChart.getDescription().setEnabled(false);
+        lineChart.animate();
+
     }
 
 
