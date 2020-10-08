@@ -20,9 +20,4 @@
         android:name="com.example.my2cents.settings"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
-    <fragment
-        android:id="@+id/add"
-        android:name="com.example.my2cents.Add"
-        android:label="fragment_add"
-        tools:layout="@layout/fragment_add" />
 </navigation>
