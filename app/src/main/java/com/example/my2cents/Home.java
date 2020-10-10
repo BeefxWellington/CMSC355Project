@@ -1,7 +1,6 @@
 package com.example.my2cents;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -83,9 +82,9 @@ public class Home extends Fragment {
             @Override
             public void onClick(View view) {
 
-                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
                 LayoutInflater factory = LayoutInflater.from(view.getContext());
-                final View view2 = factory.inflate(R.layout.dialog_box, null);
+                View view2 = factory.inflate(R.layout.dialog_box, null);
                 alertDialog.setView(view2);
                 alertDialog.show();
 
@@ -112,7 +111,8 @@ public class Home extends Fragment {
                 typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 cateSpinner.setAdapter(categoryAdapter);
 
-                alertDialog.setOnDismissListener((DialogInterface.OnDismissListener) cancel);
+
+
 
 
 

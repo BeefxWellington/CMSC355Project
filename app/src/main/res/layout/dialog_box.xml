@@ -30,7 +30,6 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="20dp"
-
         android:id="@+id/categorySpinner"
         />
 
@@ -39,14 +38,19 @@
         android:layout_height="70dp"
         android:layout_marginHorizontal="10dp"
         android:hint="Amount"
+        android:textColorHint="@color/black"
+        android:backgroundTint="@color/white"
+        android:background="@drawable/input_field"
         android:layout_marginTop="50dp"
         android:id="@+id/amountEt"
         />
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="75dp"
+        android:layout_gravity="center"
         android:text="Save"
+        android:background="@drawable/buttonbg"
         android:backgroundTint="@color/white"
         android:textColor="@color/red"
         android:fontFamily="@font/avenirregular"
@@ -56,15 +60,18 @@
         android:id="@+id/saveBtn"
 />
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="75dp"
+        android:layout_gravity="center"
         android:text="Cancel"
         android:textColor="@color/red"
+        android:background="@drawable/buttonbg"
         android:backgroundTint="@color/white"
         android:fontFamily="@font/avenirregular"
         android:textSize="40dp"
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="10dp"
-        android:id="@+id/cancelBtn"/>
+        android:id="@+id/cancelBtn"
+        />
 </LinearLayout>
