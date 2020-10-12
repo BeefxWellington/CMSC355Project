@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,7 +25,7 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.recycl
         public recyclerViewHolder(View itemView) {
             super(itemView);
 
-            nameText = itemView.findViewById(R.id.recyclerTextView);
+            nameText = itemView.findViewById(R.id.name_item);
         }
     }
 
@@ -42,12 +41,15 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.recycl
     //displays data on created item
     @Override
     public void onBindViewHolder(@NonNull recyclerViewHolder holder, int position) {
-        if (!mCursor.move(position)) { //ensures cursor exists for this position
+        if (!mCursor.moveToPosition(position)) { //ensures cursor exists for this position
             return;
         }
-        String name = mCursor.getString(mCursor.getColumnIndex(SQLContract.SQLEntry.COLUMN_NAME);
+        String name = mCursor.getString(mCursor.getColumnIndex(SQLContract.SQLEntry.COLUMN_NAME));
         int amount = mCursor.getInt(mCursor.getColumnIndex(SQLContract.SQLEntry.COLUMN_AMOUNT));
+        long id = mCursor.getLong(mCursor.getColumnIndex(SQLContract.SQLEntry._ID)); //gets ID from database
+
         holder.nameText.setText(name);
+        holder.itemView.setTag(id); //passes id of item to recycler activity (i.e.: the recycler that the user sees
         //holder.countText.setText(String.valueOf((amount))); // uncomment if using forward facing counter of total items
     }
 
@@ -56,6 +58,7 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.recycl
         return mCursor.getCount(); // Gives quantity of items in database via cursor
     }
 
+    //when database is updated, it is required that a new cursor is also built along with it
     public void swapCursor(Cursor newCursor) {
         if (mCursor != null) {
             mCursor.close();
@@ -67,4 +70,5 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.recycl
             notifyDataSetChanged();
         }
     }
+
 }

@@ -1,18 +1,15 @@
 package com.example.my2cents;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,12 +43,12 @@ public class MainActivity extends AppCompatActivity {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(MainActivity.this);
                 notificationManager.notify(NOTIFICATIONS_ID, builder.build());
 
-                Intent startIntent = new Intent(getApplicationContext(), SecondActivity.class); //comment out these lines if enabling authentication
+                Intent startIntent = new Intent(getApplicationContext(), recycler.class); //comment out these lines if enabling authentication
                 startActivity(startIntent); //comment out these lines if enabling authentication
 
                 /******************** Uncomment the following lines to enable username and password authentication in cooperation with "login" button **************************************************/
 //                String correct_username = "admin";
-//                String correct_password = "password";
+//                String correct_password = "password";SA
 //                //validate inputs
 //                if (TextUtils.isEmpty(username.getText().toString()) || TextUtils.isEmpty(password.getText().toString())) {
 //                    Toast.makeText(MainActivity.this, "Insufficient data provided", Toast.LENGTH_LONG).show();

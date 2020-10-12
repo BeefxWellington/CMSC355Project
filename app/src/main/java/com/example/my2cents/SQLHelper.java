@@ -21,7 +21,7 @@ public class SQLHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        final String SQL_CREATE_SQLIST_TABLE = "CREATE TABLE" +
+        final String SQL_CREATE_SQLIST_TABLE = "CREATE TABLE " +
                 SQLEntry.TABLE_NAME + " (" +
                 SQLEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + //the ID is an integer, which is also a primary key (also a unique identifier for each row, and auto increments for each row added
                 SQLEntry.COLUMN_NAME + " TEXT NOT NULL, " + //String = text in SQLite. "NOT NULL" the string cannot be empty
