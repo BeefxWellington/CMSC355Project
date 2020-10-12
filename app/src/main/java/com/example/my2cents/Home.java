@@ -67,7 +67,7 @@ public class Home extends Fragment {
         //cateSpinner = v.findViewById(R.id.categorySpinner);
         amount = v.findViewById(R.id.amountEt);
         save = v.findViewById(R.id.saveBtn);
-        cancel = v.findViewById(R.id.cancelBtn);
+        //cancel = v.findViewById(R.id.cancelBtn);
         fab1 = v.findViewById(R.id.floatingActionButton1);
 
         /*typeSpinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
@@ -82,46 +82,11 @@ public class Home extends Fragment {
             @Override
             public void onClick(View view) {
 
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-                LayoutInflater factory = LayoutInflater.from(view.getContext());
-                View view2 = factory.inflate(R.layout.dialog_box, null);
-                alertDialog.setView(view2);
-                alertDialog.show();
-
-                typeSpinner= view2.findViewById(R.id.typeSpinner);
-                List<String> typeOfInput = new ArrayList<String>();
-                typeOfInput.add("Expense");
-                typeOfInput.add("Income");
-                ArrayAdapter<String> typeAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, typeOfInput);
-                typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                typeSpinner.setAdapter(typeAdapter);
-
-
-                cateSpinner = view2.findViewById(R.id.categorySpinner);
-                List<String> typeOfCategories = new ArrayList<>();
-                typeOfCategories.add("Bills");
-                typeOfCategories.add("Food");
-                typeOfCategories.add("Gas");
-                typeOfCategories.add("Entertainment");
-                typeOfCategories.add("Pay Check");
-                typeOfCategories.add("Savings");
-                typeOfCategories.add("Miscellaneous");
-                typeOfCategories.add("Lottery");
-                ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, typeOfCategories);
-                typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                cateSpinner.setAdapter(categoryAdapter);
-
-
-
-
-
-
+               showDialog();
 
             }
 
             });
-
-
 
                 return v;
     }
@@ -146,6 +111,48 @@ public class Home extends Fragment {
                 "Title - Category", "Title - Category", "Title - Category",
                 "$000.00","$000.00","$000.00",
                 "MM/DD/YYYY","MM/DD/YYYY","MM/DD/YYYY"));
+    }
+
+    public void showDialog() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        LayoutInflater factory = LayoutInflater.from(getActivity());
+        View view2 = factory.inflate(R.layout.dialog_box, null);
+        alertDialog.setView(view2);
+
+        final AlertDialog builder = alertDialog.create();
+        cancel = view2.findViewById(R.id.cancelBtn);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                builder.cancel();
+            }
+        });
+
+        builder.show();
+
+        typeSpinner = view2.findViewById(R.id.typeSpinner);
+        List<String> typeOfInput = new ArrayList<String>();
+        typeOfInput.add("Expense");
+        typeOfInput.add("Income");
+        ArrayAdapter<String> typeAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, typeOfInput);
+        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        typeSpinner.setAdapter(typeAdapter);
+
+
+        cateSpinner = view2.findViewById(R.id.categorySpinner);
+        List<String> typeOfCategories = new ArrayList<>();
+        typeOfCategories.add("Bills");
+        typeOfCategories.add("Food");
+        typeOfCategories.add("Gas");
+        typeOfCategories.add("Entertainment");
+        typeOfCategories.add("Pay Check");
+        typeOfCategories.add("Savings");
+        typeOfCategories.add("Miscellaneous");
+        typeOfCategories.add("Lottery");
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, typeOfCategories);
+        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        cateSpinner.setAdapter(categoryAdapter);
+
     }
 
 
