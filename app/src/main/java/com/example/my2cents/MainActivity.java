@@ -1,21 +1,26 @@
 package com.example.my2cents;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
-
+    EditText User;
+    EditText Pass;
+    TextView Register;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        User = (EditText)findViewById(R.id.userEditText);
+        Pass = (EditText)findViewById(R.id.pwEditText);
+
+        Register = (TextView)findViewById(R.id.fpwTextView);
 
         final EditText username, password;
 
@@ -56,5 +61,20 @@ public class MainActivity extends AppCompatActivity {
 //                }
             }
         });
+
+        Register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, RegisterActivity.class));
+            }
+        });
+
+
+
+
+
+    }
+    public void validate(String userName, String userPassword){
+
     }
 }

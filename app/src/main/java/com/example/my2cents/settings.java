@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -81,25 +81,23 @@ public class settings extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View view) {
 
-        FragmentManager fr = getFragmentManager();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.addToBackStack(null);
 
         switch(view.getId()) {
             case R.id.button_notifsettings:
-                Notifications notifications = new Notifications();
-                fr.beginTransaction().replace(R.id.settings_layout, notifications).commit();
+                ft.replace(((ViewGroup)getView().getParent()).getId(), new Notifications()).commit();
                 break;
             case R.id.button_usersettings:
-                UserSettings usersettings = new UserSettings();
-                fr.beginTransaction().replace(R.id.settings_layout, usersettings).commit();
+                ft.replace(((ViewGroup)getView().getParent()).getId(), new UserSettings()).commit();
                 break;
             case R.id.button_passsettings:
-                PasswordSettings passwordsettings = new PasswordSettings();
-                fr.beginTransaction().replace(R.id.settings_layout, passwordsettings).commit();
+                ft.replace(((ViewGroup)getView().getParent()).getId(), new PasswordSettings()).commit();
                 break;
             case R.id.button_userguide:
-                UserGuide userguide = new UserGuide();
-                fr.beginTransaction().replace(R.id.settings_layout, userguide).commit();
+                ft.replace(((ViewGroup)getView().getParent()).getId(), new UserGuide()).commit();
                 break;
         }
     }
+
 }
