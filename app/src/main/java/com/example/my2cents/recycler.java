@@ -79,7 +79,7 @@ public class recycler extends AppCompatActivity {
         amount++;
         recyclerText.setText(String.valueOf(amount));
     }
-    //for decrease button if addedbubb
+    //for decrease button if add
     private void decrease() {
         if (amount > 0) {
             amount--;

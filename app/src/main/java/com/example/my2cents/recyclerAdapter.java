@@ -20,12 +20,14 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.recycl
 
     public class recyclerViewHolder extends RecyclerView.ViewHolder {
         public TextView nameText;
+        public TextView timestampText;
         //public TextView countText; //use if using user facing counter (we are not)
 
         public recyclerViewHolder(View itemView) {
             super(itemView);
 
             nameText = itemView.findViewById(R.id.name_item);
+            timestampText = itemView.findViewById(R.id.timestamp_item);
         }
     }
 
@@ -47,9 +49,11 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.recycl
         String name = mCursor.getString(mCursor.getColumnIndex(SQLContract.SQLEntry.COLUMN_NAME));
         int amount = mCursor.getInt(mCursor.getColumnIndex(SQLContract.SQLEntry.COLUMN_AMOUNT));
         long id = mCursor.getLong(mCursor.getColumnIndex(SQLContract.SQLEntry._ID)); //gets ID from database
+        String timeStamp = mCursor.getString(mCursor.getColumnIndex(SQLContract.SQLEntry.COLUMN_TIMESTAMP)); //experimental print timestamps
 
         holder.nameText.setText(name);
         holder.itemView.setTag(id); //passes id of item to recycler activity (i.e.: the recycler that the user sees
+        holder.timestampText.setText(timeStamp);
         //holder.countText.setText(String.valueOf((amount))); // uncomment if using forward facing counter of total items
     }
 
