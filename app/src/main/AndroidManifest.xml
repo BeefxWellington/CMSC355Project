@@ -4,21 +4,29 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/picture1"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/picture1"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".onboarding"></activity>
-        <activity android:name=".splash">
+        <activity android:name=".SplashScreen">
+            <!-- under SplashScreen is the code to make the splash appear
+            for a short amount of time. Actual time is in the .java file. -->
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> <!-- end splash -->
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".SecondActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SecondActivity" />
-        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>
