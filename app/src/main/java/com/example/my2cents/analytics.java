@@ -69,8 +69,7 @@ public class analytics extends Fragment {
         adapter = new AnalyticsAdapter(getChildFragmentManager());
 
         adapter.addFragment(new AnalyticsCharts(), "Charts");
-        adapter.addFragment(new AnalyticsRecent(), "Recent");
-        adapter.addFragment(new AnalyticsUpcoming(), "Upcoming");
+        adapter.addFragment(new AnalyticsLog(), "Activity Log");
 
         viewPager.setAdapter(adapter);
     }
