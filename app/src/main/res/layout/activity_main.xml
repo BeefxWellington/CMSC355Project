@@ -69,14 +69,14 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/userEditText"
+        android:id="@+id/emailEditText"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginBottom="12dp"
         android:background="@drawable/input_field"
         android:ems="10"
         android:fontFamily="@font/avenirlight"
-        android:hint="username"
+        android:hint="email"
         android:inputType="textPersonName"
         android:textColorHint="@color/gray"
         android:textSize="20sp"

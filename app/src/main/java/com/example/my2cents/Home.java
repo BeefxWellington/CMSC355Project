@@ -63,21 +63,11 @@ public class Home extends Fragment {
         tabLayout.setupWithViewPager(viewPager, true);
 
             //dhruv
-        //typeSpinner= v.findViewById(R.id.typeSpinner);
-        //cateSpinner = v.findViewById(R.id.categorySpinner);
+
         amount = v.findViewById(R.id.amountEt);
         save = v.findViewById(R.id.saveBtn);
-        //cancel = v.findViewById(R.id.cancelBtn);
+
         fab1 = v.findViewById(R.id.floatingActionButton1);
-
-        /*typeSpinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
-        List<String> typeCategories = new ArrayList<String>();
-        typeCategories.add("Expense");
-        typeCategories.add("Income");
-
-        ArrayAdapter<String> typeAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, typeCategories);
-        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        typeSpinner.setAdapter(typeAdapter);*/
         fab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,6 +103,7 @@ public class Home extends Fragment {
                 "MM/DD/YYYY","MM/DD/YYYY","MM/DD/YYYY"));
     }
 
+    // alert dialog that shows when floating action button is clicked
     public void showDialog() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
         LayoutInflater factory = LayoutInflater.from(getActivity());
@@ -120,6 +111,8 @@ public class Home extends Fragment {
         alertDialog.setView(view2);
 
         final AlertDialog builder = alertDialog.create();
+
+        //cancel button to close the alert dialog
         cancel = view2.findViewById(R.id.cancelBtn);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,6 +123,7 @@ public class Home extends Fragment {
 
         builder.show();
 
+        // spinner for input output
         typeSpinner = view2.findViewById(R.id.typeSpinner);
         List<String> typeOfInput = new ArrayList<String>();
         typeOfInput.add("Expense");
@@ -138,7 +132,7 @@ public class Home extends Fragment {
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         typeSpinner.setAdapter(typeAdapter);
 
-
+        //spinner for categories
         cateSpinner = view2.findViewById(R.id.categorySpinner);
         List<String> typeOfCategories = new ArrayList<>();
         typeOfCategories.add("Bills");
