@@ -1,29 +1,26 @@
 package com.example.my2cents;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-
-import android.app.NotificationManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
-
-    private Context mContext;
-    private final String CHANNEL_ID = "bills";
-    public final int NOTIFICATIONS_ID = 001;
-
+    EditText User;
+    EditText Pass;
+    TextView Register;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        User = (EditText)findViewById(R.id.userEditText);
+        Pass = (EditText)findViewById(R.id.pwEditText);
+
+        Register = (TextView)findViewById(R.id.fpwTextView);
 
         final EditText username, password;
 
@@ -35,16 +32,6 @@ public class MainActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, CHANNEL_ID);
-                        //set icon in the status bar for
-                        builder.setSmallIcon(R.drawable.ic_money);
-                        //set title of notification
-                        builder.setContentTitle("My2Cents Notification");
-                        //dismiss notification on tap
-                        builder.setAutoCancel(true);
-                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(MainActivity.this);
-                notificationManager.notify(NOTIFICATIONS_ID, builder.build());
 
                 Intent startIntent = new Intent(getApplicationContext(), SecondActivity.class); //comment out these lines if enabling authentication
                 startActivity(startIntent); //comment out these lines if enabling authentication
@@ -74,5 +61,20 @@ public class MainActivity extends AppCompatActivity {
 //                }
             }
         });
+
+        Register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, RegisterActivity.class));
+            }
+        });
+
+
+
+
+
+    }
+    public void validate(String userName, String userPassword){
+
     }
 }
