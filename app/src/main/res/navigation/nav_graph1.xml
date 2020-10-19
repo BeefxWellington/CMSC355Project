@@ -19,5 +19,38 @@
         android:id="@+id/settings"
         android:name="com.example.my2cents.settings"
         android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settings_to_notifications2"
+            app:destination="@id/notifications2" />
+        <action
+            android:id="@+id/action_settings_to_userSettings2"
+            app:destination="@id/userSettings2" />
+        <action
+            android:id="@+id/action_settings_to_passwordSettings2"
+            app:destination="@id/passwordSettings2" />
+        <action
+            android:id="@+id/action_settings_to_userGuide2"
+            app:destination="@id/userGuide2" />
+    </fragment>
+    <fragment
+        android:id="@+id/notifications2"
+        android:name="com.example.my2cents.Notifications"
+        android:label="fragment_notifications"
+        tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/userSettings2"
+        android:name="com.example.my2cents.UserSettings"
+        android:label="fragment_user_settings"
+        tools:layout="@layout/fragment_user_settings" />
+    <fragment
+        android:id="@+id/passwordSettings2"
+        android:name="com.example.my2cents.PasswordSettings"
+        android:label="fragment_password_settings"
+        tools:layout="@layout/fragment_password_settings" />
+    <fragment
+        android:id="@+id/userGuide2"
+        android:name="com.example.my2cents.UserGuide"
+        android:label="fragment_user_guide"
+        tools:layout="@layout/fragment_user_guide" />
 </navigation>
