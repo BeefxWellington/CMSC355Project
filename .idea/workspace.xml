@@ -2,7 +2,9 @@
 <project version="4">
   <component name="AndroidLayouts">
     <shared>
-      <config />
+      <config>
+        <device id="pixel" />
+      </config>
     </shared>
   </component>
   <component name="AndroidLogFilters">
@@ -11,8 +13,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9c4741d8-9c48-4668-819f-abe1b3ac7ab3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/my2cents/AnalyticsLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/my2cents/AnalyticsLog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/analytics_log.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/analytics_log.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/analytics_log_list.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/analytics_log_list.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +73,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res" />
-    <property name="memory.settings.postsync.last.time.stamp" value="1602730460223" />
+    <property name="memory.settings.postsync.last.time.stamp" value="1603119895324" />
     <property name="project.structure.last.edited" value="Dependencies" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -209,7 +210,21 @@
       <option name="project" value="LOCAL" />
       <updated>1602731580803</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Make layout for log list">
+      <created>1602735041965</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1602735041965</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Add xml file for log row">
+      <created>1602735179239</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1602735179239</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -222,7 +237,9 @@
     <MESSAGE value="Add line graph and temporary data set" />
     <MESSAGE value="Add chart/graph titles" />
     <MESSAGE value="Remove upcoming tab, modify recents to activity log tab" />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove upcoming tab, modify recents to activity log tab" />
+    <MESSAGE value="Make layout for log list" />
+    <MESSAGE value="Add xml file for log row" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add xml file for log row" />
   </component>
   <component name="WindowStateProjectService">
     <state x="178" y="200" key="#PSD" timestamp="1601872331740">
@@ -246,10 +263,10 @@
       <screen x="-3840" y="0" width="3840" height="2160" />
     </state>
     <state x="-1380" y="1378" key="AndroidCreateResourceFileDialog/0.0.2560.1440/-3840.0.3840.2160@-3840.0.3840.2160" timestamp="1600496900644" />
-    <state x="397" y="75" key="CommitChangelistDialog2" timestamp="1602735150805">
+    <state x="397" y="75" key="CommitChangelistDialog2" timestamp="1603122185391">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state x="397" y="75" key="CommitChangelistDialog2/0.23.1440.877@0.23.1440.877" timestamp="1602735150805" />
+    <state x="397" y="75" key="CommitChangelistDialog2/0.23.1440.877@0.23.1440.877" timestamp="1603122185391" />
     <state x="2664" y="298" key="FileChooserDialogImpl" timestamp="1600298443949">
       <screen x="0" y="0" width="3840" height="2160" />
     </state>
@@ -290,10 +307,10 @@
       <screen x="-3840" y="0" width="3840" height="2160" />
     </state>
     <state x="-1459" y="1265" key="SettingsEditor/0.0.2560.1440/-3840.0.3840.2160@-3840.0.3840.2160" timestamp="1600512250484" />
-    <state x="47" y="201" key="Vcs.Push.Dialog.v2" timestamp="1602730642800">
+    <state x="47" y="201" key="Vcs.Push.Dialog.v2" timestamp="1603119984615">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state x="47" y="201" key="Vcs.Push.Dialog.v2/0.23.1440.877@0.23.1440.877" timestamp="1602730642800" />
+    <state x="47" y="201" key="Vcs.Push.Dialog.v2/0.23.1440.877@0.23.1440.877" timestamp="1603119984615" />
     <state x="54" y="84" width="1332" height="758" key="com.android.tools.idea.avdmanager.AvdListDialog" timestamp="1602113334775">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
@@ -304,11 +321,11 @@
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="100" y="123" width="1240" height="677" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.23.1440.877@0.23.1440.877" timestamp="1602735109567" />
-    <state x="781" y="565" key="com.intellij.ide.util.TipDialog" timestamp="1602730468390">
+    <state x="781" y="565" key="com.intellij.ide.util.TipDialog" timestamp="1603119895139">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="-1324" y="1447" key="com.intellij.ide.util.TipDialog/0.0.2560.1440/-3840.0.3840.2160@-3840.0.3840.2160" timestamp="1600487527914" />
-    <state x="781" y="565" key="com.intellij.ide.util.TipDialog/0.23.1440.877@0.23.1440.877" timestamp="1602730468390" />
+    <state x="781" y="565" key="com.intellij.ide.util.TipDialog/0.23.1440.877@0.23.1440.877" timestamp="1603119895139" />
     <state x="2516" y="1447" key="com.intellij.ide.util.TipDialog/3840.0.2560.1440/0.0.3840.2160@0.0.3840.2160" timestamp="1600557389289" />
     <state x="2516" y="1447" key="com.intellij.ide.util.TipDialog/3840.0.2560.1440/0.0.3840.2160@3840.0.2560.1440" timestamp="1600367327601" />
     <state x="-1703" y="1226" width="1632" height="1066" key="dock-window-1" timestamp="1600397794365">

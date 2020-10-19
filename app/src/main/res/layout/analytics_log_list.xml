@@ -8,100 +8,110 @@
     android:orientation="horizontal"
     android:padding="16dp">
 
-    <TextView
-        android:id="@+id/logMonth"
-        android:text="MON"
-        android:textColor="@color/gray"
-        android:textSize="16sp"
-        android:fontFamily="@font/avenirlight"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/logDay"
-        app:layout_constraintVertical_bias="0.035"
-        app:layout_constraintHorizontal_bias="0.013"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    </TextView>
-
-    <TextView
-        android:id="@+id/logDay"
-        android:text="DD"
-        android:textColor="@color/gray"
-        android:textSize="16sp"
-        android:fontFamily="@font/avenirlight"
+    <LinearLayout
+        android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.75"
-        app:layout_constraintHorizontal_bias="0.035"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    </TextView>
+        android:layout_height="match_parent"
+        app:layout_constraintHorizontal_bias="0.025">
 
-    <TextView
-        android:id="@+id/logTitle"
-        android:text="Title - Category"
-        android:textColor="@color/gray"
-        android:textSize="17sp"
-        android:fontFamily="@font/avenirregular"
+        <TextView
+            android:id="@+id/logMonth"
+            android:text="MON"
+            android:textColor="@color/gray"
+            android:textSize="16sp"
+            android:fontFamily="@font/avenirlight"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
+
+        <TextView
+            android:id="@+id/logDay"
+            android:text="DD"
+            android:textColor="@color/gray"
+            android:textSize="16sp"
+            android:fontFamily="@font/avenirlight"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.035"
-        app:layout_constraintHorizontal_bias="0.30"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    </TextView>
+        android:layout_height="match_parent"
+        app:layout_constraintHorizontal_bias="0.30">
 
-    <TextView
-        android:id="@+id/logType"
-        android:text="Deduction/Incoming"
-        android:textColor="@color/gray"
-        android:textSize="10sp"
-        android:fontFamily="@font/avenirlight"
+        <TextView
+            android:id="@+id/logTitle"
+            android:text="Title - Category"
+            android:textColor="@color/gray"
+            android:textSize="17sp"
+            android:fontFamily="@font/avenirregular"
+            android:layout_gravity="start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
+
+        <TextView
+            android:id="@+id/logType"
+            android:text="Deduction/Incoming"
+            android:textColor="@color/gray"
+            android:textSize="12sp"
+            android:fontFamily="@font/avenirlight"
+            android:layout_marginTop="2dp"
+            android:layout_gravity="start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.75"
-        app:layout_constraintHorizontal_bias="0.28"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    </TextView>
+        android:layout_height="match_parent"
+        app:layout_constraintHorizontal_bias="0.95">
 
-    <TextView
-        android:id="@+id/logAmount"
-        android:text="000.00"
-        android:textColor="@color/gray"
-        android:textSize="22sp"
-        android:fontFamily="@font/avenirregular"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.035"
-        app:layout_constraintHorizontal_bias="0.93"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    </TextView>
+        <TextView
+            android:id="@+id/logAmount"
+            android:text="000.00"
+            android:textColor="@color/gray"
+            android:textSize="21sp"
+            android:fontFamily="@font/avenirregular"
+            android:layout_gravity="end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
 
-    <TextView
-        android:id="@+id/logBalance"
-        android:text="Balance: 000.00"
-        android:textColor="@color/gray"
-        android:textSize="10sp"
-        android:fontFamily="@font/avenirlight"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.75"
-        app:layout_constraintHorizontal_bias="0.935"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    </TextView>
+        <TextView
+            android:id="@+id/logBalance"
+            android:text="Balance: 000.00"
+            android:textColor="@color/gray"
+            android:textSize="12sp"
+            android:fontFamily="@font/avenirlight"
+            android:layout_gravity="end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
+
+    </LinearLayout>
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
