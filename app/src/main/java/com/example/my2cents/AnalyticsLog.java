@@ -8,16 +8,12 @@ import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
 
+import java.util.ArrayList;
+
 public class AnalyticsLog extends Fragment {
 
     View v;
     ListView listView;
-    String[] month;
-    String[] day;
-    String[] title;
-    String[] type;
-    int[] amount;
-    int[] balance;
 
 
     public AnalyticsLog(){
@@ -26,6 +22,7 @@ public class AnalyticsLog extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -35,9 +32,23 @@ public class AnalyticsLog extends Fragment {
         v = inflater.inflate(R.layout.analytics_log, container, false);
 
         listView = v.findViewById(R.id.logListView);
+        setLogList();
 
         // Inflate the layout for this fragment
         return v;
+    }
+
+    private void setLogList() {
+        int logCount = 20;
+        ArrayList<Log> logList = new ArrayList<>();
+
+        for (int i = 1; i <= logCount; i++){
+            Log log = new Log("OCT", "19", "Shirt", "Clothing", "Deduction", "34.00", "154.00");
+            logList.add(log);
+        }
+
+        LogListAdapter adapter = new LogListAdapter(this.getContext(), R.layout.analytics_log_list, logList);
+        listView.setAdapter(adapter);
     }
 
 
