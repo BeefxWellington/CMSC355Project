@@ -15,6 +15,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -36,7 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
         setupIds();
 
         firebaseAuth = FirebaseAuth.getInstance();
-
+        final String names = createUsername.getText().toString().trim();
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,6 +52,16 @@ public class RegisterActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()) {
+                                FirebaseUser firebaseusername = firebaseAuth.getCurrentUser();
+                                String ID = firebaseusername.getEmail();
+                                String nodotemail = ID.replace(".",",");
+                                FirebaseDatabase.getInstance().getReference("USERS").child(nodotemail).child("Details").setValue(names).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+
+                                    }
+                                });
+                                // need to fix database for users
                                 Toast.makeText(RegisterActivity.this, "One moment", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(RegisterActivity.this, MainActivity.class));
                             }
