@@ -20,18 +20,23 @@ public class recycler extends AppCompatActivity {
     private EditText recyclerText;
     private Button recyclerAdd;
     private int amount = 0;
+    private EditText addChange;
 
     @Override
     protected void onCreate(Bundle saveInstance) {
         super.onCreate(saveInstance);
         setContentView(R.layout.recycler);
 
+        recyclerAdd = findViewById(R.id.recyclerAdd);
+        recyclerText = findViewById(R.id.recyclerTextView);
+        addChange = findViewById(R.id.add_change);
+
         SQLHelper dbHelper = new SQLHelper(this);
         db = dbHelper.getWritableDatabase(); // must get writable database to add new items to it
 
         //connects recycler java to xml
         RecyclerView recyclerView = findViewById(R.id.recyclerRecycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this)); //layoutManager for recycler requires relative or linear layout
         mAdapter = new recyclerAdapter(this, getAllItems());
         recyclerView.setAdapter(mAdapter);
 
@@ -49,9 +54,6 @@ public class recycler extends AppCompatActivity {
             }
         }).attachToRecyclerView(recyclerView);
 
-        recyclerAdd = findViewById(R.id.recyclerAdd);
-        recyclerText = findViewById(R.id.recyclerTextView);
-
         recyclerAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,14 +68,17 @@ public class recycler extends AppCompatActivity {
             return; //cannot add empty item
         }
         String name = recyclerText.getText().toString();
+        String balanceChange_userInput = addChange.getText().toString();
         ContentValues cv = new ContentValues();
         cv.put(SQLContract.SQLEntry.COLUMN_NAME, name); //adds text from textview to the SQL database
         cv.put(SQLContract.SQLEntry.COLUMN_AMOUNT, amount); //sets # of rows in database
+        cv.put(SQLContract.SQLEntry.COLUMN_BALANCECHANGE, balanceChange_userInput); //sets the addition or subtraction of funds in the database from user input
 
         db.insert(SQLContract.SQLEntry.TABLE_NAME, null, cv);
         mAdapter.swapCursor(getAllItems());
         recyclerText.getText().clear();
     }
+
     //for increase button if added
     private void increase() {
         amount++;
