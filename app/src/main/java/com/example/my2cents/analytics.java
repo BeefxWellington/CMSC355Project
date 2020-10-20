@@ -15,15 +15,6 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 
-import com.anychart.AnyChart;
-import com.anychart.AnyChartView;
-import com.anychart.chart.common.dataentry.DataEntry;
-import com.anychart.chart.common.dataentry.ValueDataEntry;
-import com.anychart.charts.Pie;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link analytics#newInstance} factory method to
@@ -32,7 +23,7 @@ import java.util.List;
 public class analytics extends Fragment {
 
     /** pie chart variables **/
-    private AnyChartView anyChartView;
+    //private AnyChartView anyChartView;
     private String[] months = {"Jan", "Feb", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
     private int[] expenditures = {20, 50, 100, 500, 1000, 1200, 1500, 50, 180, 200, 70, 350};
 
@@ -122,39 +113,9 @@ public class analytics extends Fragment {
 
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(mContext);
                 notificationManager.notify(NOTIFICATIONS_ID, builder.build());
-
-                //createNotificationChannel(builder);
             }
         });
-
-        anyChartView = v.findViewById(R.id.piechart);
-        setupPieChart();
-
         return v;
-    }
-
-    //configuration of the pie chart exists here
-    public void setupPieChart() {
-        Pie pie = AnyChart.pie();
-        List<DataEntry> dataEntries = new ArrayList<>();
-
-        for (int i=0;i < months.length; i++) {
-            dataEntries.add(new ValueDataEntry(months[i], expenditures[i]));
-        }
-        pie.data(dataEntries);
-        anyChartView.setBackgroundColor("black"); //sets LOADING background color
-        pie.background().fill("black");
-        pie.background("black");
-
-        pie.normal().outline().enabled(true);
-        pie.normal().outline().width("5%");
-        pie.hovered().outline().width("10%");
-        pie.selected().outline().width("3");
-        pie.selected().outline().fill("#455a64");
-        pie.selected().outline().stroke(null);
-        pie.selected().outline().offset(2);
-
-        anyChartView.setChart(pie);
     }
 
     private void createNotificationChannel(NotificationCompat.Builder builder) {

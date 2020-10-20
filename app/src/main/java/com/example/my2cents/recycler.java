@@ -76,7 +76,8 @@ public class recycler extends AppCompatActivity {
 
         db.insert(SQLContract.SQLEntry.TABLE_NAME, null, cv);
         mAdapter.swapCursor(getAllItems());
-        recyclerText.getText().clear();
+        recyclerText.getText().clear(); //clears text field after entry is added
+        addChange.getText().clear(); //clears addChange after entry is added
     }
 
     //for increase button if added

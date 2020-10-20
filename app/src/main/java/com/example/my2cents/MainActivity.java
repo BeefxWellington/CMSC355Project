@@ -6,21 +6,28 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 public class MainActivity extends AppCompatActivity {
+    EditText User;
+    EditText Pass;
+    TextView Register;
 
     private Context mContext;
     private final String CHANNEL_ID = "bills";
     public final int NOTIFICATIONS_ID = 001;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        User = (EditText)findViewById(R.id.userEditText);
+        Pass = (EditText)findViewById(R.id.pwEditText);
+
+        Register = (TextView)findViewById(R.id.fpwTextView);
 
         final EditText username, password;
 
@@ -43,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(MainActivity.this);
                 notificationManager.notify(NOTIFICATIONS_ID, builder.build());
 
-                Intent startIntent = new Intent(getApplicationContext(), recycler.class); //comment out these lines if enabling authentication
+                Intent startIntent = new Intent(getApplicationContext(), SecondActivity.class); //comment out these lines if enabling authentication
                 startActivity(startIntent); //comment out these lines if enabling authentication
 
                 /******************** Uncomment the following lines to enable username and password authentication in cooperation with "login" button **************************************************/
@@ -71,5 +78,20 @@ public class MainActivity extends AppCompatActivity {
 //                }
             }
         });
+
+        Register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, RegisterActivity.class));
+            }
+        });
+
+
+
+
+
+    }
+    public void validate(String userName, String userPassword){
+
     }
 }
