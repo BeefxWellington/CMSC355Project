@@ -15,11 +15,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class recycler extends AppCompatActivity {
-    private recyclerAdapter mAdapter;
+    public recycler() {};
+
+    public recyclerAdapter mAdapter;
     private SQLiteDatabase db;
     private EditText recyclerText;
     private Button recyclerAdd;
-    private int amount = 0;
+    public int amount = 0;
     private EditText addChange;
 
     @Override
@@ -27,7 +29,7 @@ public class recycler extends AppCompatActivity {
         super.onCreate(saveInstance);
         setContentView(R.layout.recycler);
 
-        recyclerAdd = findViewById(R.id.recyclerAdd);
+        recyclerAdd = findViewById(R.id.saveBtn);
         recyclerText = findViewById(R.id.recyclerTextView);
         addChange = findViewById(R.id.add_change);
 
@@ -37,7 +39,7 @@ public class recycler extends AppCompatActivity {
         //connects recycler java to xml
         RecyclerView recyclerView = findViewById(R.id.recyclerRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this)); //layoutManager for recycler requires relative or linear layout
-        mAdapter = new recyclerAdapter(this, getAllItems());
+        mAdapter = new recyclerAdapter(this, getAllItems(db));
         recyclerView.setAdapter(mAdapter);
 
         /** Handles swipes from the left OR right (opportunity to do something different for left and right operations)**/
@@ -75,7 +77,7 @@ public class recycler extends AppCompatActivity {
         cv.put(SQLContract.SQLEntry.COLUMN_BALANCECHANGE, balanceChange_userInput); //sets the addition or subtraction of funds in the database from user input
 
         db.insert(SQLContract.SQLEntry.TABLE_NAME, null, cv);
-        mAdapter.swapCursor(getAllItems());
+        mAdapter.swapCursor(getAllItems(db));
         recyclerText.getText().clear(); //clears text field after entry is added
         addChange.getText().clear(); //clears addChange after entry is added
     }
@@ -96,12 +98,12 @@ public class recycler extends AppCompatActivity {
     private void removeItem(long id) {
         db.delete(SQLContract.SQLEntry.TABLE_NAME,
                 SQLContract.SQLEntry._ID + "=" + id, null); //TLDR: remove item with given ID
-        mAdapter.swapCursor(getAllItems()); //swaps in new cursor as item is removed
+        mAdapter.swapCursor(getAllItems(db)); //swaps in new cursor as item is removed
     }
 
     //gets all items out of database for extraction to new database in next method
-    private Cursor getAllItems() {
-        return db.query(
+    public Cursor getAllItems(SQLiteDatabase database) {
+        return database.query(
                     SQLContract.SQLEntry.TABLE_NAME,
                             null,
                             null,

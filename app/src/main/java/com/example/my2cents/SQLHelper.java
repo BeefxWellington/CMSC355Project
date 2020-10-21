@@ -28,7 +28,9 @@ public class SQLHelper extends SQLiteOpenHelper {
                 SQLEntry.COLUMN_AMOUNT + " INTEGER NOT NULL, " + //input cannot be negative for quantity
                 SQLEntry.COLUMN_TIMESTAMP + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " + //a timestamp will be added for each new item/row
                 SQLEntry.COLUMN_BALANCECHANGE + " INTEGER NOT NULL, " + //adds balance_change to the database
-                SQLEntry.COLUMN_BALANCE + " INTEGER " + //adds current balance to the database
+                SQLEntry.COLUMN_BALANCE + " INTEGER, " + //adds current balance to the database
+                SQLEntry.COLUMN_TYPE + " TEXT, " + //adds column for expenditure/income identification
+                SQLEntry.COLUMN_CATEGORY + " TEXT " + //adds column for categorization of database entries
                 ");";
         db.execSQL(SQL_CREATE_SQLIST_TABLE); //executes when database needs to be created for the first time, creates the database
     }

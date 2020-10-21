@@ -15,5 +15,7 @@ public class SQLContract {
         public static final String COLUMN_TIMESTAMP = "timestamp"; //used to order items
         public static final String COLUMN_BALANCECHANGE = "balance_change"; //used to list balance_change
         public static final String COLUMN_BALANCE = "balance";
+        public static final String COLUMN_TYPE = "type";
+        public static final String COLUMN_CATEGORY = "category";
     }
 }

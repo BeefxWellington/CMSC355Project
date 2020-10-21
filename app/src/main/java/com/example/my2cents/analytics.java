@@ -3,6 +3,7 @@ package com.example.my2cents;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
@@ -113,6 +114,9 @@ public class analytics extends Fragment {
 
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(mContext);
                 notificationManager.notify(NOTIFICATIONS_ID, builder.build());
+
+                Intent startIntent = new Intent(getActivity(), recycler.class); //comment out these lines if enabling authentication
+                startActivity(startIntent);
             }
         });
         return v;

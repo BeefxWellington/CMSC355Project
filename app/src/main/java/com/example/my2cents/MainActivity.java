@@ -85,11 +85,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, RegisterActivity.class));
             }
         });
-
-
-
-
-
     }
     public void validate(String userName, String userPassword){
 

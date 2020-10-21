@@ -1,6 +1,8 @@
 package com.example.my2cents;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
@@ -27,13 +30,19 @@ public class Home extends Fragment {
     List<HomeModel> models;
     TabLayout tabLayout;
     FloatingActionButton fab1;
-    Context context;
+    Context mContext;
     Spinner typeSpinner;
     Spinner cateSpinner;
     EditText amount;
     Button save;
     Button cancel;
 
+    /** SQLite Database variables**/
+    private int entryAmount;
+    private static String selectedItem;
+    public SQLiteDatabase db;
+    private int balance = 0;
+    TextView balanceAmount;
 
     public Home() {
     }
@@ -41,18 +50,27 @@ public class Home extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-
         //Set info to display for card view
         setModels();
-
-
     }
+
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(mContext);
+//        mContext = context;
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View v = inflater.inflate(R.layout.fragment_home, container,false);
+
+        /** SQLite Datbase Code **/
+//        SQLHelper dbHelper = new SQLHelper(getActivity());
+////        db = dbHelper.getWritableDatabase(); // must get writable database to add new items to it
+////        RecyclerView recyclerView = v.findViewById(R.id.recyclerRecycler);
+////        recyclerView.setLayoutManager(new LinearLayoutManager(recycler);
+        balanceAmount = v.findViewById(R.id.balanceAmount);
 
         //Create and set adapter for pager
         adapter = new HomeAdapter(models, this.getContext());
@@ -81,19 +99,13 @@ public class Home extends Fragment {
         fab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                showDialog();
-
             }
-
-            });
-
+        });
                 return v;
     }
 
-
     public void setModels(){
-
         models = new ArrayList<>();
 
         //Add temporary strings
@@ -119,6 +131,8 @@ public class Home extends Fragment {
         View view2 = factory.inflate(R.layout.dialog_box, null);
         alertDialog.setView(view2);
 
+        amount = view2.findViewById(R.id.amountEt);
+
         final AlertDialog builder = alertDialog.create();
         cancel = view2.findViewById(R.id.cancelBtn);
         cancel.setOnClickListener(new View.OnClickListener() {
@@ -127,6 +141,8 @@ public class Home extends Fragment {
                 builder.cancel();
             }
         });
+
+        save = view2.findViewById(R.id.saveBtn);
 
         builder.show();
 
@@ -153,7 +169,46 @@ public class Home extends Fragment {
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cateSpinner.setAdapter(categoryAdapter);
 
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addItem();
+                //amount.setText(selectedItem);
+            }
+        });
+
+        selectedItem = typeSpinner.getSelectedItem().toString();
     }
 
+    /** SQL Database code below **/
+    private void addItem() {
+        entryAmount++;
+        ContentValues cv = new ContentValues();
+        String name = typeSpinner.getSelectedItem().toString();
+        String category = cateSpinner.getSelectedItem().toString();
+        String inputAmount = amount.getText().toString();
+        cv.put(SQLContract.SQLEntry.COLUMN_NAME, name);
+        cv.put(SQLContract.SQLEntry.COLUMN_AMOUNT, entryAmount);
+        cv.put(SQLContract.SQLEntry.COLUMN_BALANCECHANGE, inputAmount);
+        cv.put(SQLContract.SQLEntry.COLUMN_TYPE, name);
+        cv.put(SQLContract.SQLEntry.COLUMN_CATEGORY, category);
 
+        //db.insert(SQLContract.SQLEntry.TABLE_NAME, null, cv);
+        amount.getText().clear();
+        updateBalance();
+
+//        recycler referenceRecycler = new recycler();
+//
+//        referenceRecycler.getAllItems(db);
+//        referenceRecycler.mAdapter.swapCursor(referenceRecycler.getAllItems(db));
+    }
+
+    private void updateBalance() {
+        if (typeSpinner.getSelectedItem().toString() == "income") {
+            int inputAmount = Integer.parseInt(amount.getText().toString());
+            balance += inputAmount;
+        }
+        String newBalanceAmount;
+        balanceAmount.setText(Integer.toString(balance));
+    }
 }
