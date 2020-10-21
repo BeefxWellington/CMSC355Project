@@ -2,6 +2,7 @@ package com.example.my2cents;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
@@ -16,6 +18,10 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,15 +39,20 @@ public class Home extends Fragment {
     EditText amount;
     Button save;
     Button cancel;
+    Spinner mainCategories;
+    Spinner subCategories;
 
+    DatabaseReference databaseReference;
+    private FirebaseAuth firebaseAuth;
 
     public Home() {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        firebaseAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
         //Set info to display for card view
         setModels();
 
@@ -51,8 +62,10 @@ public class Home extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        firebaseAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
 
-        View v = inflater.inflate(R.layout.fragment_home, container,false);
+        View v = inflater.inflate(R.layout.fragment_home, container, false);
 
         //Create and set adapter for pager
         adapter = new HomeAdapter(models, this.getContext());
@@ -62,27 +75,25 @@ public class Home extends Fragment {
         tabLayout = v.findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager, true);
 
-            //dhruv
+        //dhruv
 
-        amount = v.findViewById(R.id.amountEt);
-        save = v.findViewById(R.id.saveBtn);
 
         fab1 = v.findViewById(R.id.floatingActionButton1);
         fab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-               showDialog();
+                showDialog();
 
             }
 
-            });
+        });
 
-                return v;
+        return v;
     }
 
 
-    public void setModels(){
+    public void setModels() {
 
         models = new ArrayList<>();
 
@@ -94,21 +105,28 @@ public class Home extends Fragment {
 
         models.add(new HomeModel("Recent Expenses",
                 "Title - Category", "Title - Category", "Title - Category",
-                "$000.00","$000.00","$000.00",
-                "MM/DD/YYYY","MM/DD/YYYY","MM/DD/YYYY"));
+                "$000.00", "$000.00", "$000.00",
+                "MM/DD/YYYY", "MM/DD/YYYY", "MM/DD/YYYY"));
 
         models.add(new HomeModel("Upcoming Deductions",
                 "Title - Category", "Title - Category", "Title - Category",
-                "$000.00","$000.00","$000.00",
-                "MM/DD/YYYY","MM/DD/YYYY","MM/DD/YYYY"));
+                "$000.00", "$000.00", "$000.00",
+                "MM/DD/YYYY", "MM/DD/YYYY", "MM/DD/YYYY"));
     }
 
     // alert dialog that shows when floating action button is clicked
     public void showDialog() {
+        firebaseAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
         LayoutInflater factory = LayoutInflater.from(getActivity());
         View view2 = factory.inflate(R.layout.dialog_box, null);
         alertDialog.setView(view2);
+        mainCategories = view2.findViewById(R.id.typeSpinner);
+        subCategories = view2.findViewById(R.id.categorySpinner);
+        amount = view2.findViewById(R.id.amountEt);
+        save = view2.findViewById(R.id.saveBtn);
 
         final AlertDialog builder = alertDialog.create();
 
@@ -147,7 +165,37 @@ public class Home extends Fragment {
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cateSpinner.setAdapter(categoryAdapter);
 
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addExpenses();
+
+            }
+        });
     }
 
+    public void addExpenses() {
+
+        String amountValue = amount.getText().toString();
+        String mainCategoriesValue = mainCategories.getSelectedItem().toString();
+        String subCategoriesValue = subCategories.getSelectedItem().toString();
+        final FirebaseUser Users = firebaseAuth.getCurrentUser();
+        String UserID = Users.getUid();
+
+        if (!TextUtils.isEmpty(amountValue) && !TextUtils.isEmpty(mainCategoriesValue) && !TextUtils.isEmpty(subCategoriesValue)) {
+
+            String ID = databaseReference.push().getKey();
+            passingModel PassingModel = new passingModel(ID,mainCategoriesValue,subCategoriesValue,amountValue);
+            databaseReference.child(UserID).child(mainCategoriesValue).child(ID).child("Details").setValue(PassingModel);
+            amount.setText("");
+            Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(getActivity(), "Fill all fields", Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
 
 }
