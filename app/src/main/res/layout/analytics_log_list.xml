@@ -9,14 +9,15 @@
     android:padding="16dp">
 
     <LinearLayout
+        android:id="@+id/firstColumn"
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_width="wrap_content"
+        android:layout_width="45dp"
         android:layout_height="match_parent"
-        app:layout_constraintHorizontal_bias="0.025">
+        app:layout_constraintHorizontal_bias="0.01">
 
         <TextView
             android:id="@+id/logMonth"
@@ -48,9 +49,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_width="wrap_content"
+        android:layout_width="185dp"
         android:layout_height="match_parent"
-        app:layout_constraintHorizontal_bias="0.30">
+        app:layout_constraintHorizontal_bias="0.35">
 
         <TextView
             android:id="@+id/logTitle"
@@ -78,12 +79,13 @@
     </LinearLayout>
 
     <LinearLayout
+
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_width="wrap_content"
+        android:layout_width="110dp"
         android:layout_height="match_parent"
         app:layout_constraintHorizontal_bias="0.95">
 
