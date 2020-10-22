@@ -6,17 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class AnalyticsLog extends Fragment {
 
     View v;
+    SearchView searchView;
     ListView listView;
-
 
     String[] month;
     String[] day;
@@ -25,10 +25,8 @@ public class AnalyticsLog extends Fragment {
     String[] type;
     double[] amount;
     double[] balance;
-    Date[] date;
-
-
-
+    ArrayList<Log> logList;
+    ArrayList<Log> filteredLog;
 
     public AnalyticsLog(){
     }
@@ -36,7 +34,6 @@ public class AnalyticsLog extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -45,12 +42,16 @@ public class AnalyticsLog extends Fragment {
 
         v = inflater.inflate(R.layout.analytics_log, container, false);
 
+        searchView = v.findViewById(R.id.logSearch);
         listView = v.findViewById(R.id.logListView);
+
         setLogList();
+        searchLog();
 
         // Inflate the layout for this fragment
         return v;
     }
+
 
     private void setLogList()  {
 
@@ -70,17 +71,47 @@ public class AnalyticsLog extends Fragment {
         reverseDoubleArray(amount, amount.length);
         reverseDoubleArray(balance, balance.length);
 
-        ArrayList<Log> logList = new ArrayList<>();
+        logList = new ArrayList<>();
 
         for (int i = 0; i < 10; i++){
             @SuppressLint("DefaultLocale") Log log = new Log(month[i], day[i], title[i], category[i], type[i], String.format("%.2f", amount[i]), String.format("%.2f", balance[i]));
             logList.add(log);
         }
 
-
         LogListAdapter adapter = new LogListAdapter(this.getContext(), R.layout.analytics_log_list, logList);
         listView.setAdapter(adapter);
     }
+
+
+    private void searchLog(){
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+
+                filteredLog = new ArrayList<>();
+                for (int i = 0; i < logList.size(); i++){
+                    Log log = logList.get(i);
+                    if(log.getMonth().toLowerCase().startsWith(s.toLowerCase()) ||
+                    log.getTitle().toLowerCase().startsWith(s.toLowerCase()) ||
+                    log.getCategory().toLowerCase().startsWith(s.toLowerCase()) ||
+                    log.getType().toLowerCase().startsWith(s.toLowerCase())){
+                        filteredLog.add(log);
+                    }
+
+                }
+                LogListAdapter adapter = new LogListAdapter(getContext(), R.layout.analytics_log_list, filteredLog);
+                listView.setAdapter(adapter);
+
+                return false;
+            }
+        });
+    }
+
 
     private void reverseDoubleArray(double[] array, int length) {
         double temp;
@@ -91,6 +122,7 @@ public class AnalyticsLog extends Fragment {
         }
     }
 
+
     private void reverseStringArray(String[] array, int length) {
         String temp;
         for (int i = 0; i < length / 2; i++){
@@ -99,6 +131,4 @@ public class AnalyticsLog extends Fragment {
             array[length - i - 1] = temp;
         }
     }
-
-
 }
