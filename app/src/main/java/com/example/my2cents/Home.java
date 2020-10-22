@@ -10,8 +10,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
@@ -20,11 +22,15 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Home extends Fragment {
 
@@ -41,9 +47,18 @@ public class Home extends Fragment {
     Button cancel;
     Spinner mainCategories;
     Spinner subCategories;
+    TextView amountBalance;
+    TextView secondAmount;
 
     DatabaseReference databaseReference;
+    DatabaseReference databaseReference1;
+    DatabaseReference databaseReference2;
     private FirebaseAuth firebaseAuth;
+    int sumTotalInc = 0;
+
+
+
+
 
     public Home() {
     }
@@ -54,6 +69,7 @@ public class Home extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
         //Set info to display for card view
+
         setModels();
 
 
@@ -75,6 +91,65 @@ public class Home extends Fragment {
         tabLayout = v.findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager, true);
 
+
+        amountBalance = v.findViewById(R.id.balanceAmount);
+        final FirebaseUser Users = firebaseAuth.getCurrentUser();
+        String UserId = Users.getUid();
+        databaseReference1 = databaseReference.child(UserId).child("Income");
+        databaseReference2 = databaseReference.child(UserId).child("Expense");
+        //amountBalance.setText(UserId);
+
+         databaseReference2.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int sumExp=0;
+
+                int pValue = 0;
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                    String amount = ds.child("amount").getValue(String.class);
+                    pValue = Integer.parseInt(String.valueOf(amount));
+                    sumExp += pValue;
+                    final int sumTotalExp = sumExp;
+                    // pValue = Integer.parseInt(String.valueOf(price));
+                    //sumExp += pValue;
+
+                    //amountBalance.setText(String.valueOf(sumExp));
+                    databaseReference1.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            int sumInc=0;
+
+                            int pValue = 0;
+                            for(DataSnapshot ds : dataSnapshot.getChildren()){
+                                Map<String,Object> map = (Map<String, Object>) ds.getValue();
+                                Object amountIncome = map.get("amount");
+
+                                pValue = Integer.parseInt(String.valueOf(amountIncome));
+                                sumInc += pValue;
+                                sumTotalInc = sumInc;
+                                int currentBalance = sumTotalInc - sumTotalExp;
+                                amountBalance.setText(String.valueOf(currentBalance));
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
         //dhruv
 
 
@@ -93,7 +168,59 @@ public class Home extends Fragment {
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public void setModels() {
+      /*  secondAmount = getActivity().findViewById(R.id.secondAmount);
+        final FirebaseUser Users = firebaseAuth.getCurrentUser();
+        String UserId = Users.getUid();
+        databaseReference1 = databaseReference.child(UserId).child("Income");
+        databaseReference2 = databaseReference.child(UserId).child("Expense");
+        //amountBalance.setText(UserId);
+
+        databaseReference2.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int sumExp=0;
+
+                int pValue = 0;
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                    String amount = ds.child("amount").getValue(String.class);
+                    pValue = Integer.parseInt(String.valueOf(amount));
+                    sumExp += pValue;
+                    final int sumTotalExps = sumExp;
+                    // pValue = Integer.parseInt(String.valueOf(amountExpense));
+                    //sumExp += pValue;
+
+                    secondAmount.setText(String.valueOf(sumExp));
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        }); */
+
+
 
         models = new ArrayList<>();
 
@@ -127,6 +254,7 @@ public class Home extends Fragment {
         subCategories = view2.findViewById(R.id.categorySpinner);
         amount = view2.findViewById(R.id.amountEt);
         save = view2.findViewById(R.id.saveBtn);
+
 
         final AlertDialog builder = alertDialog.create();
 
@@ -187,7 +315,7 @@ public class Home extends Fragment {
 
             String ID = databaseReference.push().getKey();
             passingModel PassingModel = new passingModel(ID,mainCategoriesValue,subCategoriesValue,amountValue);
-            databaseReference.child(UserID).child(mainCategoriesValue).child(ID).child("Details").setValue(PassingModel);
+            databaseReference.child(UserID).child(mainCategoriesValue).child(ID).setValue(PassingModel);
             amount.setText("");
             Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
         }
