@@ -5,6 +5,8 @@
     <color name="colorAccent">#03DAC5</color>
 
     <color name="red">#B44452</color>
+    <color name="logoRed">#AA2E41</color>
+    <color name="logoYellow">#C79B23</color>
     <color name="white">#FFFFFF</color>
     <color name="gray">#A5A5A5</color>
     <color name="lightgray">#A2A2A2</color>

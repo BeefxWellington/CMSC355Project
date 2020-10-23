@@ -63,5 +63,22 @@
         app:layout_constraintTop_toBottomOf="@+id/switch3"
         tools:ignore="UseSwitchCompatOrMaterialXml" />
 
+<<<<<<< HEAD
+=======
+    <Button
+        android:id="@+id/savenotifications"
+        android:layout_width="375dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/rounded_button"
+        android:text="Save Settings"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switch4" />
+
+>>>>>>> master
 
 </androidx.constraintlayout.widget.ConstraintLayout>
