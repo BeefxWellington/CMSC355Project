@@ -63,8 +63,8 @@ public class UserSettings extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_user_settings, container, false);
         Button b1 = (Button) view.findViewById(R.id.changeusername);
-        EditText username = (EditText) view.findViewById(R.id.usernameEditText);
-        EditText password = (EditText) view.findViewById(R.id.passwordEditText);
+        final EditText username = (EditText) view.findViewById(R.id.usernameEditText);
+        final EditText password = (EditText) view.findViewById(R.id.passwordEditText);
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -63,9 +63,9 @@ public class PasswordSettings extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_password_settings, container, false);
         Button b1 = (Button) view.findViewById(R.id.changepassword);
-        EditText newPassword = (EditText) view.findViewById(R.id.newPasswordEditText);
-        EditText currentPassword = (EditText) view.findViewById(R.id.currentPasswordEditText);
-        EditText confirmPassword = (EditText) view.findViewById(R.id.confirmPasswordEditText);
+        final EditText newPassword = (EditText) view.findViewById(R.id.newPasswordEditText);
+        final EditText currentPassword = (EditText) view.findViewById(R.id.currentPasswordEditText);
+        final EditText confirmPassword = (EditText) view.findViewById(R.id.confirmPasswordEditText);
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
