@@ -1,6 +1,5 @@
 package com.example.my2cents;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,17 +8,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 
 public class MainActivity extends AppCompatActivity {
     EditText User;
     EditText Pass;
     TextView Register;
-
-    private Context mContext;
-    private final String CHANNEL_ID = "bills";
-    public final int NOTIFICATIONS_ID = 001;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,22 +33,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, CHANNEL_ID);
-                        //set icon in the status bar for
-                        builder.setSmallIcon(R.drawable.ic_money);
-                        //set title of notification
-                        builder.setContentTitle("My2Cents Notification");
-                        //dismiss notification on tap
-                        builder.setAutoCancel(true);
-                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(MainActivity.this);
-                notificationManager.notify(NOTIFICATIONS_ID, builder.build());
-
                 Intent startIntent = new Intent(getApplicationContext(), SecondActivity.class); //comment out these lines if enabling authentication
                 startActivity(startIntent); //comment out these lines if enabling authentication
 
                 /******************** Uncomment the following lines to enable username and password authentication in cooperation with "login" button **************************************************/
 //                String correct_username = "admin";
-//                String correct_password = "password";SA
+//                String correct_password = "password";
 //                //validate inputs
 //                if (TextUtils.isEmpty(username.getText().toString()) || TextUtils.isEmpty(password.getText().toString())) {
 //                    Toast.makeText(MainActivity.this, "Insufficient data provided", Toast.LENGTH_LONG).show();
@@ -85,6 +68,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, RegisterActivity.class));
             }
         });
+
+
+
+
+
     }
     public void validate(String userName, String userPassword){
 
