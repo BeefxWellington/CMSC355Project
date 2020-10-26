@@ -15,13 +15,12 @@
         android:layout_width="407dp"
         android:layout_height="26dp"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="60dp"
         android:fontFamily="@font/avenirlight"
         android:text="General"
         android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/button_notifsettings"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
@@ -107,7 +106,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
-        android:layout_marginBottom="348dp"
+        android:layout_marginBottom="272dp"
         android:background="@color/white"
         android:fontFamily="@font/avenirregular"
         android:padding="5dp"
@@ -116,7 +115,7 @@
         android:textColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
 
