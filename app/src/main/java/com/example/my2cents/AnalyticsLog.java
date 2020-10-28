@@ -131,4 +131,16 @@ public class AnalyticsLog extends Fragment {
             array[length - i - 1] = temp;
         }
     }
+
+    double getBalance(double balance, double amount, String type){
+        double newBalance;
+        if (type.equals("Incoming")){
+            newBalance = balance + amount;
+        }
+        else {
+            newBalance = balance - amount;
+        }
+        return newBalance;
+    }
+
 }
