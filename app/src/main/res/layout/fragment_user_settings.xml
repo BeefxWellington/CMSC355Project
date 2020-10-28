@@ -39,20 +39,18 @@
 
     <EditText
         android:id="@+id/passwordEditText"
-        android:background="@drawable/input_field"
         android:layout_width="375dp"
         android:layout_height="60dp"
         android:layout_marginTop="10dp"
+        android:background="@drawable/input_field"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
         android:textColor="@android:color/secondary_text_light"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     <Button
         android:id="@+id/changeusername"
@@ -63,9 +61,11 @@
         android:text="Change Username"
         android:textColor="@color/white"
         android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordEditText"
+        app:layout_constraintVertical_bias="0.062" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
