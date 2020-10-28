@@ -131,7 +131,8 @@ public class AnalyticsLog extends Fragment {
             array[length - i - 1] = temp;
         }
     }
-
+    
+    // Create method to get new balance for log list
     double getBalance(double balance, double amount, String type){
         double newBalance;
         if (type.equals("Incoming")){
