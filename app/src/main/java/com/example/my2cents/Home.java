@@ -19,6 +19,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +45,12 @@ public class Home extends Fragment {
     public SQLiteDatabase db;
     private int balance = 0;
     TextView balanceAmount;
+
+    /** Firebase Database Code **/
+    FirebaseDatabase rootNode;
+    DatabaseReference refNode;
+    DatabaseReference refLocation;
+
 
     public Home() {
     }
@@ -172,7 +180,19 @@ public class Home extends Fragment {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addItem();
+                /** Firebase Database Code **/
+                rootNode = FirebaseDatabase.getInstance();
+                refNode = rootNode.getReference("AccountEntry");
+
+                String name = typeSpinner.getSelectedItem().toString();
+                String category = cateSpinner.getSelectedItem().toString();
+                String inputAmount = amount.getText().toString();
+
+                AccountEntry accountEntry = new AccountEntry(name, category, inputAmount);
+                String UID = refNode.push().getKey();
+                refNode.setValue(accountEntry);
+
+                //addItem();
                 //amount.setText(selectedItem);
             }
         });

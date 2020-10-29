@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "543921782408",
-    "firebase_url": "https://cmsc355-2a9f6.firebaseio.com",
-    "project_id": "cmsc355-2a9f6",
-    "storage_bucket": "cmsc355-2a9f6.appspot.com"
+    "project_number": "365508786332",
+    "firebase_url": "https://cmsc355project.firebaseio.com",
+    "project_id": "cmsc355project",
+    "storage_bucket": "cmsc355project.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:543921782408:android:00d0c699e1aacbc1f3293d",
+        "mobilesdk_app_id": "1:365508786332:android:3f5c79671ec9fa1ef4d559",
         "android_client_info": {
           "package_name": "com.example.my2cents"
         }
       },
       "oauth_client": [
         {
-          "client_id": "543921782408-f92mmei5cg7gcfr2nkmeij6uf96mauk7.apps.googleusercontent.com",
+          "client_id": "365508786332-8bfjlqitc1ce0b53pum21as0157kunnr.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBfZVTrds0mit4F5tznw6WDv_VUP0aZCzE"
+          "current_key": "AIzaSyDiJ-EMb9LseGFjPsDFE06iZL7Brao0y5g"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "543921782408-f92mmei5cg7gcfr2nkmeij6uf96mauk7.apps.googleusercontent.com",
+              "client_id": "365508786332-8bfjlqitc1ce0b53pum21as0157kunnr.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
