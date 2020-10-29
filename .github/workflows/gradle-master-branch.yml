@@ -5,11 +5,7 @@ name: Java CI with Gradle
 
 on: 
   push:
-<<<<<<< HEAD:.github/workflows/gradle-dana-branch.yml
-    branches: [ dana-branch ]
-=======
     branches: [ master ]
->>>>>>> master:.github/workflows/gradle-master-branch.yml
 
 jobs:
   build:
