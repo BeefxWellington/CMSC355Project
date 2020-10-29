@@ -1,64 +1,214 @@
 package com.example.my2cents;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Home#newInstance} factory method to
- * create an instance of this fragment.
- */
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Home extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    ViewPager viewPager;
+    HomeAdapter adapter;
+    List<HomeModel> models;
+    TabLayout tabLayout;
+    FloatingActionButton fab1;
+    Context mContext;
+    Spinner typeSpinner;
+    Spinner cateSpinner;
+    EditText amount;
+    Button save;
+    Button cancel;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    /** SQLite Database variables**/
+    private int entryAmount;
+    private static String selectedItem;
+    public SQLiteDatabase db;
+    private int balance = 0;
+    TextView balanceAmount;
 
     public Home() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Home.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Home newInstance(String param1, String param2) {
-        Home fragment = new Home();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        //Set info to display for card view
+        setModels();
     }
+
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(mContext);
+//        mContext = context;
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View v = inflater.inflate(R.layout.fragment_home, container,false);
+
+        /** SQLite Datbase Code **/
+//        SQLHelper dbHelper = new SQLHelper(getActivity());
+////        db = dbHelper.getWritableDatabase(); // must get writable database to add new items to it
+////        RecyclerView recyclerView = v.findViewById(R.id.recyclerRecycler);
+////        recyclerView.setLayoutManager(new LinearLayoutManager(recycler);
+        balanceAmount = v.findViewById(R.id.balanceAmount);
+
+        //Create and set adapter for pager
+        adapter = new HomeAdapter(models, this.getContext());
+        viewPager = v.findViewById(R.id.viewPager);
+        viewPager.setAdapter(adapter);
+        //Connect dots indicator to pager
+        tabLayout = v.findViewById(R.id.tab_layout);
+        tabLayout.setupWithViewPager(viewPager, true);
+
+            //dhruv
+        //typeSpinner= v.findViewById(R.id.typeSpinner);
+        //cateSpinner = v.findViewById(R.id.categorySpinner);
+        amount = v.findViewById(R.id.amountEt);
+        save = v.findViewById(R.id.saveBtn);
+        //cancel = v.findViewById(R.id.cancelBtn);
+        fab1 = v.findViewById(R.id.floatingActionButton1);
+
+        /*typeSpinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
+        List<String> typeCategories = new ArrayList<String>();
+        typeCategories.add("Expense");
+        typeCategories.add("Income");
+
+        ArrayAdapter<String> typeAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, typeCategories);
+        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        typeSpinner.setAdapter(typeAdapter);*/
+        fab1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               showDialog();
+            }
+        });
+                return v;
+    }
+
+    public void setModels(){
+        models = new ArrayList<>();
+
+        //Add temporary strings
+        models.add(new HomeModel("Month Summary",
+                "Starting Balance", "Total Expenses", "Upcoming Deductions",
+                "$000.00", "$000.00", "3",
+                null, null, null));
+
+        models.add(new HomeModel("Recent Expenses",
+                "Title - Category", "Title - Category", "Title - Category",
+                "$000.00","$000.00","$000.00",
+                "MM/DD/YYYY","MM/DD/YYYY","MM/DD/YYYY"));
+
+        models.add(new HomeModel("Upcoming Deductions",
+                "Title - Category", "Title - Category", "Title - Category",
+                "$000.00","$000.00","$000.00",
+                "MM/DD/YYYY","MM/DD/YYYY","MM/DD/YYYY"));
+    }
+
+    public void showDialog() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        LayoutInflater factory = LayoutInflater.from(getActivity());
+        View view2 = factory.inflate(R.layout.dialog_box, null);
+        alertDialog.setView(view2);
+
+        amount = view2.findViewById(R.id.amountEt);
+
+        final AlertDialog builder = alertDialog.create();
+        cancel = view2.findViewById(R.id.cancelBtn);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                builder.cancel();
+            }
+        });
+
+        save = view2.findViewById(R.id.saveBtn);
+
+        builder.show();
+
+        typeSpinner = view2.findViewById(R.id.typeSpinner);
+        List<String> typeOfInput = new ArrayList<String>();
+        typeOfInput.add("Expense");
+        typeOfInput.add("Income");
+        ArrayAdapter<String> typeAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, typeOfInput);
+        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        typeSpinner.setAdapter(typeAdapter);
+
+
+        cateSpinner = view2.findViewById(R.id.categorySpinner);
+        List<String> typeOfCategories = new ArrayList<>();
+        typeOfCategories.add("Bills");
+        typeOfCategories.add("Food");
+        typeOfCategories.add("Gas");
+        typeOfCategories.add("Entertainment");
+        typeOfCategories.add("Pay Check");
+        typeOfCategories.add("Savings");
+        typeOfCategories.add("Miscellaneous");
+        typeOfCategories.add("Lottery");
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, typeOfCategories);
+        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        cateSpinner.setAdapter(categoryAdapter);
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addItem();
+                //amount.setText(selectedItem);
+            }
+        });
+
+        selectedItem = typeSpinner.getSelectedItem().toString();
+    }
+
+    /** SQL Database code below **/
+    private void addItem() {
+        entryAmount++;
+        ContentValues cv = new ContentValues();
+        String name = typeSpinner.getSelectedItem().toString();
+        String category = cateSpinner.getSelectedItem().toString();
+        String inputAmount = amount.getText().toString();
+        cv.put(SQLContract.SQLEntry.COLUMN_NAME, name);
+        cv.put(SQLContract.SQLEntry.COLUMN_AMOUNT, entryAmount);
+        cv.put(SQLContract.SQLEntry.COLUMN_BALANCECHANGE, inputAmount);
+        cv.put(SQLContract.SQLEntry.COLUMN_TYPE, name);
+        cv.put(SQLContract.SQLEntry.COLUMN_CATEGORY, category);
+
+        //db.insert(SQLContract.SQLEntry.TABLE_NAME, null, cv);
+        amount.getText().clear();
+        updateBalance();
+
+//        recycler referenceRecycler = new recycler();
+//
+//        referenceRecycler.getAllItems(db);
+//        referenceRecycler.mAdapter.swapCursor(referenceRecycler.getAllItems(db));
+    }
+
+    private void updateBalance() {
+        if (typeSpinner.getSelectedItem().toString() == "income") {
+            int inputAmount = Integer.parseInt(amount.getText().toString());
+            balance += inputAmount;
+        }
+        String newBalanceAmount;
+        balanceAmount.setText(Integer.toString(balance));
     }
 }

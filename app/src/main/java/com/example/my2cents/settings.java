@@ -1,12 +1,13 @@
 package com.example.my2cents;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,12 +54,29 @@ public class settings extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                         Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false);
+        View view = inflater.inflate(R.layout.fragment_settings, container, false);
+
+        Button b1 = (Button)view.findViewById(R.id.button_notifsettings);
+        b1.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_settings_to_notifications2, null));
+
+        Button b2 = (Button)view.findViewById(R.id.button_passsettings);
+        b2.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_settings_to_passwordSettings2, null));
+
+        Button b3 = (Button)view.findViewById(R.id.button_userguide);
+        b3.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_settings_to_userGuide2, null));
+
+        Button b4 = (Button)view.findViewById(R.id.button_usersettings);
+        b4.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_settings_to_userSettings2, null));
+
+        return view;
     }
+
+
 }

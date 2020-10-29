@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "543921782408",
+    "firebase_url": "https://cmsc355-2a9f6.firebaseio.com",
+    "project_id": "cmsc355-2a9f6",
+    "storage_bucket": "cmsc355-2a9f6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:543921782408:android:00d0c699e1aacbc1f3293d",
+        "android_client_info": {
+          "package_name": "com.example.my2cents"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "543921782408-f92mmei5cg7gcfr2nkmeij6uf96mauk7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfZVTrds0mit4F5tznw6WDv_VUP0aZCzE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "543921782408-f92mmei5cg7gcfr2nkmeij6uf96mauk7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
