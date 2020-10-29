@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 30
@@ -7,13 +6,12 @@ android {
 
     defaultConfig {
         applicationId "com.example.my2cents"
-        minSdkVersion 19
+        minSdkVersion 16
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        multiDexEnabled true
     }
 
     buildTypes {
@@ -21,10 +19,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-    }
-    compileOptions {
-        targetCompatibility JavaVersion.VERSION_1_8
-        sourceCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -36,22 +30,15 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.1.0'
     implementation 'androidx.navigation:navigation-ui:2.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.google.firebase:firebase-database:19.5.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-
-    implementation 'com.android.support:multidex:1.0.3'
-    //noinspection GradleCompatible
-    implementation "com.android.support:support-compat:28.0.0"
+    implementation 'com.google.firebase:firebase-auth:19.4.0'
+    implementation 'com.google.firebase:firebase-analytics:17.5.0'
     implementation 'com.google.code.gson:gson:2.8.6'
-    //noinspection GradleCompatible
-    implementation 'com.android.support:recyclerview-v7:28.0.0'
-    implementation platform('com.google.firebase:firebase-bom:26.0.0')
-    //for firebase authentication
-    implementation 'com.google.firebase:firebase-auth'
-    implementation platform('com.google.firebase:firebase-bom:26.0.0')
 
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }
+apply plugin: 'com.google.gms.google-services'

@@ -8,23 +8,40 @@
     tools:context=".analytics"
     >
 
-    <!-- TODO: Update blank fragment layout -->
-
-
-    <Button
-        android:id="@+id/btn_notifications"
-        android:layout_width="241dp"
-        android:layout_height="67dp"
-        android:text="notify"
-        android:background="@drawable/redbutton"
-        android:textColor="@color/white"
-        android:fontFamily="@font/avenirregular"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
+        android:background="@android:color/white"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.84000003"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="55dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="0dp">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/analyticsTab"
+            app:tabIndicatorColor="@color/red"
+            app:tabTextColor="@color/logoYellow"
+            app:tabSelectedTextColor="@color/red"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/analyticsPager"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </androidx.viewpager.widget.ViewPager>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
