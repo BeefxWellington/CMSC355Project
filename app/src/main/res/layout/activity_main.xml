@@ -50,7 +50,8 @@
         app:layout_constraintHorizontal_bias="0.199"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.919" />
+        app:layout_constraintVertical_bias="0.919"
+        tools:ignore="UnknownId" />
 
     <Button
         android:id="@+id/loginBtn"
@@ -69,14 +70,14 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/userEditText"
+        android:id="@+id/emailEditText"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginBottom="12dp"
         android:background="@drawable/input_field"
         android:ems="10"
         android:fontFamily="@font/avenirlight"
-        android:hint="username"
+        android:hint="email"
         android:inputType="textPersonName"
         android:textColorHint="@color/gray"
         android:textSize="20sp"

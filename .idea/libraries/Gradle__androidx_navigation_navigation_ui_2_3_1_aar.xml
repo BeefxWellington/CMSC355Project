@@ -2,8 +2,8 @@
   <library name="Gradle: androidx.navigation:navigation-ui:2.3.1@aar">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/5c831d3bf54ef29838a3d285265bb549/navigation-ui-2.3.1/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/5c831d3bf54ef29838a3d285265bb549/navigation-ui-2.3.1/res" />
       <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/5c831d3bf54ef29838a3d285265bb549/navigation-ui-2.3.1/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/5c831d3bf54ef29838a3d285265bb549/navigation-ui-2.3.1/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

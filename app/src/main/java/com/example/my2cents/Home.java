@@ -1,9 +1,8 @@
 package com.example.my2cents;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,18 +11,26 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Home extends Fragment {
 
@@ -32,53 +39,47 @@ public class Home extends Fragment {
     List<HomeModel> models;
     TabLayout tabLayout;
     FloatingActionButton fab1;
-    Context mContext;
+    Context context;
     Spinner typeSpinner;
     Spinner cateSpinner;
     EditText amount;
     Button save;
     Button cancel;
+    Spinner mainCategories;
+    Spinner subCategories;
+    TextView amountBalance;
+    TextView secondAmount;
 
-    /** SQLite Database variables**/
-    private int entryAmount;
-    private static String selectedItem;
-    public SQLiteDatabase db;
-    private int balance = 0;
-    TextView balanceAmount;
+    DatabaseReference databaseReference;
+    DatabaseReference databaseReference1;
+    DatabaseReference databaseReference2;
+    private FirebaseAuth firebaseAuth;
+    int sumTotalInc = 0;
 
-    /** Firebase Database Code **/
     FirebaseDatabase rootNode;
     DatabaseReference refNode;
-    DatabaseReference refLocation;
-
 
     public Home() {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         //Set info to display for card view
         setModels();
     }
 
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(mContext);
-//        mContext = context;
-//    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_home, container,false);
+        View v = inflater.inflate(R.layout.fragment_home, container, false);
 
-        /** SQLite Datbase Code **/
-//        SQLHelper dbHelper = new SQLHelper(getActivity());
-////        db = dbHelper.getWritableDatabase(); // must get writable database to add new items to it
-////        RecyclerView recyclerView = v.findViewById(R.id.recyclerRecycler);
-////        recyclerView.setLayoutManager(new LinearLayoutManager(recycler);
-        balanceAmount = v.findViewById(R.id.balanceAmount);
+        //firebaseAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+
+        rootNode = FirebaseDatabase.getInstance();
+        refNode = rootNode.getReference("AccountEntry");
 
         //Create and set adapter for pager
         adapter = new HomeAdapter(models, this.getContext());
@@ -87,33 +88,109 @@ public class Home extends Fragment {
         //Connect dots indicator to pager
         tabLayout = v.findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager, true);
+//
+//
+//        amountBalance = v.findViewById(R.id.balanceAmount);
+//
+//        amountBalance.setText(UserId);
 
-            //dhruv
-        //typeSpinner= v.findViewById(R.id.typeSpinner);
-        //cateSpinner = v.findViewById(R.id.categorySpinner);
-        amount = v.findViewById(R.id.amountEt);
-        save = v.findViewById(R.id.saveBtn);
-        //cancel = v.findViewById(R.id.cancelBtn);
+//         databaseReference2.addValueEventListener(new ValueEventListener() {
+//
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                int sumExp=0;
+//
+//                int pValue = 0;
+//                for(DataSnapshot ds : dataSnapshot.getChildren()){
+//                    String amount = ds.child("amount").getValue(String.class);
+//                    pValue = Integer.parseInt(String.valueOf(amount));
+//                    sumExp += pValue;
+//                    final int sumTotalExp = sumExp;
+//                    // pValue = Integer.parseInt(String.valueOf(price));
+//                    //sumExp += pValue;
+//
+//                    //amountBalance.setText(String.valueOf(sumExp));
+//                    databaseReference1.addValueEventListener(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                            int sumInc=0;
+//
+//                            int pValue = 0;
+//                            for(DataSnapshot ds : dataSnapshot.getChildren()){
+//                                Map<String,Object> map = (Map<String, Object>) ds.getValue();
+//                                Object amountIncome = map.get("amount");
+//
+//                                pValue = Integer.parseInt(String.valueOf(amountIncome));
+//                                sumInc += pValue;
+//                                sumTotalInc = sumInc;
+//                                int currentBalance = sumTotalInc - sumTotalExp;
+//                                amountBalance.setText(String.valueOf(currentBalance));
+//                            }
+//                        }
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                        }
+//                    });
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+
         fab1 = v.findViewById(R.id.floatingActionButton1);
-
-        /*typeSpinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
-        List<String> typeCategories = new ArrayList<String>();
-        typeCategories.add("Expense");
-        typeCategories.add("Income");
-
-        ArrayAdapter<String> typeAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, typeCategories);
-        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        typeSpinner.setAdapter(typeAdapter);*/
         fab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               showDialog();
+
+                showDialog();
+
             }
+
         });
-                return v;
+
+        return v;
     }
 
-    public void setModels(){
+    public void setModels() {
+      /*  secondAmount = getActivity().findViewById(R.id.secondAmount);
+        final FirebaseUser Users = firebaseAuth.getCurrentUser();
+        String UserId = Users.getUid();
+        databaseReference1 = databaseReference.child(UserId).child("Income");
+        databaseReference2 = databaseReference.child(UserId).child("Expense");
+        //amountBalance.setText(UserId);
+
+        databaseReference2.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int sumExp=0;
+
+                int pValue = 0;
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                    String amount = ds.child("amount").getValue(String.class);
+                    pValue = Integer.parseInt(String.valueOf(amount));
+                    sumExp += pValue;
+                    final int sumTotalExps = sumExp;
+                    // pValue = Integer.parseInt(String.valueOf(amountExpense));
+                    //sumExp += pValue;
+
+                    secondAmount.setText(String.valueOf(sumExp));
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        }); */
+
         models = new ArrayList<>();
 
         //Add temporary strings
@@ -124,24 +201,33 @@ public class Home extends Fragment {
 
         models.add(new HomeModel("Recent Expenses",
                 "Title - Category", "Title - Category", "Title - Category",
-                "$000.00","$000.00","$000.00",
-                "MM/DD/YYYY","MM/DD/YYYY","MM/DD/YYYY"));
+                "$000.00", "$000.00", "$000.00",
+                "MM/DD/YYYY", "MM/DD/YYYY", "MM/DD/YYYY"));
 
         models.add(new HomeModel("Upcoming Deductions",
                 "Title - Category", "Title - Category", "Title - Category",
-                "$000.00","$000.00","$000.00",
-                "MM/DD/YYYY","MM/DD/YYYY","MM/DD/YYYY"));
+                "$000.00", "$000.00", "$000.00",
+                "MM/DD/YYYY", "MM/DD/YYYY", "MM/DD/YYYY"));
     }
 
+    // alert dialog that shows when floating action button is clicked
     public void showDialog() {
+        rootNode = FirebaseDatabase.getInstance();
+        refNode = rootNode.getReference("AccountEntry");
+
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
         LayoutInflater factory = LayoutInflater.from(getActivity());
         View view2 = factory.inflate(R.layout.dialog_box, null);
         alertDialog.setView(view2);
-
+        mainCategories = view2.findViewById(R.id.typeSpinner);
+        subCategories = view2.findViewById(R.id.categorySpinner);
         amount = view2.findViewById(R.id.amountEt);
+        save = view2.findViewById(R.id.saveBtn);
+
 
         final AlertDialog builder = alertDialog.create();
+
+        //cancel button to close the alert dialog
         cancel = view2.findViewById(R.id.cancelBtn);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,10 +236,9 @@ public class Home extends Fragment {
             }
         });
 
-        save = view2.findViewById(R.id.saveBtn);
-
         builder.show();
 
+        // spinner for input output
         typeSpinner = view2.findViewById(R.id.typeSpinner);
         List<String> typeOfInput = new ArrayList<String>();
         typeOfInput.add("Expense");
@@ -162,7 +247,7 @@ public class Home extends Fragment {
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         typeSpinner.setAdapter(typeAdapter);
 
-
+        //spinner for categories
         cateSpinner = view2.findViewById(R.id.categorySpinner);
         List<String> typeOfCategories = new ArrayList<>();
         typeOfCategories.add("Bills");
@@ -177,58 +262,37 @@ public class Home extends Fragment {
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cateSpinner.setAdapter(categoryAdapter);
 
+
         save.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                /** Firebase Database Code **/
-                rootNode = FirebaseDatabase.getInstance();
-                refNode = rootNode.getReference("AccountEntry");
+            public void onClick(View v) {
+                addExpenses();
 
-                String name = typeSpinner.getSelectedItem().toString();
-                String category = cateSpinner.getSelectedItem().toString();
-                String inputAmount = amount.getText().toString();
-
-                AccountEntry accountEntry = new AccountEntry(name, category, inputAmount);
-                String UID = refNode.push().getKey();
-                refNode.setValue(accountEntry);
-
-                //addItem();
-                //amount.setText(selectedItem);
             }
         });
-
-        selectedItem = typeSpinner.getSelectedItem().toString();
     }
 
-    /** SQL Database code below **/
-    private void addItem() {
-        entryAmount++;
-        ContentValues cv = new ContentValues();
-        String name = typeSpinner.getSelectedItem().toString();
-        String category = cateSpinner.getSelectedItem().toString();
-        String inputAmount = amount.getText().toString();
-        cv.put(SQLContract.SQLEntry.COLUMN_NAME, name);
-        cv.put(SQLContract.SQLEntry.COLUMN_AMOUNT, entryAmount);
-        cv.put(SQLContract.SQLEntry.COLUMN_BALANCECHANGE, inputAmount);
-        cv.put(SQLContract.SQLEntry.COLUMN_TYPE, name);
-        cv.put(SQLContract.SQLEntry.COLUMN_CATEGORY, category);
+    public void addExpenses() {
+        String amountValue = amount.getText().toString();
+        String mainCategoriesValue = mainCategories.getSelectedItem().toString();
+        String subCategoriesValue = subCategories.getSelectedItem().toString();
+//        final FirebaseUser Users = firebaseAuth.getCurrentUser();
+        String UserID;
+        UserID = "pgnjJooFMAdnARk2LqV8pOFxGjs2";
 
-        //db.insert(SQLContract.SQLEntry.TABLE_NAME, null, cv);
-        amount.getText().clear();
-        updateBalance();
+        if (!TextUtils.isEmpty(amountValue) && !TextUtils.isEmpty(mainCategoriesValue) && !TextUtils.isEmpty(subCategoriesValue)) {
 
-//        recycler referenceRecycler = new recycler();
-//
-//        referenceRecycler.getAllItems(db);
-//        referenceRecycler.mAdapter.swapCursor(referenceRecycler.getAllItems(db));
-    }
-
-    private void updateBalance() {
-        if (typeSpinner.getSelectedItem().toString() == "income") {
-            int inputAmount = Integer.parseInt(amount.getText().toString());
-            balance += inputAmount;
+            String ID = databaseReference.push().getKey();
+            passingModel PassingModel = new passingModel(ID,mainCategoriesValue,subCategoriesValue,amountValue);
+            databaseReference.child(UserID).child("AccountEntry").child(ID).setValue(PassingModel);
+            amount.setText("");
+            Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
         }
-        String newBalanceAmount;
-        balanceAmount.setText(Integer.toString(balance));
+        else {
+            Toast.makeText(getActivity(), "Fill all fields", Toast.LENGTH_SHORT).show();
+        }
+
+
     }
+
 }
