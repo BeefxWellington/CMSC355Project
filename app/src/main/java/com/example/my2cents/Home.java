@@ -2,6 +2,7 @@ package com.example.my2cents;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.renderscript.Sampler;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,7 +57,7 @@ public class Home extends Fragment {
     private FirebaseAuth firebaseAuth;
     int sumTotalInc = 0;
 
-
+    String stringExpense;
 
 
 
@@ -186,10 +187,11 @@ public class Home extends Fragment {
 
 
     public void setModels() {
-      /*  secondAmount = getActivity().findViewById(R.id.secondAmount);
+    /*     secondAmount = getActivity().findViewById(R.id.secondAmount);
+        int expenseAmount;
         final FirebaseUser Users = firebaseAuth.getCurrentUser();
         String UserId = Users.getUid();
-        databaseReference1 = databaseReference.child(UserId).child("Income");
+        //databaseReference1 = databaseReference.child(UserId).child("Income");
         databaseReference2 = databaseReference.child(UserId).child("Expense");
         //amountBalance.setText(UserId);
 
@@ -197,18 +199,20 @@ public class Home extends Fragment {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                int sumExp=0;
+                int sumExp= 0;
 
                 int pValue = 0;
-                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
                     String amount = ds.child("amount").getValue(String.class);
                     pValue = Integer.parseInt(String.valueOf(amount));
                     sumExp += pValue;
                     final int sumTotalExps = sumExp;
                     // pValue = Integer.parseInt(String.valueOf(amountExpense));
                     //sumExp += pValue;
+                    //secondAmount.getText().toString();
 
-                    secondAmount.setText(String.valueOf(sumExp));
+                    stringExpense = String.valueOf(sumTotalExps);
+                    secondAmount.setText(stringExpense);
 
                 }
 
@@ -218,8 +222,8 @@ public class Home extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        }); */
-
+        });
+*/
 
 
         models = new ArrayList<>();
@@ -227,7 +231,7 @@ public class Home extends Fragment {
         //Add temporary strings
         models.add(new HomeModel("Month Summary",
                 "Starting Balance", "Total Expenses", "Upcoming Deductions",
-                "$000.00", "$000.00", "3",
+                "$000.00", "00" , "3",
                 null, null, null));
 
         models.add(new HomeModel("Recent Expenses",
