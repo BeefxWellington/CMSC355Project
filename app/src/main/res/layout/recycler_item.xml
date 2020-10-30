@@ -36,7 +36,8 @@
         app:layout_constraintHorizontal_bias="0.095"
         app:layout_constraintStart_toEndOf="@+id/quantity_item"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.011" />
+        app:layout_constraintVertical_bias="0.011"
+        android:layout_marginLeft="8dp" />
 
     <TextView
         android:id="@+id/timestamp_item"
@@ -51,7 +52,8 @@
         app:layout_constraintHorizontal_bias="0.066"
         app:layout_constraintStart_toEndOf="@id/quantity_item"
         app:layout_constraintTop_toBottomOf="@+id/name_item"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:layout_marginLeft="8dp" />
 
     <TextView
         android:id="@+id/balance_change"
@@ -66,7 +68,8 @@
         app:layout_constraintHorizontal_bias="0.984"
         app:layout_constraintStart_toEndOf="@id/name_item"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.11" />
+        app:layout_constraintVertical_bias="0.11"
+        android:layout_marginLeft="170dp" />
 
     <TextView
         android:id="@+id/balance_subtext"
@@ -81,7 +84,8 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@id/timestamp_item"
         app:layout_constraintTop_toBottomOf="@+id/balance_change"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:layout_marginLeft="170dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
