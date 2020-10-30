@@ -187,7 +187,7 @@ public class Home extends Fragment {
 
 
     public void setModels() {
-    /*     secondAmount = getActivity().findViewById(R.id.secondAmount);
+        secondAmount = getActivity().findViewById(R.id.secondAmount);
         int expenseAmount;
         final FirebaseUser Users = firebaseAuth.getCurrentUser();
         String UserId = Users.getUid();
@@ -211,8 +211,8 @@ public class Home extends Fragment {
                     //sumExp += pValue;
                     //secondAmount.getText().toString();
 
-                    stringExpense = String.valueOf(sumTotalExps);
-                    secondAmount.setText(stringExpense);
+                    //stringExpense = String.valueOf(sumTotalExps);
+                    //secondAmount.setText(stringExpense);
 
                 }
 
@@ -223,7 +223,7 @@ public class Home extends Fragment {
 
             }
         });
-*/
+
 
 
         models = new ArrayList<>();
