@@ -79,15 +79,17 @@ public class Home extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
 
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
+
         //Create and set adapter for pager
-        adapter = new HomeAdapter(models, this.getContext());
+        //adapter = new HomeAdapter(models, this.getContext());
         viewPager = v.findViewById(R.id.viewPager);
-        viewPager.setAdapter(adapter);
+      //  viewPager.setAdapter(adapter);
         //Connect dots indicator to pager
         tabLayout = v.findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager, true);
@@ -96,57 +98,7 @@ public class Home extends Fragment {
         amountBalance = v.findViewById(R.id.balanceAmount);
         final FirebaseUser Users = firebaseAuth.getCurrentUser();
         String UserId = Users.getUid();
-        databaseReference1 = databaseReference.child(UserId).child("Income");
-        databaseReference2 = databaseReference.child(UserId).child("Expense");
-        //amountBalance.setText(UserId);
 
-         databaseReference2.addValueEventListener(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                int sumExp=0;
-
-                int pValue = 0;
-                for(DataSnapshot ds : dataSnapshot.getChildren()){
-                    String amount = ds.child("amount").getValue(String.class);
-                    pValue = Integer.parseInt(String.valueOf(amount));
-                    sumExp += pValue;
-                    final int sumTotalExp = sumExp;
-                    // pValue = Integer.parseInt(String.valueOf(price));
-                    //sumExp += pValue;
-
-                    //amountBalance.setText(String.valueOf(sumExp));
-                    databaseReference1.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            int sumInc=0;
-
-                            int pValue = 0;
-                            for(DataSnapshot ds : dataSnapshot.getChildren()){
-                                Map<String,Object> map = (Map<String, Object>) ds.getValue();
-                                Object amountIncome = map.get("amount");
-
-                                pValue = Integer.parseInt(String.valueOf(amountIncome));
-                                sumInc += pValue;
-                                sumTotalInc = sumInc;
-                                int currentBalance = sumTotalInc - sumTotalExp;
-                                amountBalance.setText(String.valueOf(currentBalance));
-                            }
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
 
 
@@ -187,11 +139,26 @@ public class Home extends Fragment {
 
 
     public void setModels() {
-        secondAmount = getActivity().findViewById(R.id.secondAmount);
-        int expenseAmount;
+        models = new ArrayList<>();
+
+        //Add temporary strings
+        models.add(new HomeModel("Month Summary",
+                "Starting Balance", "Total Expenses", "Upcoming Deductions",
+                String.valueOf(sumTotalInc), stringExpense , "3",
+                null, null, null));
+
+        models.add(new HomeModel("Recent Expenses",
+                "Title - Category", "Title - Category", "Title - Category",
+                "$000.00", "$000.00", "$000.00",
+                "MM/DD/YYYY", "MM/DD/YYYY", "MM/DD/YYYY"));
+
+        models.add(new HomeModel("Upcoming Deductions",
+                "Title - Category", "Title - Category", "Title - Category",
+                "$000.00", "$000.00", "$000.00",
+                "MM/DD/YYYY", "MM/DD/YYYY", "MM/DD/YYYY"));
         final FirebaseUser Users = firebaseAuth.getCurrentUser();
         String UserId = Users.getUid();
-        //databaseReference1 = databaseReference.child(UserId).child("Income");
+        databaseReference1 = databaseReference.child(UserId).child("Income");
         databaseReference2 = databaseReference.child(UserId).child("Expense");
         //amountBalance.setText(UserId);
 
@@ -199,6 +166,62 @@ public class Home extends Fragment {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int sumExp=0;
+
+                int pValue = 0;
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                    String amount = ds.child("amount").getValue(String.class);
+                    pValue = Integer.parseInt(String.valueOf(amount));
+                    sumExp += pValue;
+                    final int sumTotalExp = sumExp;
+                    // pValue = Integer.parseInt(String.valueOf(price));
+                    //sumExp += pValue;
+
+                    //amountBalance.setText(String.valueOf(sumExp));
+                    databaseReference1.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            int sumInc=0;
+
+                            int pValue = 0;
+                            for(DataSnapshot ds : dataSnapshot.getChildren()){
+                                Map<String,Object> map = (Map<String, Object>) ds.getValue();
+                                Object amountIncome = map.get("amount");
+
+                                pValue = Integer.parseInt(String.valueOf(amountIncome));
+                                sumInc += pValue;
+                                sumTotalInc = sumInc;
+                                int currentBalance = sumTotalInc - sumTotalExp;
+                                amountBalance.setText(String.valueOf(currentBalance));
+                            }
+                            models.get(0).setFirstAmount(String.valueOf(sumTotalInc));
+
+                            viewPager.setAdapter(adapter);
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        //databaseReference1 = databaseReference.child(UserId).child("Income");
+        //databaseReference2 = databaseReference.child(UserId).child("Expense");
+        //amountBalance.setText(UserId);
+
+        databaseReference2.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                 int sumExp= 0;
 
                 int pValue = 0;
@@ -211,12 +234,16 @@ public class Home extends Fragment {
                     //sumExp += pValue;
                     //secondAmount.getText().toString();
 
-                    //stringExpense = String.valueOf(sumTotalExps);
-                    //secondAmount.setText(stringExpense);
+                    stringExpense = String.valueOf(sumTotalExps);
+
 
                 }
+                models.get(0).setSecondAmount(stringExpense);
 
+                adapter = new HomeAdapter(models, getContext());
+                viewPager.setAdapter(adapter);
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -226,24 +253,9 @@ public class Home extends Fragment {
 
 
 
-        models = new ArrayList<>();
 
-        //Add temporary strings
-        models.add(new HomeModel("Month Summary",
-                "Starting Balance", "Total Expenses", "Upcoming Deductions",
-                "$000.00", "00" , "3",
-                null, null, null));
-
-        models.add(new HomeModel("Recent Expenses",
-                "Title - Category", "Title - Category", "Title - Category",
-                "$000.00", "$000.00", "$000.00",
-                "MM/DD/YYYY", "MM/DD/YYYY", "MM/DD/YYYY"));
-
-        models.add(new HomeModel("Upcoming Deductions",
-                "Title - Category", "Title - Category", "Title - Category",
-                "$000.00", "$000.00", "$000.00",
-                "MM/DD/YYYY", "MM/DD/YYYY", "MM/DD/YYYY"));
     }
+
 
     // alert dialog that shows when floating action button is clicked
     public void showDialog() {
