@@ -28,6 +28,14 @@ public class AnalyticsLog extends Fragment {
     ArrayList<Log> logList;
     ArrayList<Log> filteredLog;
 
+    String singleMonth;
+    String singleDay;
+    String singleTitle;
+    String singleCategory;
+    String singleType;
+    String singleAmount;
+    String singleBalance;
+
     public AnalyticsLog(){
     }
 
@@ -45,11 +53,30 @@ public class AnalyticsLog extends Fragment {
         searchView = v.findViewById(R.id.logSearch);
         listView = v.findViewById(R.id.logListView);
 
-        setLogList();
+        addLogList();
+        //setLogList();
         searchLog();
 
         // Inflate the layout for this fragment
         return v;
+    }
+
+    public void setLogListValues(String singleMonth, String singleDay, String singleTitle, String singleCategory, String singleType, String singleAmount, String singleBalance) {
+        this.singleMonth = singleMonth;
+        this.singleDay = singleDay;
+        this.singleTitle = singleTitle;
+        this.singleCategory = singleCategory;
+        this.singleType = singleType;
+        this.singleAmount = singleAmount;
+        this.singleBalance = singleBalance;
+    }
+
+    public void addLogList() {
+        logList = new ArrayList<>();
+        Log log = new Log(singleMonth, singleDay, singleTitle, singleCategory, singleType, singleAmount, singleBalance);
+        logList.add(log);
+        LogListAdapter adapter = new LogListAdapter(this.getContext(), R.layout.analytics_log_list, logList);
+        listView.setAdapter(adapter);
     }
 
 

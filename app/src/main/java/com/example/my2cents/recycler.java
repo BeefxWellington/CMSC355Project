@@ -14,8 +14,13 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.*;
+
+import com.google.firebase.FirebaseOptions;
+
 public class recycler extends AppCompatActivity {
-    public recycler() {};
+    public recycler() {}
 
     public recyclerAdapter mAdapter;
     private SQLiteDatabase db;
@@ -23,6 +28,8 @@ public class recycler extends AppCompatActivity {
     private Button recyclerAdd;
     public int amount = 0;
     private EditText addChange;
+
+    private FirebaseRecyclerOptions<recyclerAdapter> options;
 
     @Override
     protected void onCreate(Bundle saveInstance) {

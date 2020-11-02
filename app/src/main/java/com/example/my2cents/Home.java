@@ -2,6 +2,7 @@ package com.example.my2cents;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.renderscript.Sampler;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,11 +28,14 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.sql.Array;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class Home extends Fragment {
 
@@ -53,11 +58,15 @@ public class Home extends Fragment {
     DatabaseReference databaseReference;
     DatabaseReference databaseReference1;
     DatabaseReference databaseReference2;
+    DatabaseReference userRef;
     private FirebaseAuth firebaseAuth;
     int sumTotalInc = 0;
 
     FirebaseDatabase rootNode;
     DatabaseReference refNode;
+    Query checkData;
+
+    private ListView listView;
 
     public Home() {
     }
@@ -65,7 +74,6 @@ public class Home extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         //Set info to display for card view
         setModels();
     }
@@ -75,8 +83,35 @@ public class Home extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
-        //firebaseAuth = FirebaseAuth.getInstance();
+        String UserID;
+        UserID = "pgnjJooFMAdnARk2LqV8pOFxGjs2";
+
+//        listView = v.findViewById(R.id.listView);
+//        final ArrayList<String> testList = new ArrayList<>();
+//
+//        //firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+//        userRef = FirebaseDatabase.getInstance().getReference("Users").child(UserID).child("AccountEntry");
+//        userRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                testList.clear();
+//                for (DataSnapshot datasnapshot1 : snapshot.getChildren()) {
+//                    Timestamp timeStamp = datasnapshot1.child("timeStamp").getValue(Timestamp.class);
+//                    String testDay = timeStamp.getDay();
+//                    testList.add(testDay);
+//                }
+//                //listAdapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//        final ArrayAdapter listAdapter = new ArrayAdapter<String>(this.getContext(), R.layout.test_list_view_item, testList);
+//        listView.setAdapter(listAdapter);
+
 
         rootNode = FirebaseDatabase.getInstance();
         refNode = rootNode.getReference("AccountEntry");
@@ -262,7 +297,6 @@ public class Home extends Fragment {
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cateSpinner.setAdapter(categoryAdapter);
 
-
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -276,22 +310,51 @@ public class Home extends Fragment {
         String amountValue = amount.getText().toString();
         String mainCategoriesValue = mainCategories.getSelectedItem().toString();
         String subCategoriesValue = subCategories.getSelectedItem().toString();
+        DateFormat df = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z");
+        String date = df.format(Calendar.getInstance().getTime());
 //        final FirebaseUser Users = firebaseAuth.getCurrentUser();
-        String UserID;
-        UserID = "pgnjJooFMAdnARk2LqV8pOFxGjs2";
+
+        String day = date.substring(0, 3);
+        String dayNum = date.substring(5, 6);
+        String month = date.substring(7, 10);
+        String year = date.substring(11, 15);
+        String hour = date.substring(16, 18);
+        String min = date.substring(19, 21);
+        String sec = date.substring(22, 24);
+        Timestamp timeStamp = new Timestamp(day, month, year, dayNum, hour, min, sec);
+        timeStamp.setDay(date.substring(0, 3));
+        timeStamp.setMonth(date.substring(7, 10));
+        passingModel passModel = new passingModel(mainCategoriesValue,subCategoriesValue,amountValue,timeStamp);
+
+        String UserID = "pgnjJooFMAdnARk2LqV8pOFxGjs2";
 
         if (!TextUtils.isEmpty(amountValue) && !TextUtils.isEmpty(mainCategoriesValue) && !TextUtils.isEmpty(subCategoriesValue)) {
 
             String ID = databaseReference.push().getKey();
-            passingModel PassingModel = new passingModel(ID,mainCategoriesValue,subCategoriesValue,amountValue);
+            passingModel PassingModel = new passingModel(mainCategoriesValue,subCategoriesValue,amountValue,timeStamp);
             databaseReference.child(UserID).child("AccountEntry").child(ID).setValue(PassingModel);
-            amount.setText("");
+            amount.setText(month);
             Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
         }
         else {
             Toast.makeText(getActivity(), "Fill all fields", Toast.LENGTH_SHORT).show();
         }
 
+        passModel.setAmount(amountValue);
+        passModel.setMainCategories(mainCategoriesValue);
+        passModel.setSubCategories(subCategoriesValue);
+
+//        AnalyticsLog analyticsLog = new AnalyticsLog();
+//        analyticsLog.setLogListValues(month, day, "test", subCategoriesValue, mainCategoriesValue, amountValue, "100.00");
+        Log log = new Log(month, day, "test", subCategoriesValue, mainCategoriesValue, amountValue, "100.00");
+        ArrayList<Log> logList = new ArrayList<>();
+        logList.add(log);
+        LogListAdapter adapter = new LogListAdapter(this.getContext(), R.layout.analytics_log_list, logList);
+        ListView listView = viewPager.findViewById(R.id.logListView);
+        listView.setAdapter(adapter);
+    }
+
+    public void retrieveData(DatabaseReference userRef) {
 
     }
 

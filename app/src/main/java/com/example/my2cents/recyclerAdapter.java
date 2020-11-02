@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 /** The purpose of the recyclerAdapter is to update ui elements in the recycler item xml file for each new entry in the database that the user will see in the GUI**/
 public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.recyclerViewHolder> {
-    private Context mContext;
+    private final Context mContext;
     private Cursor mCursor;
 
     public recyclerAdapter(Context context, Cursor cursor) { //cursor gets data out of database //context creates context for each data that cursor gets
