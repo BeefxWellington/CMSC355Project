@@ -65,6 +65,7 @@ public class Home extends Fragment {
     FirebaseDatabase rootNode;
     DatabaseReference refNode;
     Query checkData;
+    final private ArrayList<String> testList = new ArrayList<>();
 
     private ListView listView;
 
@@ -82,33 +83,35 @@ public class Home extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
+        listView = (ListView) v.findViewById(R.id.logListView);
 
         String UserID;
         UserID = "pgnjJooFMAdnARk2LqV8pOFxGjs2";
+        listView = v.findViewById(R.id.listView);
 
-//        listView = v.findViewById(R.id.listView);
-//        final ArrayList<String> testList = new ArrayList<>();
-//
+
+        /******* Firebase Database Retrieval Code *******/
 //        //firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
-//        userRef = FirebaseDatabase.getInstance().getReference("Users").child(UserID).child("AccountEntry");
-//        userRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                testList.clear();
-//                for (DataSnapshot datasnapshot1 : snapshot.getChildren()) {
-//                    Timestamp timeStamp = datasnapshot1.child("timeStamp").getValue(Timestamp.class);
-//                    String testDay = timeStamp.getDay();
-//                    testList.add(testDay);
-//                }
-//                //listAdapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
+        userRef = FirebaseDatabase.getInstance().getReference("Users").child(UserID).child("AccountEntry");
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                testList.clear();
+                for (DataSnapshot datasnapshot1 : snapshot.getChildren()) {
+                    Timestamp timestamp = datasnapshot1.child("timeStamp").getValue(Timestamp.class);
+                    String day = timestamp.getDay();
+                    testList.add(day);
+                }
+                //listAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        /******* Firebase Database Retrieval Code *******/
 //        final ArrayAdapter listAdapter = new ArrayAdapter<String>(this.getContext(), R.layout.test_list_view_item, testList);
 //        listView.setAdapter(listAdapter);
 
@@ -176,6 +179,7 @@ public class Home extends Fragment {
 //
 //            }
 //        });
+
 
         fab1 = v.findViewById(R.id.floatingActionButton1);
         fab1.setOnClickListener(new View.OnClickListener() {
@@ -333,7 +337,7 @@ public class Home extends Fragment {
             String ID = databaseReference.push().getKey();
             passingModel PassingModel = new passingModel(mainCategoriesValue,subCategoriesValue,amountValue,timeStamp);
             databaseReference.child(UserID).child("AccountEntry").child(ID).setValue(PassingModel);
-            amount.setText(month);
+            amount.setText(testList.get(testList.size()-5));
             Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
         }
         else {
@@ -344,14 +348,32 @@ public class Home extends Fragment {
         passModel.setMainCategories(mainCategoriesValue);
         passModel.setSubCategories(subCategoriesValue);
 
+        String[] currentMonth = new String[]{date.substring(7, 10)};
+        String[] currentDay = new String[]{date.substring(0, 3)};
+        String[] currentDayNum = new String[]{date.substring(5, 6)};
+        String[] currentYear = new String[]{date.substring(11, 15)};
+        String[] currenHour = new String[]{date.substring(16, 18)};
+        String[] currentMin = new String[]{date.substring(19, 21)};
+        String[] currentSec = new String[]{date.substring(22, 24)};
+        String[] title = new String[]{"title"};
+        String[] mainCat = new String[]{mainCategoriesValue};
+        String[] subCat = new String[]{subCategoriesValue};
+        String[] currentAmountValue = new String[]{amountValue};
+        String[] currentBalance = new String[]{"100.00"};
+
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        LayoutInflater factory = LayoutInflater.from(getActivity());
+        View view2 = factory.inflate(R.layout.analytics_log, null);
+
 //        AnalyticsLog analyticsLog = new AnalyticsLog();
-//        analyticsLog.setLogListValues(month, day, "test", subCategoriesValue, mainCategoriesValue, amountValue, "100.00");
-        Log log = new Log(month, day, "test", subCategoriesValue, mainCategoriesValue, amountValue, "100.00");
-        ArrayList<Log> logList = new ArrayList<>();
-        logList.add(log);
-        LogListAdapter adapter = new LogListAdapter(this.getContext(), R.layout.analytics_log_list, logList);
-        ListView listView = viewPager.findViewById(R.id.logListView);
-        listView.setAdapter(adapter);
+//        analyticsLog.setLogList(currentMonth, currentDay, title, subCat, mainCat, currentAmountValue, currentBalance);
+
+//        Log log = new Log("day", "day", "test", "subCategory", "mainCategory", "amountValue", "100.00");
+//        ArrayList<Log> logList = new ArrayList<>();
+//        logList.add(log);
+//        LogListAdapter adapter = new LogListAdapter(this.getContext(), R.layout.analytics_log_list, logList);
+//        listView = view2.findViewById(R.id.logListView);
+//        listView.setAdapter(adapter);
     }
 
     public void retrieveData(DatabaseReference userRef) {

@@ -23,8 +23,8 @@ public class AnalyticsLog extends Fragment {
     String[] title;
     String[] category;
     String[] type;
-    double[] amount;
-    double[] balance;
+    String[] amount;
+    String[] balance;
     ArrayList<Log> logList;
     ArrayList<Log> filteredLog;
 
@@ -53,23 +53,23 @@ public class AnalyticsLog extends Fragment {
         searchView = v.findViewById(R.id.logSearch);
         listView = v.findViewById(R.id.logListView);
 
-        addLogList();
+        //addLogList();
         //setLogList();
-        searchLog();
+        //searchLog();
 
         // Inflate the layout for this fragment
         return v;
     }
 
-    public void setLogListValues(String singleMonth, String singleDay, String singleTitle, String singleCategory, String singleType, String singleAmount, String singleBalance) {
-        this.singleMonth = singleMonth;
-        this.singleDay = singleDay;
-        this.singleTitle = singleTitle;
-        this.singleCategory = singleCategory;
-        this.singleType = singleType;
-        this.singleAmount = singleAmount;
-        this.singleBalance = singleBalance;
-    }
+//    public void setLogListValues(String singleMonth, String singleDay, String singleTitle, String singleCategory, String singleType, String singleAmount, String singleBalance) {
+//        this.singleMonth = singleMonth;
+//        this.singleDay = singleDay;
+//        this.singleTitle = singleTitle;
+//        this.singleCategory = singleCategory;
+//        this.singleType = singleType;
+//        this.singleAmount = singleAmount;
+//        this.singleBalance = singleBalance;
+//    }
 
     public void addLogList() {
         logList = new ArrayList<>();
@@ -80,33 +80,42 @@ public class AnalyticsLog extends Fragment {
     }
 
 
-    private void setLogList()  {
+    public void setLogList(String[] currentMonth, String[] currentDay, String[] title, String[] subCat, String[] mainCat, String[] currentAmount, String[] currentBalance)  {
 
-        month = new String[]{"AUG", "AUG", "AUG", "SEP", "SEP", "SEP", "SEP", "SEP", "OCT", "OCT"};
-        day = new String[]{"18", "21", "28", "03", "11", "19", "23", "29", "05", "13"};
-        title = new String[]{"Book", "Shirt", "Paycheck", "Netflix", "Gas", "Eggs", "Electricity", "Water", "Sneakers", "Paycheck"};
-        category = new String[]{"Others", "Clothing", "Income", "Others", "Transportation", "Grocery", "Utilities", "Utilities", "Clothing", "Income"};
-        type = new String[]{"Deduction", "Deduction", "Incoming", "Deduction", "Deduction", "Deduction", "Deduction", "Deduction", "Deduction", "Incoming"};
-        amount = new double[]{15.50, 32.25, 800, 15.99, 32.75, 3.75, 145.50, 75.90, 45.75, 800};
-        balance = new double[]{784.5, 752.25, 1552.25, 1536.26, 1503.51, 1499.76, 1354.26, 1278.36, 1232.61, 2032.61};
+//        month = currentMonth;
+//        day = new String[]{"18", "21", "28", "03", "11", "19", "23", "29", "05", "13"};
+//        title = new String[]{"Book", "Shirt", "Paycheck", "Netflix", "Gas", "Eggs", "Electricity", "Water", "Sneakers", "Paycheck"};
+//        category = new String[]{"Others", "Clothing", "Income", "Others", "Transportation", "Grocery", "Utilities", "Utilities", "Clothing", "Income"};
+//        type = new String[]{"Deduction", "Deduction", "Incoming", "Deduction", "Deduction", "Deduction", "Deduction", "Deduction", "Deduction", "Incoming"};
+//        amount = new double[]{15.50, 32.25, 800, 15.99, 32.75, 3.75, 145.50, 75.90, 45.75, 800};
+//        balance = new double[]{784.5, 752.25, 1552.25, 1536.26, 1503.51, 1499.76, 1354.26, 1278.36, 1232.61, 2032.61};
+
+        month = currentMonth;
+        day = currentDay;
+        title = title;
+        category = mainCat;
+        type = subCat;
+        amount = currentAmount;
+        balance = currentBalance;
 
         reverseStringArray(month, month.length);
         reverseStringArray(day, day.length);
         reverseStringArray(title, title.length);
         reverseStringArray(category, category.length);
         reverseStringArray(type, type.length);
-        reverseDoubleArray(amount, amount.length);
-        reverseDoubleArray(balance, balance.length);
+        reverseStringArray(amount, amount.length);
+        reverseStringArray(balance, balance.length);
 
         logList = new ArrayList<>();
 
-        for (int i = 0; i < 10; i++){
-            @SuppressLint("DefaultLocale") Log log = new Log(month[i], day[i], title[i], category[i], type[i], String.format("%.2f", amount[i]), String.format("%.2f", balance[i]));
+        for (int i = 0; i < 1; i++){
+            @SuppressLint("DefaultLocale") Log log = new Log(month[i], day[i], title[i], category[i], type[i], amount[i], balance[i]);
             logList.add(log);
         }
 
         LogListAdapter adapter = new LogListAdapter(this.getContext(), R.layout.analytics_log_list, logList);
         listView.setAdapter(adapter);
+        searchLog();
     }
 
 

@@ -4,7 +4,9 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -14,10 +16,13 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.*;
 
 import com.google.firebase.FirebaseOptions;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class recycler extends AppCompatActivity {
     public recycler() {}
@@ -28,13 +33,34 @@ public class recycler extends AppCompatActivity {
     private Button recyclerAdd;
     public int amount = 0;
     private EditText addChange;
+    private RecyclerView recyclerView;
 
-    private FirebaseRecyclerOptions<recyclerAdapter> options;
+    private FirebaseRecyclerOptions<model> options;
+    private FirebaseRecyclerAdapter<model, MyViewHolder> adapter;
+    private DatabaseReference refNode;
+
 
     @Override
     protected void onCreate(Bundle saveInstance) {
         super.onCreate(saveInstance);
         setContentView(R.layout.recycler);
+
+//        recyclerView = findViewById(R.id.recyclerRecycler);
+//        refNode = FirebaseDatabase.getInstance().getReference("Users");
+//        options = new FirebaseRecyclerOptions.Builder<model>().setQuery(refNode, model.class).build();
+//        adapter = new FirebaseRecyclerAdapter<model, MyViewHolder>(options) {
+//            @Override
+//            protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull model model) {
+//                holder.
+//            }
+//
+//            @NonNull
+//            @Override
+//            public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+//                View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_item, parent, false);
+//                return new MyViewHolder(v);
+//            }
+//        };
 
         recyclerAdd = findViewById(R.id.saveBtn);
         recyclerText = findViewById(R.id.recyclerTextView);
