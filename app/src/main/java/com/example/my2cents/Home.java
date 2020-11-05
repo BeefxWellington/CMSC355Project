@@ -66,6 +66,20 @@ public class Home extends Fragment {
     DatabaseReference refNode;
     Query checkData;
     final private ArrayList<String> testList = new ArrayList<>();
+    private String day;
+    private String dayNum;
+    private String month;
+    private String year;
+    private String hour;
+    private String min;
+    private String sec;
+    private DateFormat df;
+    private String date;
+    private Timestamp timeStamp;
+
+    private String amountValue;
+    private String mainCategoryValue;
+    private String subCategoryValue;
 
     private ListView listView;
 
@@ -87,8 +101,7 @@ public class Home extends Fragment {
 
         String UserID;
         UserID = "pgnjJooFMAdnARk2LqV8pOFxGjs2";
-        listView = v.findViewById(R.id.listView);
-
+//        listView = v.findViewById(R.id.listView);
 
         /******* Firebase Database Retrieval Code *******/
 //        //firebaseAuth = FirebaseAuth.getInstance();
@@ -99,8 +112,7 @@ public class Home extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 testList.clear();
                 for (DataSnapshot datasnapshot1 : snapshot.getChildren()) {
-                    Timestamp timestamp = datasnapshot1.child("timeStamp").getValue(Timestamp.class);
-                    String day = timestamp.getDay();
+                    String day = datasnapshot1.child("amount").getValue(String.class);
                     testList.add(day);
                 }
                 //listAdapter.notifyDataSetChanged();
@@ -180,16 +192,13 @@ public class Home extends Fragment {
 //            }
 //        });
 
-
         fab1 = v.findViewById(R.id.floatingActionButton1);
         fab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 showDialog();
-
             }
-
         });
 
         return v;
@@ -219,9 +228,7 @@ public class Home extends Fragment {
                     //sumExp += pValue;
 
                     secondAmount.setText(String.valueOf(sumExp));
-
                 }
-
             }
 
             @Override
@@ -253,16 +260,17 @@ public class Home extends Fragment {
     public void showDialog() {
         rootNode = FirebaseDatabase.getInstance();
         refNode = rootNode.getReference("AccountEntry");
+        DatabaseReference refNode = FirebaseDatabase.getInstance().getReference("Users");
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
         LayoutInflater factory = LayoutInflater.from(getActivity());
         View view2 = factory.inflate(R.layout.dialog_box, null);
         alertDialog.setView(view2);
+
         mainCategories = view2.findViewById(R.id.typeSpinner);
         subCategories = view2.findViewById(R.id.categorySpinner);
         amount = view2.findViewById(R.id.amountEt);
         save = view2.findViewById(R.id.saveBtn);
-
 
         final AlertDialog builder = alertDialog.create();
 
@@ -280,26 +288,20 @@ public class Home extends Fragment {
         // spinner for input output
         typeSpinner = view2.findViewById(R.id.typeSpinner);
         List<String> typeOfInput = new ArrayList<String>();
-        typeOfInput.add("Expense");
-        typeOfInput.add("Income");
-        ArrayAdapter<String> typeAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, typeOfInput);
-        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        typeSpinner.setAdapter(typeAdapter);
-
-        //spinner for categories
-        cateSpinner = view2.findViewById(R.id.categorySpinner);
         List<String> typeOfCategories = new ArrayList<>();
-        typeOfCategories.add("Bills");
-        typeOfCategories.add("Food");
-        typeOfCategories.add("Gas");
-        typeOfCategories.add("Entertainment");
-        typeOfCategories.add("Pay Check");
-        typeOfCategories.add("Savings");
-        typeOfCategories.add("Miscellaneous");
-        typeOfCategories.add("Lottery");
-        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, typeOfCategories);
-        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        cateSpinner.setAdapter(categoryAdapter);
+        addSpinnerListItems(typeOfInput, typeOfCategories);
+
+        if (getActivity() != null) {
+            ArrayAdapter<String> typeAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, typeOfInput);
+            typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            typeSpinner.setAdapter(typeAdapter);
+
+            //spinner for categories
+            cateSpinner = view2.findViewById(R.id.categorySpinner);
+            ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, typeOfCategories);
+            typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            cateSpinner.setAdapter(categoryAdapter);
+        }
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -308,16 +310,45 @@ public class Home extends Fragment {
 
             }
         });
+
+        refNode.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void addSpinnerListItems(List<String> typeOfInput, List<String> typeOfCategories) {
+        typeOfInput.add("Expense");
+        typeOfInput.add("Income");
+
+        typeOfCategories.add("Bills");
+        typeOfCategories.add("Food");
+        typeOfCategories.add("Gas");
+        typeOfCategories.add("Entertainment");
+        typeOfCategories.add("Pay Check");
+        typeOfCategories.add("Savings");
+        typeOfCategories.add("Miscellaneous");
+        typeOfCategories.add("Lottery");
     }
 
     public void addExpenses() {
-        String amountValue = amount.getText().toString();
-        String mainCategoriesValue = mainCategories.getSelectedItem().toString();
-        String subCategoriesValue = subCategories.getSelectedItem().toString();
-        DateFormat df = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z");
-        String date = df.format(Calendar.getInstance().getTime());
-//        final FirebaseUser Users = firebaseAuth.getCurrentUser();
+        amountValue = amount.getText().toString();
+        double amountDouble = Double.parseDouble(amountValue);
+        mainCategoryValue = mainCategories.getSelectedItem().toString();
+        subCategoryValue = subCategories.getSelectedItem().toString();
+        double currentBalanceDouble = 100.00;
 
+        passingModel passModel = new passingModel(mainCategoryValue,subCategoryValue,amountValue,timeStamp);
+
+        df = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z");
+        date = df.format(Calendar.getInstance().getTime());
         String day = date.substring(0, 3);
         String dayNum = date.substring(5, 6);
         String month = date.substring(7, 10);
@@ -325,17 +356,30 @@ public class Home extends Fragment {
         String hour = date.substring(16, 18);
         String min = date.substring(19, 21);
         String sec = date.substring(22, 24);
-        Timestamp timeStamp = new Timestamp(day, month, year, dayNum, hour, min, sec);
+        timeStamp = new Timestamp(day, month, year, dayNum, hour, min, sec);
         timeStamp.setDay(date.substring(0, 3));
         timeStamp.setMonth(date.substring(7, 10));
-        passingModel passModel = new passingModel(mainCategoriesValue,subCategoriesValue,amountValue,timeStamp);
+
+        String[] currentMonth = new String[]{date.substring(7, 10)};
+        String[] currentDay = new String[]{date.substring(0, 3)};
+        String[] currentDayNum = new String[]{date.substring(5, 6)};
+        String[] currentYear = new String[]{date.substring(11, 15)};
+        String[] currentHour = new String[]{date.substring(16, 18)};
+        String[] currentMin = new String[]{date.substring(19, 21)};
+        String[] currentSec = new String[]{date.substring(22, 24)};
+        String[] title = new String[]{"title"};
+        String[] mainCat = new String[]{mainCategoryValue};
+        String[] subCat = new String[]{subCategoryValue};
+
+        double[] currentAmountValue = new double[]{amountDouble};
+        double[] currentBalance = new double[]{currentBalanceDouble};
 
         String UserID = "pgnjJooFMAdnARk2LqV8pOFxGjs2";
 
-        if (!TextUtils.isEmpty(amountValue) && !TextUtils.isEmpty(mainCategoriesValue) && !TextUtils.isEmpty(subCategoriesValue)) {
+        if (!TextUtils.isEmpty(amountValue) && !TextUtils.isEmpty(mainCategoryValue) && !TextUtils.isEmpty(subCategoryValue)) {
 
             String ID = databaseReference.push().getKey();
-            passingModel PassingModel = new passingModel(mainCategoriesValue,subCategoriesValue,amountValue,timeStamp);
+            passingModel PassingModel = new passingModel(mainCategoryValue,subCategoryValue,amountValue,timeStamp);
             databaseReference.child(UserID).child("AccountEntry").child(ID).setValue(PassingModel);
             amount.setText(testList.get(testList.size()-5));
             Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
@@ -345,28 +389,11 @@ public class Home extends Fragment {
         }
 
         passModel.setAmount(amountValue);
-        passModel.setMainCategories(mainCategoriesValue);
-        passModel.setSubCategories(subCategoriesValue);
+        passModel.setMainCategories(mainCategoryValue);
+        passModel.setSubCategories(subCategoryValue);
 
-        String[] currentMonth = new String[]{date.substring(7, 10)};
-        String[] currentDay = new String[]{date.substring(0, 3)};
-        String[] currentDayNum = new String[]{date.substring(5, 6)};
-        String[] currentYear = new String[]{date.substring(11, 15)};
-        String[] currenHour = new String[]{date.substring(16, 18)};
-        String[] currentMin = new String[]{date.substring(19, 21)};
-        String[] currentSec = new String[]{date.substring(22, 24)};
-        String[] title = new String[]{"title"};
-        String[] mainCat = new String[]{mainCategoriesValue};
-        String[] subCat = new String[]{subCategoriesValue};
-        String[] currentAmountValue = new String[]{amountValue};
-        String[] currentBalance = new String[]{"100.00"};
-
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-        LayoutInflater factory = LayoutInflater.from(getActivity());
-        View view2 = factory.inflate(R.layout.analytics_log, null);
-
-//        AnalyticsLog analyticsLog = new AnalyticsLog();
-//        analyticsLog.setLogList(currentMonth, currentDay, title, subCat, mainCat, currentAmountValue, currentBalance);
+        AnalyticsLog analyticsLog = new AnalyticsLog();
+        analyticsLog.setLogListValues(currentDay, currentMonth, title, mainCat, subCat, currentAmountValue, currentBalance);
 
 //        Log log = new Log("day", "day", "test", "subCategory", "mainCategory", "amountValue", "100.00");
 //        ArrayList<Log> logList = new ArrayList<>();

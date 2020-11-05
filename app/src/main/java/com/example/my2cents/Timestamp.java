@@ -21,7 +21,7 @@ public class Timestamp {
     }
 
     public String getDay() {
-        return day;
+        return this.day;
     }
 
     public String getMonth() {
