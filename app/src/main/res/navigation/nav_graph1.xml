@@ -40,9 +40,9 @@
         tools:layout="@layout/fragment_notifications" />
     <fragment
         android:id="@+id/userSettings2"
-        android:name="com.example.my2cents.UserSettings"
+        android:name="com.example.my2cents.UsernameSettings"
         android:label="fragment_user_settings"
-        tools:layout="@layout/fragment_user_settings" />
+        tools:layout="@layout/fragment_username_settings" />
     <fragment
         android:id="@+id/passwordSettings2"
         android:name="com.example.my2cents.PasswordSettings"
