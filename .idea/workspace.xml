@@ -11,13 +11,19 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9c4741d8-9c48-4668-819f-abe1b3ac7ab3" name="Default Changelist" comment="">
+    <list default="true" id="9c4741d8-9c48-4668-819f-abe1b3ac7ab3" name="Default Changelist" comment="add database in charts page (not working yet)">
+      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/jarAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/my2cents/AnalyticsCharts.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/my2cents/AnalyticsCharts.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -105,7 +111,7 @@
       <recent name="$PROJECT_DIR$/app/src/main/res" />
     </key>
   </component>
-  <component name="RunManager" selected="Android JUnit.NewBalanceTest.getBalance">
+  <component name="RunManager" selected="Android App.app">
     <configuration name="AnalyticsLogTest.getBalance" type="AndroidJUnit" factoryName="Android JUnit" temporary="true" nameIsGenerated="true">
       <module name="app" />
       <extension name="coverage">
@@ -314,7 +320,14 @@
       <option name="project" value="LOCAL" />
       <updated>1603928300646</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Update dependencies versions and added few for database">
+      <created>1604778116365</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1604778116365</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -336,7 +349,9 @@
     <MESSAGE value="Add working search bar for log list" />
     <MESSAGE value="Fix issue with log list layout" />
     <MESSAGE value="Add method that calculates new balance" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add method that calculates new balance" />
+    <MESSAGE value="Update dependencies versions and added few for database" />
+    <MESSAGE value="add database in charts page (not working yet)" />
+    <option name="LAST_COMMIT_MESSAGE" value="add database in charts page (not working yet)" />
   </component>
   <component name="WindowStateProjectService">
     <state x="178" y="200" key="#PSD" timestamp="1601872331740">
@@ -373,11 +388,11 @@
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="575" y="316" key="AndroidCreateXmlResourceDialog/0.23.1440.877@0.23.1440.877" timestamp="1603342431701" />
-    <state x="397" y="75" key="CommitChangelistDialog2" timestamp="1603928300049">
+    <state x="158" y="76" width="1142" height="652" key="CommitChangelistDialog2" timestamp="1604783181764">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="397" y="75" key="CommitChangelistDialog2/-960.-15.960.681/0.23.1440.877@0.23.1440.877" timestamp="1603125184664" />
-    <state x="397" y="75" key="CommitChangelistDialog2/0.23.1440.877@0.23.1440.877" timestamp="1603928300049" />
+    <state x="158" y="76" width="1142" height="652" key="CommitChangelistDialog2/0.23.1440.877@0.23.1440.877" timestamp="1604783181764" />
     <state x="100" y="123" width="1240" height="677" key="DiffContextDialog" timestamp="1603341458463">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
@@ -387,36 +402,36 @@
       <screen x="0" y="0" width="3840" height="2160" />
     </state>
     <state x="2664" y="298" key="FileChooserDialogImpl/3840.0.2560.1440/0.0.3840.2160@0.0.3840.2160" timestamp="1600298443949" />
-    <state width="1398" height="230" key="GridCell.Tab.0.bottom" timestamp="1603770657923">
+    <state width="1262" height="230" key="GridCell.Tab.0.bottom" timestamp="1604782969683">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state width="1398" height="230" key="GridCell.Tab.0.bottom/-1280.23.1280.697/0.23.1440.877@0.23.1440.877" timestamp="1603341454623" />
     <state width="1874" height="606" key="GridCell.Tab.0.bottom/0.0.2560.1440/-3840.0.3840.2160@-3840.0.3840.2160" timestamp="1600503037246" />
-    <state width="1398" height="230" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1603770657923" />
+    <state width="1262" height="230" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1604782969683" />
     <state width="1858" height="283" key="GridCell.Tab.0.bottom/3840.0.2560.1440/0.0.3840.2160@0.0.3840.2160" timestamp="1600299794779" />
     <state width="1253" height="289" key="GridCell.Tab.0.bottom/3840.0.2560.1440/0.0.3840.2160@3840.0.2560.1440" timestamp="1600375130977" />
-    <state width="1398" height="230" key="GridCell.Tab.0.center" timestamp="1603770657923">
+    <state width="1262" height="230" key="GridCell.Tab.0.center" timestamp="1604782969682">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state width="1398" height="230" key="GridCell.Tab.0.center/-1280.23.1280.697/0.23.1440.877@0.23.1440.877" timestamp="1603341454622" />
     <state width="1874" height="606" key="GridCell.Tab.0.center/0.0.2560.1440/-3840.0.3840.2160@-3840.0.3840.2160" timestamp="1600503037246" />
-    <state width="1398" height="230" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1603770657923" />
+    <state width="1262" height="230" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1604782969682" />
     <state width="1858" height="283" key="GridCell.Tab.0.center/3840.0.2560.1440/0.0.3840.2160@0.0.3840.2160" timestamp="1600299794779" />
     <state width="1253" height="289" key="GridCell.Tab.0.center/3840.0.2560.1440/0.0.3840.2160@3840.0.2560.1440" timestamp="1600375130977" />
-    <state width="1398" height="230" key="GridCell.Tab.0.left" timestamp="1603770657923">
+    <state width="1262" height="230" key="GridCell.Tab.0.left" timestamp="1604782969682">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state width="1398" height="230" key="GridCell.Tab.0.left/-1280.23.1280.697/0.23.1440.877@0.23.1440.877" timestamp="1603341454622" />
     <state width="1874" height="606" key="GridCell.Tab.0.left/0.0.2560.1440/-3840.0.3840.2160@-3840.0.3840.2160" timestamp="1600503037246" />
-    <state width="1398" height="230" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1603770657923" />
+    <state width="1262" height="230" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1604782969682" />
     <state width="1858" height="283" key="GridCell.Tab.0.left/3840.0.2560.1440/0.0.3840.2160@0.0.3840.2160" timestamp="1600299794779" />
     <state width="1253" height="289" key="GridCell.Tab.0.left/3840.0.2560.1440/0.0.3840.2160@3840.0.2560.1440" timestamp="1600375130977" />
-    <state width="1398" height="230" key="GridCell.Tab.0.right" timestamp="1603770657923">
+    <state width="1262" height="230" key="GridCell.Tab.0.right" timestamp="1604782969683">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state width="1398" height="230" key="GridCell.Tab.0.right/-1280.23.1280.697/0.23.1440.877@0.23.1440.877" timestamp="1603341454623" />
     <state width="1874" height="606" key="GridCell.Tab.0.right/0.0.2560.1440/-3840.0.3840.2160@-3840.0.3840.2160" timestamp="1600503037246" />
-    <state width="1398" height="230" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1603770657923" />
+    <state width="1262" height="230" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1604782969683" />
     <state width="1858" height="283" key="GridCell.Tab.0.right/3840.0.2560.1440/0.0.3840.2160@0.0.3840.2160" timestamp="1600299794779" />
     <state width="1253" height="289" key="GridCell.Tab.0.right/3840.0.2560.1440/0.0.3840.2160@3840.0.2560.1440" timestamp="1600375130977" />
     <state width="1398" height="285" key="GridCell.Tab.1.bottom" timestamp="1603760042696">
@@ -444,11 +459,11 @@
     </state>
     <state x="228" y="190" key="RollbackChangesDialog/-1280.23.1280.697/0.23.1440.877@0.23.1440.877" timestamp="1603341292102" />
     <state x="228" y="190" key="RollbackChangesDialog/0.23.1440.877@0.23.1440.877" timestamp="1603349410670" />
-    <state x="443" y="178" key="SettingsEditor" timestamp="1603928168202">
+    <state x="443" y="178" key="SettingsEditor" timestamp="1604778325758">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="-1459" y="1265" key="SettingsEditor/0.0.2560.1440/-3840.0.3840.2160@-3840.0.3840.2160" timestamp="1600512250484" />
-    <state x="443" y="178" key="SettingsEditor/0.23.1440.877@0.23.1440.877" timestamp="1603928168202" />
+    <state x="443" y="178" key="SettingsEditor/0.23.1440.877@0.23.1440.877" timestamp="1604778325758" />
     <state x="47" y="201" key="Vcs.Push.Dialog.v2" timestamp="1604778044400">
       <screen x="0" y="23" width="1440" height="877" />
     </state>

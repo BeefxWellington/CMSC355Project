@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -22,6 +23,11 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -33,6 +39,14 @@ public class AnalyticsCharts extends Fragment {
     BarChart barChart;
     LineChart lineChart;
     ScrollView scrollView;
+    DatabaseReference databaseReference;
+    DatabaseReference userRef;
+    String UserID;
+    String type;
+    String category;
+    ArrayList<String> categoryList;
+    ArrayList<Float> categoryAmount;
+    float amount;
 
     public AnalyticsCharts() {
         // Required empty public constructor
@@ -47,8 +61,31 @@ public class AnalyticsCharts extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.analytics_charts, container, false);
-
         scrollView = v.findViewById(R.id.chartScroll);
+
+        setCategoryList();
+
+        UserID = "pgnjJooFMAdnARk2LqV8pOFxGjs2";
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+        userRef = FirebaseDatabase.getInstance().getReference("Users").child(UserID).child("Account Entry");
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    type = dataSnapshot.child("mainCategories").getValue(String.class);
+                    category = dataSnapshot.child("subCategories").getValue(String.class);
+                    amount = Float.parseFloat(dataSnapshot.child("amount").getValue(String.class));
+                    if (type.equals("Expense")){
+                        calculateTotalCategoryExpenses(category, amount);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         setPieChart();
         setBarChart();
@@ -58,11 +95,48 @@ public class AnalyticsCharts extends Fragment {
         return v;
     }
 
+    public void calculateTotalCategoryExpenses(String category, float amount){
+        categoryAmount = new ArrayList<>(categoryList.size());
+        for (int i = 0; i < categoryList.size(); i++){
+            if (category.equals(categoryList.get(i))){
+                categoryAmount.set(i, categoryAmount.get(i) + amount);
+                break;
+            }
+            else {
+                i++;
+            }
+        }
+    }
+
+    public void setCategoryList() {
+        categoryList = new ArrayList<>();
+        categoryList.add("Bills");
+        categoryList.add("Food");
+        categoryList.add("Gas");
+        categoryList.add("Entertainment");
+        categoryList.add("Paycheck");
+        categoryList.add("Savings");
+        categoryList.add("Miscellaneous");
+        categoryList.add("Lottery");
+    }
+
 
     public void setPieChart() {
         pieChart = v.findViewById(R.id.pieChart);
+        float totalExpenses = 0;
+        for (int i = 0; i < categoryAmount.size(); i++){
+            totalExpenses += categoryAmount.get(i);
+        }
+
+
 
         ArrayList<PieEntry> categories = new ArrayList<>();
+        if (totalExpenses != 0){
+            for (int i = 0; i < categoryList.size(); i++) {
+                categories.add(new PieEntry((categoryAmount.get(i) / totalExpenses), categoryList.get(i)));
+            }
+        }
+        /*
         categories.add(new PieEntry(15.3f, "Food"));
         categories.add(new PieEntry(8.2f, "Clothing"));
         categories.add(new PieEntry(19.4f, "Grocery"));
@@ -70,6 +144,8 @@ public class AnalyticsCharts extends Fragment {
         categories.add(new PieEntry(17.2f, "Utilities"));
         categories.add(new PieEntry(28.6f, "Rent"));
         categories.add(new PieEntry(5.5f, "Others"));
+
+         */
 
         PieDataSet pieDataSet = new PieDataSet(categories, "Categories");
         pieDataSet.setColors(ColorTemplate.PASTEL_COLORS);
