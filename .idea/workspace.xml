@@ -12,7 +12,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9c4741d8-9c48-4668-819f-abe1b3ac7ab3" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/my2cents/AnalyticsCharts.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/my2cents/AnalyticsCharts.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +82,7 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/test/java/com/example/my2cents" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res" />
-    <property name="memory.settings.postsync.last.time.stamp" value="1603853902474" />
+    <property name="memory.settings.postsync.last.time.stamp" value="1604776314004" />
     <property name="project.structure.last.edited" value="Dependencies" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -443,12 +449,12 @@
     </state>
     <state x="-1459" y="1265" key="SettingsEditor/0.0.2560.1440/-3840.0.3840.2160@-3840.0.3840.2160" timestamp="1600512250484" />
     <state x="443" y="178" key="SettingsEditor/0.23.1440.877@0.23.1440.877" timestamp="1603928168202" />
-    <state x="47" y="201" key="Vcs.Push.Dialog.v2" timestamp="1603928393327">
+    <state x="47" y="201" key="Vcs.Push.Dialog.v2" timestamp="1604778044400">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="47" y="201" key="Vcs.Push.Dialog.v2/-1280.23.1280.697/0.23.1440.877@0.23.1440.877" timestamp="1603341297317" />
     <state x="47" y="201" key="Vcs.Push.Dialog.v2/-960.-15.960.681/0.23.1440.877@0.23.1440.877" timestamp="1603124987412" />
-    <state x="47" y="201" key="Vcs.Push.Dialog.v2/0.23.1440.877@0.23.1440.877" timestamp="1603928393327" />
+    <state x="47" y="201" key="Vcs.Push.Dialog.v2/0.23.1440.877@0.23.1440.877" timestamp="1604778044400" />
     <state x="364" y="202" key="VcsDiffUtil.ChangesDialog" timestamp="1603341395900">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
@@ -468,12 +474,12 @@
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="100" y="123" width="1240" height="677" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.23.1440.877@0.23.1440.877" timestamp="1602735109567" />
-    <state x="691" y="468" key="com.intellij.ide.util.TipDialog" timestamp="1603928180093">
+    <state x="691" y="468" key="com.intellij.ide.util.TipDialog" timestamp="1604776293918">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="781" y="565" key="com.intellij.ide.util.TipDialog/-1280.23.1280.697/0.23.1440.877@0.23.1440.877" timestamp="1603335983622" />
     <state x="-1324" y="1447" key="com.intellij.ide.util.TipDialog/0.0.2560.1440/-3840.0.3840.2160@-3840.0.3840.2160" timestamp="1600487527914" />
-    <state x="691" y="468" key="com.intellij.ide.util.TipDialog/0.23.1440.877@0.23.1440.877" timestamp="1603928180093" />
+    <state x="691" y="468" key="com.intellij.ide.util.TipDialog/0.23.1440.877@0.23.1440.877" timestamp="1604776293918" />
     <state x="2516" y="1447" key="com.intellij.ide.util.TipDialog/3840.0.2560.1440/0.0.3840.2160@0.0.3840.2160" timestamp="1600557389289" />
     <state x="2516" y="1447" key="com.intellij.ide.util.TipDialog/3840.0.2560.1440/0.0.3840.2160@3840.0.2560.1440" timestamp="1600367327601" />
     <state x="576" y="195" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1603928938631">
@@ -488,18 +494,18 @@
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="453" y="181" key="git4idea.branch.GitSmartOperationDialog/0.23.1440.877@0.23.1440.877" timestamp="1603920957516" />
-    <state x="359" y="260" key="git4idea.merge.GitPullDialog" timestamp="1603928354928">
+    <state x="359" y="260" key="git4idea.merge.GitPullDialog" timestamp="1604776328633">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="359" y="260" key="git4idea.merge.GitPullDialog/-1280.23.1280.697/0.23.1440.877@0.23.1440.877" timestamp="1603341317418" />
-    <state x="359" y="260" key="git4idea.merge.GitPullDialog/0.23.1440.877@0.23.1440.877" timestamp="1603928354928" />
+    <state x="359" y="260" key="git4idea.merge.GitPullDialog/0.23.1440.877@0.23.1440.877" timestamp="1604776328633" />
     <state x="200" y="211" key="psd.add.library.dependency.panel.dimension" timestamp="1601872326537">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="200" y="211" key="psd.add.library.dependency.panel.dimension/0.23.1440.877@0.23.1440.877" timestamp="1601872326537" />
-    <state x="385" y="213" width="670" height="676" key="search.everywhere.popup" timestamp="1603769698755">
+    <state x="385" y="213" width="670" height="676" key="search.everywhere.popup" timestamp="1604777971855">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state x="385" y="213" width="670" height="676" key="search.everywhere.popup/0.23.1440.877@0.23.1440.877" timestamp="1603769698755" />
+    <state x="385" y="213" width="670" height="676" key="search.everywhere.popup/0.23.1440.877@0.23.1440.877" timestamp="1604777971855" />
   </component>
 </project>
