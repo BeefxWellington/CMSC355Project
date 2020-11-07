@@ -1,10 +1,10 @@
 package com.example.my2cents;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.content.Intent;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashScreen extends AppCompatActivity {
     Handler handler;
@@ -13,6 +13,8 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
+        final int SPLASH_SCREEN_DISPLAY_TIME = 2750;
 
         // the below schedules the splash appearance
         handler = new Handler();
@@ -24,7 +26,7 @@ public class SplashScreen extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        },2750); // 2.75 seconds
+        },SPLASH_SCREEN_DISPLAY_TIME); // 2.75 seconds
 
     }
 }
