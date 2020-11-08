@@ -21,7 +21,7 @@ public class Onboarding extends AppCompatActivity {
         finish();
     }
 
- // the next button should move to the next display
+ // the next button should move to the next tutorial screen
     public void next(View view) {
     }
 }
