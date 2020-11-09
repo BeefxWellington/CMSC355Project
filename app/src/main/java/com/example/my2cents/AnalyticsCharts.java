@@ -74,9 +74,10 @@ public class AnalyticsCharts extends Fragment {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     type = dataSnapshot.child("mainCategories").getValue(String.class);
                     category = dataSnapshot.child("subCategories").getValue(String.class);
-                    amount = Float.parseFloat(dataSnapshot.child("amount").getValue(String.class));
+                    amount = (float) (dataSnapshot.child("amount").getValue());
                     if (type.equals("Expense")){
                         calculateTotalCategoryExpenses(category, amount);
+                        setPieChart();
                     }
                 }
             }
@@ -87,7 +88,7 @@ public class AnalyticsCharts extends Fragment {
             }
         });
 
-        setPieChart();
+
         setBarChart();
         setLineChart();
 
