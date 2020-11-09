@@ -1,7 +1,11 @@
 package com.example.my2cents;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -210,5 +215,26 @@ public class Home extends Fragment {
         }
         String newBalanceAmount;
         balanceAmount.setText(Integer.toString(balance));
+    }
+
+    public void notification(String message) {
+        NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            String channelId = "notification";
+            NotificationChannel notificationChannel = null;
+            notificationChannel = new NotificationChannel(channelId, "NOTIFICATION_CHANNEL_NAME", NotificationManager.IMPORTANCE_DEFAULT);
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
+
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getActivity(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext())
+                .setSmallIcon(R.drawable.notif_icon)
+                .setContentTitle("My2Cents")
+                .setContentText(message)
+                .setAutoCancel(true)
+                .setContentIntent(pendingIntent);
+        notificationManager.notify(0, builder.build());
     }
 }
