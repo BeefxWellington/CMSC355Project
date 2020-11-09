@@ -380,7 +380,7 @@ public class Home extends Fragment {
 
             String ID = databaseReference.push().getKey();
             passingModel PassingModel = new passingModel(mainCategoryValue,subCategoryValue,amountValue,timeStamp);
-            databaseReference.child(UserID).child("AccountEntry").child(ID).setValue(PassingModel);
+            //databaseReference.child(UserID).child("AccountEntry").child(ID).setValue(PassingModel);
             amount.setText(testList.get(testList.size()-5));
             Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
         }
@@ -392,8 +392,8 @@ public class Home extends Fragment {
         passModel.setMainCategories(mainCategoryValue);
         passModel.setSubCategories(subCategoryValue);
 
-        AnalyticsLog analyticsLog = new AnalyticsLog();
-        analyticsLog.setLogListValues(currentDay, currentMonth, title, mainCat, subCat, currentAmountValue, currentBalance);
+//        AnalyticsLog analyticsLog = new AnalyticsLog();
+//        analyticsLog.setLogListValues(currentDay, currentMonth, title, mainCat, subCat, currentAmountValue, currentBalance);
 
 //        Log log = new Log("day", "day", "test", "subCategory", "mainCategory", "amountValue", "100.00");
 //        ArrayList<Log> logList = new ArrayList<>();

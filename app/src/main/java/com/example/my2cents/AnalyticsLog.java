@@ -3,15 +3,21 @@ package com.example.my2cents;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.View;
+import android.view.*;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SearchView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import com.google.firebase.database.*;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class AnalyticsLog extends Fragment {
@@ -29,6 +35,17 @@ public class AnalyticsLog extends Fragment {
     double[] balance;
     ArrayList<Log> logList;
     ArrayList<Log> filteredLog;
+    LogListAdapter adapter;
+
+    DatabaseReference userRef;
+    passingModel passingmodel;
+    private DateFormat df;
+    private String date;
+    Timestamp timeStamp;
+    String dbAmount;
+    String dbMainCat;
+    String dbSubCat;
+    final private ArrayList<passingModel> testList = new ArrayList<>();
 
     public AnalyticsLog(){
     }
@@ -44,8 +61,51 @@ public class AnalyticsLog extends Fragment {
 
         this.v = inflater.inflate(R.layout.analytics_log, container, false);
 
-        searchView = (SearchView) v.findViewById(R.id.logSearch);
-        listView = (ListView) v.findViewById(R.id.logListView);
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Users");
+        searchView = v.findViewById(R.id.logSearch);
+        listView = v.findViewById(R.id.logListView);
+
+        df = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z");
+        date = df.format(Calendar.getInstance().getTime());
+        String currentDay = date.substring(0, 3);
+        String dayNum = date.substring(5, 6);
+        String currentMonth = date.substring(7, 10);
+        String year = date.substring(11, 15);
+        String hour = date.substring(16, 18);
+        String min = date.substring(19, 21);
+        String sec = date.substring(22, 24);
+        this.timeStamp.setDay(date.substring(0, 3));
+        this.timeStamp.setMonth(date.substring(7, 10));
+
+        timeStamp = new Timestamp(currentDay, currentMonth, year, dayNum, hour, min, sec);
+        dbAmount = "100.00";
+        dbMainCat = "Test";
+        dbSubCat = "Test";
+        passingmodel = new passingModel(dbMainCat, dbSubCat, dbAmount, this.timeStamp);
+        String UserID = "pgnjJooFMAdnARk2LqV8pOFxGjs2";
+        String ID = dbRef.push().getKey();
+        userRef.child(UserID).child("AccountEntry").child(ID).setValue(passingmodel);
+
+        userRef = FirebaseDatabase.getInstance().getReference("Users").child(UserID).child("AccountEntry");
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                testList.clear();
+                for (DataSnapshot datasnapshot1 : snapshot.getChildren()) {
+                    dbAmount = datasnapshot1.child("amount").getValue(String.class);
+                    dbMainCat = datasnapshot1.child("mainCategories").getValue(String.class);
+                    dbSubCat = datasnapshot1.child("subCategories").getValue(String.class);
+                    passingmodel = new passingModel(dbMainCat, dbSubCat, dbAmount, timeStamp);
+                    testList.add(passingmodel);
+                }
+                //listAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         setLogList();
         searchLog();
@@ -54,20 +114,17 @@ public class AnalyticsLog extends Fragment {
         return v;
     }
 
-    public void setLogListValues(String[] currentMonth, String[] currentDay, String[] title, String[] subCat, String[] mainCat, double[] currentAmount, double[] currentBalance) {
-        this.month = currentMonth;
-        this.day = currentDay;
-        this.title = title;
-        this.category = mainCat;
-        this.type = subCat;
-        this.amount = currentAmount;
-        this.balance = currentBalance;
+    public void setLogListValues(String[] currentMonth, String[] currentDay, String[] currenttitle, String[] subCat, String[] mainCat, double[] currentAmount, double[] currentBalance) {
+        month = currentMonth;
+        day = currentDay;
+        title = currenttitle;
+        category = mainCat;
+        type = subCat;
+        amount = currentAmount;
+        balance = currentBalance;
 
-        this.searchView =  (SearchView) this.v.findViewById(R.id.logSearch);
-        listView = (ListView) this.v.findViewById(R.id.logListView);
-
-        setLogList();
-        searchLog();
+//        setLogList();
+//        searchLog();
     }
 
     private void setLogList()  {
@@ -79,6 +136,16 @@ public class AnalyticsLog extends Fragment {
 //        type = new String[]{"Deduction", "Deduction", "Incoming", "Deduction", "Deduction", "Deduction", "Deduction", "Deduction", "Deduction", "Incoming"};
 //        amount = new double[]{15.50, 32.25, 800, 15.99, 32.75, 3.75, 145.50, 75.90, 45.75, 800};
 //        balance = new double[]{784.5, 752.25, 1552.25, 1536.26, 1503.51, 1499.76, 1354.26, 1278.36, 1232.61, 2032.61};
+
+        passingmodel = testList.get(testList.size()-1);
+        timeStamp = passingmodel.getTimeStamp();
+        month = new String[]{timeStamp.getMonth()};
+        day = new String[]{timeStamp.getDay()};
+        title = new String[]{"test"};
+        category = new String[]{passingmodel.getMainCategories()};
+        type = new String[]{passingmodel.getSubCategories()};
+        amount = new double[]{Double.parseDouble(passingmodel.getAmount())};
+        amount = new double[]{100.00};
 
         reverseStringArray(month, month.length);
         reverseStringArray(day, day.length);
@@ -93,7 +160,7 @@ public class AnalyticsLog extends Fragment {
             Log log = new Log(this.month[i], this.day[i], this.title[i], this.category[i], this.type[i], String.format("%.2f", this.amount[i]), String.format("%.2f", this.balance[i]));
             logList.add(log);
         }
-        LogListAdapter adapter = new LogListAdapter(this.getContext(), R.layout.analytics_log_list, logList);
+        adapter = new LogListAdapter(this.getContext(), R.layout.analytics_log_list, logList);
         listView.setAdapter(adapter);
     }
 
