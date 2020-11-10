@@ -19,7 +19,9 @@
         android:layout_marginLeft="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="UseSwitchCompatOrMaterialXml" />
+        tools:ignore="UseSwitchCompatOrMaterialXml"
+        android:checked="true"
+        android:theme="@style/Switch"/>
 
     <Switch
         android:id="@+id/switch2"
@@ -28,12 +30,14 @@
         android:layout_marginLeft="40dp"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/avenirregular"
-        android:text="Incoming Deposits"
+        android:text="Income Added"
         android:textColor="@android:color/secondary_text_light"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switch1"
-        tools:ignore="UseSwitchCompatOrMaterialXml" />
+        tools:ignore="UseSwitchCompatOrMaterialXml"
+        android:checked="true"
+        android:theme="@style/Switch"/>
 
     <Switch
         android:id="@+id/switch3"
@@ -42,26 +46,15 @@
         android:layout_marginLeft="40dp"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/avenirregular"
-        android:text="Upcoming Bills"
+        android:text="Expense Deducted"
         android:textColor="@android:color/secondary_text_light"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switch2"
-        tools:ignore="UseSwitchCompatOrMaterialXml" />
+        tools:ignore="UseSwitchCompatOrMaterialXml"
+        android:checked="true"
+        android:theme="@style/Switch"/>
 
-    <Switch
-        android:id="@+id/switch4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/avenirregular"
-        android:text="Money Deducted"
-        android:textColor="@android:color/secondary_text_light"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch3"
-        tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     <Button
         android:id="@+id/savenotifications"
@@ -75,7 +68,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch4" />
+        app:layout_constraintTop_toBottomOf="@+id/switch3" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
