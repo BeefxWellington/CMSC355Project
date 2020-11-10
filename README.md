@@ -1,4 +1,3 @@
 # CMSC355Project
-A change from Colden
-In class activity - DHruv
-Dana commit
+
+Crab icon made using icons by https://www.flaticon.com/authors/freepik from https://www.flaticon.com/
