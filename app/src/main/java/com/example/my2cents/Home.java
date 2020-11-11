@@ -39,6 +39,8 @@ import java.util.*;
 
 public class Home extends Fragment {
 
+    private static Home home;
+
     ViewPager viewPager;
     HomeAdapter adapter;
     List<HomeModel> models;
@@ -65,7 +67,7 @@ public class Home extends Fragment {
     FirebaseDatabase rootNode;
     DatabaseReference refNode;
     Query checkData;
-    final private ArrayList<String> testList = new ArrayList<>();
+    final public ArrayList<passingModel> testList = new ArrayList<>();
     private String day;
     private String dayNum;
     private String month;
@@ -81,9 +83,20 @@ public class Home extends Fragment {
     private String mainCategoryValue;
     private String subCategoryValue;
 
+    private String dbAmount;
+    private String dbMainCat;
+    private String dbSubCat;
     private ListView listView;
+    private passingModel passModel;
 
     public Home() {
+        if (home != null) {
+            try {
+                throw new Exception("test home message");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -107,13 +120,30 @@ public class Home extends Fragment {
 //        //firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
         userRef = FirebaseDatabase.getInstance().getReference("Users").child(UserID).child("AccountEntry");
+
+        df = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z");
+        date = df.format(Calendar.getInstance().getTime());
+        String currentDay = date.substring(0, 3);
+        String dayNum = date.substring(5, 6);
+        String currentMonth = date.substring(7, 10);
+        String year = date.substring(11, 15);
+        String hour = date.substring(16, 18);
+        String min = date.substring(19, 21);
+        String sec = date.substring(22, 24);
+        timeStamp = new Timestamp(currentDay, currentMonth, year, dayNum, hour, min, sec);
+        this.timeStamp.setDay(date.substring(0, 3));
+        this.timeStamp.setMonth(date.substring(7, 10));
+
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 testList.clear();
                 for (DataSnapshot datasnapshot1 : snapshot.getChildren()) {
-                    String day = datasnapshot1.child("amount").getValue(String.class);
-                    testList.add(day);
+                    dbAmount = datasnapshot1.child("amount").getValue(String.class);
+                    dbMainCat = datasnapshot1.child("mainCategories").getValue(String.class);
+                    dbSubCat = datasnapshot1.child("subCategories").getValue(String.class);
+                    passModel = new passingModel(dbMainCat, dbSubCat, dbAmount, timeStamp);
+                    testList.add(passModel);
                 }
                 //listAdapter.notifyDataSetChanged();
             }
@@ -138,6 +168,9 @@ public class Home extends Fragment {
         //Connect dots indicator to pager
         tabLayout = v.findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager, true);
+
+        AnalyticsLog analyticsLog = AnalyticsLog.getInstance();
+        analyticsLog.setTestList(testList);
 //
 //
 //        amountBalance = v.findViewById(R.id.balanceAmount);
@@ -354,8 +387,8 @@ public class Home extends Fragment {
         String month = date.substring(7, 10);
         String year = date.substring(11, 15);
         String hour = date.substring(16, 18);
-        String min = date.substring(19, 21);
-        String sec = date.substring(22, 24);
+        String min = date.substring(20, 22);
+        String sec = date.substring(23, 25);
         timeStamp = new Timestamp(day, month, year, dayNum, hour, min, sec);
         timeStamp.setDay(date.substring(0, 3));
         timeStamp.setMonth(date.substring(7, 10));
@@ -380,8 +413,8 @@ public class Home extends Fragment {
 
             String ID = databaseReference.push().getKey();
             passingModel PassingModel = new passingModel(mainCategoryValue,subCategoryValue,amountValue,timeStamp);
-            //databaseReference.child(UserID).child("AccountEntry").child(ID).setValue(PassingModel);
-            amount.setText(testList.get(testList.size()-5));
+            databaseReference.child(UserID).child("AccountEntry").child(ID).setValue(PassingModel);
+            //amount.setText(testList.get((testList.size()-5)).getAmount());
             Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
         }
         else {
@@ -392,8 +425,9 @@ public class Home extends Fragment {
         passModel.setMainCategories(mainCategoryValue);
         passModel.setSubCategories(subCategoryValue);
 
-//        AnalyticsLog analyticsLog = new AnalyticsLog();
-//        analyticsLog.setLogListValues(currentDay, currentMonth, title, mainCat, subCat, currentAmountValue, currentBalance);
+//        AnalyticsLog analyticsLog = AnalyticsLog.getInstance();
+//        analyticsLog.setTestList(testList);
+        //analyticsLog.setLogListValues(currentDay, currentMonth, title, mainCat, subCat, currentAmountValue, currentBalance);
 
 //        Log log = new Log("day", "day", "test", "subCategory", "mainCategory", "amountValue", "100.00");
 //        ArrayList<Log> logList = new ArrayList<>();
@@ -405,6 +439,17 @@ public class Home extends Fragment {
 
     public void retrieveData(DatabaseReference userRef) {
 
+    }
+
+    public ArrayList<passingModel> getTestList() {
+        return testList;
+    }
+
+    public static Home getInstance() {
+        if (home == null) {
+            home = new Home();
+        }
+        return home;
     }
 
 }

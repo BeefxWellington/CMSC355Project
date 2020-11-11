@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.firebase.database.*;
 
+import java.sql.Ref;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,9 +23,12 @@ import java.util.List;
 
 public class AnalyticsLog extends Fragment {
 
+    private static AnalyticsLog analyticsLog;
+
     View v;
     SearchView searchView;
     ListView listView;
+    String searchItem;
 
     String[] month;
     String[] day;
@@ -45,9 +49,23 @@ public class AnalyticsLog extends Fragment {
     String dbAmount;
     String dbMainCat;
     String dbSubCat;
-    final private ArrayList<passingModel> testList = new ArrayList<>();
+    private ArrayList<passingModel> testList = new ArrayList<>();
+
+    private Home home;
+    private ArrayList<passingModel> useList;
+    private analytics analyticsObject;
 
     public AnalyticsLog(){
+        if (analyticsLog != null) {
+            try {
+                throw new Exception("test message");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            analyticsLog = this;
+        }
     }
 
     @Override
@@ -74,27 +92,28 @@ public class AnalyticsLog extends Fragment {
         String hour = date.substring(16, 18);
         String min = date.substring(19, 21);
         String sec = date.substring(22, 24);
+
+
+        timeStamp = new Timestamp(currentDay, currentMonth, year, dayNum, hour, min, sec);
         this.timeStamp.setDay(date.substring(0, 3));
         this.timeStamp.setMonth(date.substring(7, 10));
 
-        timeStamp = new Timestamp(currentDay, currentMonth, year, dayNum, hour, min, sec);
         dbAmount = "100.00";
         dbMainCat = "Test";
         dbSubCat = "Test";
         passingmodel = new passingModel(dbMainCat, dbSubCat, dbAmount, this.timeStamp);
         String UserID = "pgnjJooFMAdnARk2LqV8pOFxGjs2";
         String ID = dbRef.push().getKey();
-        userRef.child(UserID).child("AccountEntry").child(ID).setValue(passingmodel);
 
         userRef = FirebaseDatabase.getInstance().getReference("Users").child(UserID).child("AccountEntry");
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 testList.clear();
-                for (DataSnapshot datasnapshot1 : snapshot.getChildren()) {
-                    dbAmount = datasnapshot1.child("amount").getValue(String.class);
-                    dbMainCat = datasnapshot1.child("mainCategories").getValue(String.class);
-                    dbSubCat = datasnapshot1.child("subCategories").getValue(String.class);
+                for (DataSnapshot datasnapshot : snapshot.getChildren()) {
+                    dbAmount = datasnapshot.child("amount").getValue(String.class);
+                    dbMainCat = datasnapshot.child("mainCategories").getValue(String.class);
+                    dbSubCat = datasnapshot.child("subCategories").getValue(String.class);
                     passingmodel = new passingModel(dbMainCat, dbSubCat, dbAmount, timeStamp);
                     testList.add(passingmodel);
                 }
@@ -112,6 +131,10 @@ public class AnalyticsLog extends Fragment {
 
         // Inflate the layout for this fragment
         return v;
+    }
+
+    public void setTestList(ArrayList<passingModel> newTestList) {
+        testList = newTestList;
     }
 
     public void setLogListValues(String[] currentMonth, String[] currentDay, String[] currenttitle, String[] subCat, String[] mainCat, double[] currentAmount, double[] currentBalance) {
@@ -137,15 +160,23 @@ public class AnalyticsLog extends Fragment {
 //        amount = new double[]{15.50, 32.25, 800, 15.99, 32.75, 3.75, 145.50, 75.90, 45.75, 800};
 //        balance = new double[]{784.5, 752.25, 1552.25, 1536.26, 1503.51, 1499.76, 1354.26, 1278.36, 1232.61, 2032.61};
 
-        passingmodel = testList.get(testList.size()-1);
+        home = Home.getInstance();
+        analyticsObject = analytics.getInstance();
+        useList = testList;
+
+        this.logList = new ArrayList<>();
+        for (int i = 0; i < (useList.size()-1); i++) {
+
+        passingmodel = useList.get(i);
         timeStamp = passingmodel.getTimeStamp();
+
         month = new String[]{timeStamp.getMonth()};
         day = new String[]{timeStamp.getDay()};
         title = new String[]{"test"};
         category = new String[]{passingmodel.getMainCategories()};
         type = new String[]{passingmodel.getSubCategories()};
         amount = new double[]{Double.parseDouble(passingmodel.getAmount())};
-        amount = new double[]{100.00};
+        balance = new double[]{100.00};
 
         reverseStringArray(month, month.length);
         reverseStringArray(day, day.length);
@@ -155,9 +186,8 @@ public class AnalyticsLog extends Fragment {
         reverseDoubleArray(amount, amount.length);
         reverseDoubleArray(balance, balance.length);
 
-        this.logList = new ArrayList<>();
-        for (int i = 0; i < 1; i++){
-            Log log = new Log(this.month[i], this.day[i], this.title[i], this.category[i], this.type[i], String.format("%.2f", this.amount[i]), String.format("%.2f", this.balance[i]));
+
+            Log log = new Log(this.month[0], this.day[0], this.title[0], this.category[0], this.type[0], String.format("%.2f", this.amount[0]), String.format("%.2f", this.balance[0]));
             logList.add(log);
         }
         adapter = new LogListAdapter(this.getContext(), R.layout.analytics_log_list, logList);
@@ -224,6 +254,13 @@ public class AnalyticsLog extends Fragment {
             newBalance = balance - amount;
         }
         return newBalance;
+    }
+
+    public static AnalyticsLog getInstance() {
+        if (analyticsLog == null) {
+            analyticsLog = new AnalyticsLog();
+        }
+        return analyticsLog;
     }
 
 }
