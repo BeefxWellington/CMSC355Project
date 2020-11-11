@@ -28,7 +28,6 @@ public class AnalyticsLog extends Fragment {
     View v;
     SearchView searchView;
     ListView listView;
-    String searchItem;
 
     String[] month;
     String[] day;
@@ -41,14 +40,8 @@ public class AnalyticsLog extends Fragment {
     ArrayList<Log> filteredLog;
     LogListAdapter adapter;
 
-    DatabaseReference userRef;
     passingModel passingmodel;
-    private DateFormat df;
-    private String date;
     Timestamp timeStamp;
-    String dbAmount;
-    String dbMainCat;
-    String dbSubCat;
     private ArrayList<passingModel> testList = new ArrayList<>();
 
     private Home home;
@@ -79,52 +72,8 @@ public class AnalyticsLog extends Fragment {
 
         this.v = inflater.inflate(R.layout.analytics_log, container, false);
 
-        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Users");
         searchView = v.findViewById(R.id.logSearch);
         listView = v.findViewById(R.id.logListView);
-
-        df = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z");
-        date = df.format(Calendar.getInstance().getTime());
-        String currentDay = date.substring(0, 3);
-        String dayNum = date.substring(5, 6);
-        String currentMonth = date.substring(7, 10);
-        String year = date.substring(11, 15);
-        String hour = date.substring(16, 18);
-        String min = date.substring(19, 21);
-        String sec = date.substring(22, 24);
-
-
-        timeStamp = new Timestamp(currentDay, currentMonth, year, dayNum, hour, min, sec);
-        this.timeStamp.setDay(date.substring(0, 3));
-        this.timeStamp.setMonth(date.substring(7, 10));
-
-        dbAmount = "100.00";
-        dbMainCat = "Test";
-        dbSubCat = "Test";
-        passingmodel = new passingModel(dbMainCat, dbSubCat, dbAmount, this.timeStamp);
-        String UserID = "pgnjJooFMAdnARk2LqV8pOFxGjs2";
-        String ID = dbRef.push().getKey();
-
-        userRef = FirebaseDatabase.getInstance().getReference("Users").child(UserID).child("AccountEntry");
-        userRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                testList.clear();
-                for (DataSnapshot datasnapshot : snapshot.getChildren()) {
-                    dbAmount = datasnapshot.child("amount").getValue(String.class);
-                    dbMainCat = datasnapshot.child("mainCategories").getValue(String.class);
-                    dbSubCat = datasnapshot.child("subCategories").getValue(String.class);
-                    passingmodel = new passingModel(dbMainCat, dbSubCat, dbAmount, timeStamp);
-                    testList.add(passingmodel);
-                }
-                //listAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
         setLogList();
         searchLog();
@@ -137,6 +86,10 @@ public class AnalyticsLog extends Fragment {
         testList = newTestList;
     }
 
+    public void setBalance(double[] newSetBalance) {
+        balance = newSetBalance;
+    }
+
     public void setLogListValues(String[] currentMonth, String[] currentDay, String[] currenttitle, String[] subCat, String[] mainCat, double[] currentAmount, double[] currentBalance) {
         month = currentMonth;
         day = currentDay;
@@ -145,20 +98,9 @@ public class AnalyticsLog extends Fragment {
         type = subCat;
         amount = currentAmount;
         balance = currentBalance;
-
-//        setLogList();
-//        searchLog();
     }
 
     private void setLogList()  {
-
-//        month = new String[]{"AUG", "AUG", "AUG", "SEP", "SEP", "SEP", "SEP", "SEP", "OCT", "OCT"};
-//        day = new String[]{"18", "21", "28", "03", "11", "19", "23", "29", "05", "13"};
-//        title = new String[]{"Book", "Shirt", "Paycheck", "Netflix", "Gas", "Eggs", "Electricity", "Water", "Sneakers", "Paycheck"};
-//        category = new String[]{"Others", "Clothing", "Income", "Others", "Transportation", "Grocery", "Utilities", "Utilities", "Clothing", "Income"};
-//        type = new String[]{"Deduction", "Deduction", "Incoming", "Deduction", "Deduction", "Deduction", "Deduction", "Deduction", "Deduction", "Incoming"};
-//        amount = new double[]{15.50, 32.25, 800, 15.99, 32.75, 3.75, 145.50, 75.90, 45.75, 800};
-//        balance = new double[]{784.5, 752.25, 1552.25, 1536.26, 1503.51, 1499.76, 1354.26, 1278.36, 1232.61, 2032.61};
 
         home = Home.getInstance();
         analyticsObject = analytics.getInstance();
@@ -167,24 +109,24 @@ public class AnalyticsLog extends Fragment {
         this.logList = new ArrayList<>();
         for (int i = 0; i < (useList.size()-1); i++) {
 
-        passingmodel = useList.get(i);
-        timeStamp = passingmodel.getTimeStamp();
+            passingmodel = useList.get(i);
+            timeStamp = passingmodel.getTimeStamp();
 
-        month = new String[]{timeStamp.getMonth()};
-        day = new String[]{timeStamp.getDay()};
-        title = new String[]{"test"};
-        category = new String[]{passingmodel.getMainCategories()};
-        type = new String[]{passingmodel.getSubCategories()};
-        amount = new double[]{Double.parseDouble(passingmodel.getAmount())};
-        balance = new double[]{100.00};
+            month = new String[]{timeStamp.getMonth()};
+            day = new String[]{timeStamp.getDay()};
+            title = new String[]{"test"};
+            category = new String[]{passingmodel.getMainCategories()};
+            type = new String[]{passingmodel.getSubCategories()};
+            amount = new double[]{Double.parseDouble(passingmodel.getAmount())};
+            //balance = new double[]{100.00};
 
-        reverseStringArray(month, month.length);
-        reverseStringArray(day, day.length);
-        reverseStringArray(title, title.length);
-        reverseStringArray(category, category.length);
-        reverseStringArray(type, type.length);
-        reverseDoubleArray(amount, amount.length);
-        reverseDoubleArray(balance, balance.length);
+            reverseStringArray(month, month.length);
+            reverseStringArray(day, day.length);
+            reverseStringArray(title, title.length);
+            reverseStringArray(category, category.length);
+            reverseStringArray(type, type.length);
+            reverseDoubleArray(amount, amount.length);
+            reverseDoubleArray(balance, balance.length);
 
 
             Log log = new Log(this.month[0], this.day[0], this.title[0], this.category[0], this.type[0], String.format("%.2f", this.amount[0]), String.format("%.2f", this.balance[0]));

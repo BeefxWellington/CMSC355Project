@@ -68,26 +68,26 @@ public class analytics extends Fragment {
         String UserID = "pgnjJooFMAdnARk2LqV8pOFxGjs2";
         String ID = dbRef.push().getKey();
 
-        userRef = FirebaseDatabase.getInstance().getReference("Users").child(UserID).child("AccountEntry");
-        userRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                testList.clear();
-                for (DataSnapshot datasnapshot : snapshot.getChildren()) {
-                    dbAmount = datasnapshot.child("amount").getValue(String.class);
-                    dbMainCat = datasnapshot.child("mainCategories").getValue(String.class);
-                    dbSubCat = datasnapshot.child("subCategories").getValue(String.class);
-                    passingmodel = new passingModel(dbMainCat, dbSubCat, dbAmount, timeStamp);
-                    testList.add(passingmodel);
-                }
-                //listAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+//        userRef = FirebaseDatabase.getInstance().getReference("Users").child(UserID).child("AccountEntry");
+//        userRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                testList.clear();
+//                for (DataSnapshot datasnapshot : snapshot.getChildren()) {
+//                    dbAmount = datasnapshot.child("amount").getValue(String.class);
+//                    dbMainCat = datasnapshot.child("mainCategories").getValue(String.class);
+//                    dbSubCat = datasnapshot.child("subCategories").getValue(String.class);
+//                    passingmodel = new passingModel(dbMainCat, dbSubCat, dbAmount, timeStamp);
+//                    testList.add(passingmodel);
+//                }
+//                //listAdapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
         return v;
     }

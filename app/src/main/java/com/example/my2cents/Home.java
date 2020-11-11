@@ -89,6 +89,8 @@ public class Home extends Fragment {
     private ListView listView;
     private passingModel passModel;
 
+    private double amountDouble;
+
     public Home() {
         if (home != null) {
             try {
@@ -134,6 +136,10 @@ public class Home extends Fragment {
         this.timeStamp.setDay(date.substring(0, 3));
         this.timeStamp.setMonth(date.substring(7, 10));
 
+        amountDouble = 0;
+        amountBalance = v.findViewById(R.id.balanceAmount);
+        final AnalyticsLog analyticsLog = AnalyticsLog.getInstance();
+
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -144,7 +150,12 @@ public class Home extends Fragment {
                     dbSubCat = datasnapshot1.child("subCategories").getValue(String.class);
                     passModel = new passingModel(dbMainCat, dbSubCat, dbAmount, timeStamp);
                     testList.add(passModel);
+                    amountDouble += Double.parseDouble(dbAmount);
                 }
+                double[] newSetBalance = new double[]{amountDouble};
+                amountBalance.setText("$" + Double.toString(amountDouble) + "0");
+                analyticsLog.setTestList(testList);
+                analyticsLog.setBalance(newSetBalance);
                 //listAdapter.notifyDataSetChanged();
             }
 
@@ -157,7 +168,6 @@ public class Home extends Fragment {
 //        final ArrayAdapter listAdapter = new ArrayAdapter<String>(this.getContext(), R.layout.test_list_view_item, testList);
 //        listView.setAdapter(listAdapter);
 
-
         rootNode = FirebaseDatabase.getInstance();
         refNode = rootNode.getReference("AccountEntry");
 
@@ -169,11 +179,7 @@ public class Home extends Fragment {
         tabLayout = v.findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager, true);
 
-        AnalyticsLog analyticsLog = AnalyticsLog.getInstance();
-        analyticsLog.setTestList(testList);
-//
-//
-//        amountBalance = v.findViewById(R.id.balanceAmount);
+
 //
 //        amountBalance.setText(UserId);
 
