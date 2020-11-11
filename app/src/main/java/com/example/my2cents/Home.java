@@ -40,7 +40,6 @@ public class Home extends Fragment {
     List<HomeModel> models;
     TabLayout tabLayout;
     FloatingActionButton fab1;
-    Context context;
     Spinner typeSpinner;
     Spinner cateSpinner;
     EditText amount;
@@ -314,7 +313,7 @@ public class Home extends Fragment {
             @Override
             public void onClick(View v) {
                 addExpenses();
-
+                builder.cancel();
             }
         });
     }
