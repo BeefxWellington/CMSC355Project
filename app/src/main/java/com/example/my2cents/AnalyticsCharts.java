@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -32,6 +33,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Locale;
 
 
 public class AnalyticsCharts extends Fragment {
@@ -41,16 +44,21 @@ public class AnalyticsCharts extends Fragment {
     BarChart barChart;
     LineChart lineChart;
     ScrollView scrollView;
+    TextView barGraphTitle;
+    TextView lineGraphTitle;
+    Calendar calendar;
+    String currentMonth;
+    int currentYear;
     DatabaseReference databaseReference;
     DatabaseReference userRef;
     String UserID;
     String type;
     String category;
+    Double amount;
+    String dayNum, month, year;
     ArrayList<String> categoryList;
     ArrayList<Double> categoryAmount;
     ArrayList<PieEntry> categories;
-    Double amount;
-    String dayNum, month, year;
     DateFormatSymbols dateFormatSymbols;
     ArrayList<String> monthList;
     ArrayList<Double> monthAmount;
@@ -103,6 +111,7 @@ public class AnalyticsCharts extends Fragment {
         });
 
         setLineChart();
+        setGraphTitles();
 
         // Inflate the layout for this fragment
         return v;
@@ -192,21 +201,6 @@ public class AnalyticsCharts extends Fragment {
             monthBar.add(new BarEntry(i + 1, (float) (monthAmount.get(i) * 1)));
         }
 
-        /*
-        months.add(new BarEntry(1, 1300));
-        months.add(new BarEntry(2, 1200));
-        months.add(new BarEntry(3, 1350));
-        months.add(new BarEntry(4, 1500));
-        months.add(new BarEntry(5, 1400));
-        months.add(new BarEntry(6, 1100));
-        months.add(new BarEntry(7, 1300));
-        months.add(new BarEntry(8, 1250));
-        months.add(new BarEntry(9, 1570));
-        months.add(new BarEntry(10, 1590));
-        months.add(new BarEntry(11, 1310));
-        months.add(new BarEntry(12, 1400));
-         */
-
         BarDataSet barDataSet = new BarDataSet(monthBar, "Months");
         barDataSet.setColors(ColorTemplate.PASTEL_COLORS);
         barDataSet.setValueTextColor(Color.WHITE);
@@ -237,6 +231,16 @@ public class AnalyticsCharts extends Fragment {
         lineChart.getDescription().setEnabled(false);
         lineChart.animate();
 
+    }
+
+    public void setGraphTitles(){
+        barGraphTitle = v.findViewById(R.id.barGraphTitle);
+        lineGraphTitle = v. findViewById(R.id.lineGraphTitle);
+        calendar = Calendar.getInstance();
+        currentMonth = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
+        currentYear = calendar.get(Calendar.YEAR);
+        barGraphTitle.setText("Monthly Expenses in " + currentYear);
+        lineGraphTitle.setText("Weekly Expenses in " + currentMonth);
     }
 
 

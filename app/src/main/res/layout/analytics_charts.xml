@@ -42,6 +42,7 @@
             </com.github.mikephil.charting.charts.PieChart>
 
             <TextView
+                android:id="@+id/barGraphTitle"
                 android:text="Monthly Expenses in 2020"
                 android:textColor="@color/red"
                 android:textSize="15sp"
@@ -62,6 +63,7 @@
             </com.github.mikephil.charting.charts.BarChart>
 
             <TextView
+                android:id="@+id/lineGraphTitle"
                 android:text="Weekly Expenses in October"
                 android:textColor="@color/red"
                 android:textSize="15sp"
