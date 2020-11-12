@@ -45,8 +45,9 @@ public class AnalyticsCharts extends Fragment {
     String type;
     String category;
     ArrayList<String> categoryList;
-    ArrayList<Float> categoryAmount;
-    float amount;
+    ArrayList<Double> categoryAmount;
+    ArrayList<PieEntry> categories;
+    Double amount;
 
     public AnalyticsCharts() {
         // Required empty public constructor
@@ -64,30 +65,33 @@ public class AnalyticsCharts extends Fragment {
         scrollView = v.findViewById(R.id.chartScroll);
 
         setCategoryList();
+        categories = new ArrayList<>();
+        categoryAmount = new ArrayList<>(categoryList.size());
+        for (int i = 0; i < categoryList.size(); i++){
+            categoryAmount.add((double) 0);
+        }
 
         UserID = "pgnjJooFMAdnARk2LqV8pOFxGjs2";
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
-        userRef = FirebaseDatabase.getInstance().getReference("Users").child(UserID).child("Account Entry");
+        userRef = FirebaseDatabase.getInstance().getReference("Users").child(UserID).child("AccountEntry");
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    type = dataSnapshot.child("mainCategories").getValue(String.class);
-                    category = dataSnapshot.child("subCategories").getValue(String.class);
-                    amount = (float) (dataSnapshot.child("amount").getValue());
+                    type = snapshot.child("mainCategories").getValue(String.class);
+                    category = snapshot.child("subCategories").getValue(String.class);
+                    amount = Double.parseDouble(snapshot.child("amount").getValue(String.class));
                     if (type.equals("Expense")){
                         calculateTotalCategoryExpenses(category, amount);
-                        setPieChart();
                     }
                 }
+                setPieChart();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
-
 
         setBarChart();
         setLineChart();
@@ -96,15 +100,11 @@ public class AnalyticsCharts extends Fragment {
         return v;
     }
 
-    public void calculateTotalCategoryExpenses(String category, float amount){
-        categoryAmount = new ArrayList<>(categoryList.size());
+    public void calculateTotalCategoryExpenses(String category, double amount){
         for (int i = 0; i < categoryList.size(); i++){
             if (category.equals(categoryList.get(i))){
                 categoryAmount.set(i, categoryAmount.get(i) + amount);
                 break;
-            }
-            else {
-                i++;
             }
         }
     }
@@ -115,26 +115,24 @@ public class AnalyticsCharts extends Fragment {
         categoryList.add("Food");
         categoryList.add("Gas");
         categoryList.add("Entertainment");
-        categoryList.add("Paycheck");
+        categoryList.add("Pay Check");
         categoryList.add("Savings");
         categoryList.add("Miscellaneous");
         categoryList.add("Lottery");
     }
 
-
     public void setPieChart() {
         pieChart = v.findViewById(R.id.pieChart);
-        float totalExpenses = 0;
+        double totalExpenses = 0;
         for (int i = 0; i < categoryAmount.size(); i++){
             totalExpenses += categoryAmount.get(i);
         }
 
-
-
-        ArrayList<PieEntry> categories = new ArrayList<>();
         if (totalExpenses != 0){
             for (int i = 0; i < categoryList.size(); i++) {
-                categories.add(new PieEntry((categoryAmount.get(i) / totalExpenses), categoryList.get(i)));
+                if (categoryAmount.get(i) != 0) {
+                    categories.add(new PieEntry((float) (categoryAmount.get(i) / totalExpenses) * 100, categoryList.get(i)));
+                }
             }
         }
         /*
