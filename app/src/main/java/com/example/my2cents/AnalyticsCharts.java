@@ -29,7 +29,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormatSymbols;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class AnalyticsCharts extends Fragment {
@@ -48,6 +50,12 @@ public class AnalyticsCharts extends Fragment {
     ArrayList<Double> categoryAmount;
     ArrayList<PieEntry> categories;
     Double amount;
+    String dayNum, month, year;
+    DateFormatSymbols dateFormatSymbols;
+    ArrayList<String> monthList;
+    ArrayList<Double> monthAmount;
+    ArrayList<BarEntry> monthBar;
+    String[] months;
 
     public AnalyticsCharts() {
         // Required empty public constructor
@@ -65,11 +73,7 @@ public class AnalyticsCharts extends Fragment {
         scrollView = v.findViewById(R.id.chartScroll);
 
         setCategoryList();
-        categories = new ArrayList<>();
-        categoryAmount = new ArrayList<>(categoryList.size());
-        for (int i = 0; i < categoryList.size(); i++){
-            categoryAmount.add((double) 0);
-        }
+        setMonthList();
 
         UserID = "pgnjJooFMAdnARk2LqV8pOFxGjs2";
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
@@ -81,11 +85,16 @@ public class AnalyticsCharts extends Fragment {
                     type = snapshot.child("mainCategories").getValue(String.class);
                     category = snapshot.child("subCategories").getValue(String.class);
                     amount = Double.parseDouble(snapshot.child("amount").getValue(String.class));
+                    dayNum = snapshot.child("timeStamp").child("dayNum").getValue(String.class);
+                    month = snapshot.child("timeStamp").child("month").getValue(String.class);
+                    year = snapshot.child("timeStamp").child("year").getValue(String.class);
                     if (type.equals("Expense")){
                         calculateTotalCategoryExpenses(category, amount);
+                        calculateTotalMonthExpenses(monthList, month, year, amount);
                     }
                 }
                 setPieChart();
+                setBarChart();
             }
 
             @Override
@@ -93,20 +102,10 @@ public class AnalyticsCharts extends Fragment {
             }
         });
 
-        setBarChart();
         setLineChart();
 
         // Inflate the layout for this fragment
         return v;
-    }
-
-    public void calculateTotalCategoryExpenses(String category, double amount){
-        for (int i = 0; i < categoryList.size(); i++){
-            if (category.equals(categoryList.get(i))){
-                categoryAmount.set(i, categoryAmount.get(i) + amount);
-                break;
-            }
-        }
     }
 
     public void setCategoryList() {
@@ -119,6 +118,43 @@ public class AnalyticsCharts extends Fragment {
         categoryList.add("Savings");
         categoryList.add("Miscellaneous");
         categoryList.add("Lottery");
+
+        categories = new ArrayList<>();
+        categoryAmount = new ArrayList<>(categoryList.size());
+        for (int i = 0; i < categoryList.size(); i++){
+            categoryAmount.add((double) 0);
+        }
+    }
+
+    public void calculateTotalCategoryExpenses(String category, double amount){
+        for (int i = 0; i < categoryList.size(); i++){
+            if (category.equals(categoryList.get(i))){
+                categoryAmount.set(i, categoryAmount.get(i) + amount);
+                break;
+            }
+        }
+    }
+
+    public void setMonthList(){
+        dateFormatSymbols = new DateFormatSymbols();
+        months = dateFormatSymbols.getMonths();
+        monthList = new ArrayList<>();
+        monthList.addAll(Arrays.asList(months));
+
+        monthBar = new ArrayList<>();
+        monthAmount = new ArrayList<>(monthList.size());
+        for (int i = 0; i < monthList.size(); i++){
+            monthAmount.add((double) 0);
+        }
+    }
+
+    public void calculateTotalMonthExpenses(ArrayList<String> monthList, String month, String year, double amount){
+        for (int i = 0; i < monthList.size(); i++){
+            if (month.equals(monthList.get(i).substring(0,3))){
+                monthAmount.set(i, monthAmount.get(i) + amount);
+                break;
+            }
+        }
     }
 
     public void setPieChart() {
@@ -135,16 +171,6 @@ public class AnalyticsCharts extends Fragment {
                 }
             }
         }
-        /*
-        categories.add(new PieEntry(15.3f, "Food"));
-        categories.add(new PieEntry(8.2f, "Clothing"));
-        categories.add(new PieEntry(19.4f, "Grocery"));
-        categories.add(new PieEntry(5.8f, "Transportation"));
-        categories.add(new PieEntry(17.2f, "Utilities"));
-        categories.add(new PieEntry(28.6f, "Rent"));
-        categories.add(new PieEntry(5.5f, "Others"));
-
-         */
 
         PieDataSet pieDataSet = new PieDataSet(categories, "Categories");
         pieDataSet.setColors(ColorTemplate.PASTEL_COLORS);
@@ -162,7 +188,11 @@ public class AnalyticsCharts extends Fragment {
     public void setBarChart(){
         barChart = v.findViewById(R.id.barChart);
 
-        ArrayList<BarEntry> months = new ArrayList<>();
+        for (int i = 0; i < monthList.size(); i++) {
+            monthBar.add(new BarEntry(i + 1, (float) (monthAmount.get(i) * 1)));
+        }
+
+        /*
         months.add(new BarEntry(1, 1300));
         months.add(new BarEntry(2, 1200));
         months.add(new BarEntry(3, 1350));
@@ -175,8 +205,9 @@ public class AnalyticsCharts extends Fragment {
         months.add(new BarEntry(10, 1590));
         months.add(new BarEntry(11, 1310));
         months.add(new BarEntry(12, 1400));
+         */
 
-        BarDataSet barDataSet = new BarDataSet(months, "Months");
+        BarDataSet barDataSet = new BarDataSet(monthBar, "Months");
         barDataSet.setColors(ColorTemplate.PASTEL_COLORS);
         barDataSet.setValueTextColor(Color.WHITE);
         barDataSet.setValueTextSize(10f);
