@@ -179,58 +179,6 @@ public class Home extends Fragment {
         tabLayout = v.findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager, true);
 
-
-//
-//        amountBalance.setText(UserId);
-
-//         databaseReference2.addValueEventListener(new ValueEventListener() {
-//
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                int sumExp=0;
-//
-//                int pValue = 0;
-//                for(DataSnapshot ds : dataSnapshot.getChildren()){
-//                    String amount = ds.child("amount").getValue(String.class);
-//                    pValue = Integer.parseInt(String.valueOf(amount));
-//                    sumExp += pValue;
-//                    final int sumTotalExp = sumExp;
-//                    // pValue = Integer.parseInt(String.valueOf(price));
-//                    //sumExp += pValue;
-//
-//                    //amountBalance.setText(String.valueOf(sumExp));
-//                    databaseReference1.addValueEventListener(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                            int sumInc=0;
-//
-//                            int pValue = 0;
-//                            for(DataSnapshot ds : dataSnapshot.getChildren()){
-//                                Map<String,Object> map = (Map<String, Object>) ds.getValue();
-//                                Object amountIncome = map.get("amount");
-//
-//                                pValue = Integer.parseInt(String.valueOf(amountIncome));
-//                                sumInc += pValue;
-//                                sumTotalInc = sumInc;
-//                                int currentBalance = sumTotalInc - sumTotalExp;
-//                                amountBalance.setText(String.valueOf(currentBalance));
-//                            }
-//                        }
-//                        @Override
-//                        public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                        }
-//                    });
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-
         fab1 = v.findViewById(R.id.floatingActionButton1);
         fab1.setOnClickListener(new View.OnClickListener() {
             @Override
