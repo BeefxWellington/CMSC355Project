@@ -192,37 +192,28 @@ public class Home extends Fragment {
     }
 
     public void setModels() {
-      /*  secondAmount = getActivity().findViewById(R.id.secondAmount);
-        final FirebaseUser Users = firebaseAuth.getCurrentUser();
-        String UserId = Users.getUid();
-        databaseReference1 = databaseReference.child(UserId).child("Income");
-        databaseReference2 = databaseReference.child(UserId).child("Expense");
-        //amountBalance.setText(UserId);
-
-        databaseReference2.addValueEventListener(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                int sumExp=0;
-
-                int pValue = 0;
-                for(DataSnapshot ds : dataSnapshot.getChildren()){
-                    String amount = ds.child("amount").getValue(String.class);
-                    pValue = Integer.parseInt(String.valueOf(amount));
-                    sumExp += pValue;
-                    final int sumTotalExps = sumExp;
-                    // pValue = Integer.parseInt(String.valueOf(amountExpense));
-                    //sumExp += pValue;
-
-                    secondAmount.setText(String.valueOf(sumExp));
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        }); */
+//        secondAmount = getActivity().findViewById(R.id.secondAmount);
+//
+//        userRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                for(DataSnapshot ds : dataSnapshot.getChildren()){
+//                    String amount = ds.child("amount").getValue(String.class);
+//                    pValue = Integer.parseInt(String.valueOf(amount));
+//                    sumExp += pValue;
+//                    final int sumTotalExps = sumExp;
+//                    // pValue = Integer.parseInt(String.valueOf(amountExpense));
+//                    //sumExp += pValue;
+//
+//                    secondAmount.setText(String.valueOf(sumExp));
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
 
         models = new ArrayList<>();
 
@@ -337,29 +328,13 @@ public class Home extends Fragment {
         df = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z");
         date = df.format(Calendar.getInstance().getTime());
         String day = date.substring(0, 3);
-        String dayNum = date.substring(5, 6);
-        String month = date.substring(7, 10);
-        String year = date.substring(11, 15);
-        String hour = date.substring(16, 18);
+        String dayNum = date.substring(5, 7);
+        String month = date.substring(8, 11);
+        String year = date.substring(12, 16);
+        String hour = date.substring(17, 19);
         String min = date.substring(20, 22);
         String sec = date.substring(23, 25);
         timeStamp = new Timestamp(day, month, year, dayNum, hour, min, sec);
-        timeStamp.setDay(date.substring(0, 3));
-        timeStamp.setMonth(date.substring(7, 10));
-
-        String[] currentMonth = new String[]{date.substring(7, 10)};
-        String[] currentDay = new String[]{date.substring(0, 3)};
-        String[] currentDayNum = new String[]{date.substring(5, 6)};
-        String[] currentYear = new String[]{date.substring(11, 15)};
-        String[] currentHour = new String[]{date.substring(16, 18)};
-        String[] currentMin = new String[]{date.substring(19, 21)};
-        String[] currentSec = new String[]{date.substring(22, 24)};
-        String[] title = new String[]{"title"};
-        String[] mainCat = new String[]{mainCategoryValue};
-        String[] subCat = new String[]{subCategoryValue};
-
-        double[] currentAmountValue = new double[]{amountDouble};
-        double[] currentBalance = new double[]{currentBalanceDouble};
 
         String UserID = "pgnjJooFMAdnARk2LqV8pOFxGjs2";
 
@@ -368,7 +343,7 @@ public class Home extends Fragment {
             String ID = databaseReference.push().getKey();
             passingModel PassingModel = new passingModel(mainCategoryValue,subCategoryValue,amountValue,timeStamp);
             databaseReference.child(UserID).child("AccountEntry").child(ID).setValue(PassingModel);
-            //amount.setText(testList.get((testList.size()-5)).getAmount());
+            amount.setText(month);
             Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
         }
         else {
@@ -378,25 +353,6 @@ public class Home extends Fragment {
         passModel.setAmount(amountValue);
         passModel.setMainCategories(mainCategoryValue);
         passModel.setSubCategories(subCategoryValue);
-
-//        AnalyticsLog analyticsLog = AnalyticsLog.getInstance();
-//        analyticsLog.setTestList(testList);
-        //analyticsLog.setLogListValues(currentDay, currentMonth, title, mainCat, subCat, currentAmountValue, currentBalance);
-
-//        Log log = new Log("day", "day", "test", "subCategory", "mainCategory", "amountValue", "100.00");
-//        ArrayList<Log> logList = new ArrayList<>();
-//        logList.add(log);
-//        LogListAdapter adapter = new LogListAdapter(this.getContext(), R.layout.analytics_log_list, logList);
-//        listView = view2.findViewById(R.id.logListView);
-//        listView.setAdapter(adapter);
-    }
-
-    public void retrieveData(DatabaseReference userRef) {
-
-    }
-
-    public ArrayList<passingModel> getTestList() {
-        return testList;
     }
 
     public static Home getInstance() {
