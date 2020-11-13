@@ -43,7 +43,7 @@
 
             <TextView
                 android:id="@+id/barGraphTitle"
-                android:text="Monthly Expenses in 2020"
+                android:text="Monthly Expenses in YYYY"
                 android:textColor="@color/red"
                 android:textSize="15sp"
                 android:fontFamily="@font/avenirregular"
@@ -61,27 +61,6 @@
                 android:layout_width="350dp"
                 android:layout_height="300dp">
             </com.github.mikephil.charting.charts.BarChart>
-
-            <TextView
-                android:id="@+id/lineGraphTitle"
-                android:text="Weekly Expenses in October"
-                android:textColor="@color/red"
-                android:textSize="15sp"
-                android:fontFamily="@font/avenirregular"
-                android:layout_marginTop="50dp"
-                android:layout_marginBottom="5dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            </TextView>
-
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/lineChart"
-                android:layout_margin="15dp"
-                android:layout_gravity="center"
-                android:layout_width="350dp"
-                android:layout_height="350dp">
-            </com.github.mikephil.charting.charts.LineChart>
 
         </LinearLayout>
 

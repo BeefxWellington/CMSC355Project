@@ -12,14 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -42,10 +38,8 @@ public class AnalyticsCharts extends Fragment {
     View v;
     PieChart pieChart;
     BarChart barChart;
-    LineChart lineChart;
     ScrollView scrollView;
     TextView barGraphTitle;
-    TextView lineGraphTitle;
     Calendar calendar;
     String currentMonth;
     int currentYear;
@@ -80,6 +74,12 @@ public class AnalyticsCharts extends Fragment {
                              Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.analytics_charts, container, false);
         scrollView = v.findViewById(R.id.chartScroll);
+        barGraphTitle = v.findViewById(R.id.barGraphTitle);
+
+        calendar = Calendar.getInstance();
+        currentMonth = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
+        currentYear = calendar.get(Calendar.YEAR);
+        barGraphTitle.setText("Monthly Expenses in " + currentYear);
 
         setCategoryList();
         setMonthList();
@@ -99,8 +99,13 @@ public class AnalyticsCharts extends Fragment {
                     month = snapshot.child("timeStamp").child("month").getValue(String.class);
                     year = snapshot.child("timeStamp").child("year").getValue(String.class);
                     if (type.equals("Expense")){
-                        calculateTotalCategoryExpenses(category, amount);
-                        calculateTotalMonthExpenses(monthList, month, year, amount);
+                        if (year.equals(Integer.toString(currentYear))) {
+                            calculateTotalCategoryExpenses(category, amount);
+                            calculateTotalMonthExpenses(monthList, month, amount);
+                        }
+                        else {
+                            calculateTotalCategoryExpenses(category, amount);
+                        }
                     }
                 }
                 setPieChart();
@@ -111,9 +116,6 @@ public class AnalyticsCharts extends Fragment {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-
-        setLineChart();
-        setGraphTitles();
 
         // Inflate the layout for this fragment
         return v;
@@ -164,18 +166,18 @@ public class AnalyticsCharts extends Fragment {
         }
     }
 
-    public void calculateTotalMonthExpenses(ArrayList<String> monthList, String month, String year, double amount){
-        for (int i = 0; i < monthList.size(); i++){
-            if (month.equals(monthList.get(i).substring(0,3))){
-                monthAmount.set(i, monthAmount.get(i) + amount);
-                break;
+    public void calculateTotalMonthExpenses(ArrayList<String> monthList, String month, double amount){
+        for (int i = 0; i < monthList.size(); i++) {
+            if (month.equals(monthList.get(i).substring(0, 3))) {
+                    monthAmount.set(i, monthAmount.get(i) + amount);
+                    break;
             }
         }
+
     }
 
     public void setPieChart() {
         pieChart = v.findViewById(R.id.pieChart);
-
 
         if (totalExpenses != 0){
             for (int i = 0; i < categoryList.size(); i++) {
@@ -191,7 +193,6 @@ public class AnalyticsCharts extends Fragment {
         pieDataSet.setValueTextSize(15f);
 
         PieData pieData = new PieData(pieDataSet);
-
         pieChart.setData(pieData);
         pieChart.getDescription().setEnabled(false);
         pieChart.setCenterText("Categories");
@@ -216,37 +217,6 @@ public class AnalyticsCharts extends Fragment {
         barChart.animate();
     }
 
-    public void setLineChart(){
-        lineChart = v.findViewById(R.id.lineChart);
-
-        ArrayList<Entry> weeks = new ArrayList<>();
-        weeks.add(new Entry(1, 320));
-        weeks.add(new Entry(2, 260));
-        weeks.add(new Entry(3, 370));
-        weeks.add(new Entry(4, 250));
-
-        LineDataSet lineDataSet = new LineDataSet(weeks, "Weeks");
-        lineDataSet.setColors(ColorTemplate.PASTEL_COLORS);
-        lineDataSet.setValueTextColor(Color.DKGRAY);
-        lineDataSet.setValueTextSize(10f);
-
-        LineData lineData = new LineData(lineDataSet);
-        lineChart.setData(lineData);
-        lineChart.getDescription().setEnabled(false);
-        lineChart.animate();
-
-    }
-
-    public void setGraphTitles(){
-        barGraphTitle = v.findViewById(R.id.barGraphTitle);
-        lineGraphTitle = v. findViewById(R.id.lineGraphTitle);
-        calendar = Calendar.getInstance();
-        currentMonth = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
-        currentYear = calendar.get(Calendar.YEAR);
-        barGraphTitle.setText("Monthly Expenses in " + currentYear);
-        lineGraphTitle.setText("Weekly Expenses in " + currentMonth);
-    }
-
     public void clearCharts(){
         categoryList.clear();
         categoryAmount.clear();
@@ -258,6 +228,5 @@ public class AnalyticsCharts extends Fragment {
         setCategoryList();
         setMonthList();
     }
-
 
 }
