@@ -12,79 +12,87 @@
         android:id="@+id/crAccTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="152dp"
+        android:layout_marginBottom="212dp"
         android:clickable="true"
         android:fontFamily="@font/avenirlight"
         android:text="Forgot password"
-        android:textColor="@color/red"
+        android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fpwTextView" />
 
     <TextView
         android:id="@+id/fpwTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="108dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="31dp"
+        android:clickable="true"
         android:fontFamily="@font/avenirlight"
         android:text="Create an account"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/crAccTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
-        android:clickable="true"/>
+        app:layout_constraintTop_toBottomOf="@+id/loginBtn" />
 
     <TextView
         android:id="@+id/signinTextView"
         android:layout_width="130dp"
         android:layout_height="70dp"
+        android:layout_marginTop="196dp"
+        android:layout_marginBottom="63dp"
         android:fontFamily="@font/agnetha"
         android:text="Sign in"
         android:textColor="@color/white"
         android:textSize="34sp"
-        app:layout_constraintBottom_toTopOf="@+id/userEditText"
+        app:layout_constraintBottom_toTopOf="@+id/emailEditText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.199"
+        app:layout_constraintHorizontal_bias="0.256"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.919" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/loginBtn"
         android:layout_width="302dp"
         android:layout_height="55dp"
+        android:layout_marginTop="12dp"
         android:layout_marginBottom="16dp"
+        android:background="@drawable/login_button"
         android:fontFamily="@font/avenirregular"
         android:text="LOGIN"
-        android:background="@drawable/login_button"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/fpwTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pwEditText" />
 
     <EditText
-        android:id="@+id/userEditText"
+        android:id="@+id/emailEditText"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginBottom="12dp"
         android:background="@drawable/input_field"
         android:ems="10"
         android:fontFamily="@font/avenirlight"
-        android:hint="username"
+        android:hint="email"
         android:inputType="textPersonName"
         android:textColorHint="@color/gray"
-        android:textSize="20sp"
 
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/pwEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signinTextView" />
 
     <EditText
         android:id="@+id/pwEditText"
@@ -97,13 +105,53 @@
         android:hint="password"
         android:inputType="textPassword"
         android:textColorHint="@color/gray"
-        android:textSize="20sp"
 
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/loginBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emailEditText" />
 
+    <TextView
+        android:id="@+id/login_appname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="157dp"
+        android:layout_marginLeft="157dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginEnd="156dp"
+        android:layout_marginRight="156dp"
+        android:layout_marginBottom="68dp"
+        android:fontFamily="@font/agnetha"
+        android:text="@string/app_name"
+        android:textColor="#FFFFFF"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/signinTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/login_company"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="143dp"
+        android:layout_marginLeft="143dp"
+        android:layout_marginTop="152dp"
+        android:layout_marginEnd="142dp"
+        android:layout_marginRight="142dp"
+        android:layout_marginBottom="34dp"
+        android:fontFamily="@font/avenirregular"
+        android:text="@string/company"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/crAccTextView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

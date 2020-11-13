@@ -1,36 +1,10 @@
 <resources>
     <string name="app_name">My2Cents</string>
+    <string name="company">An Observe the Crab Company</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="crab_with_coins">Crab with coins</string>
     <string name="quote">No one can make you feel inferior without your consent. \n-Eleanor Roosevelt</string>
-    <string name="skip_btn">Skip</string>
-    <string name="im_ready">I\'m Ready!</string>
-    <string name="next"><![CDATA[>]]></string>
-
-    <!-- < On boarding  -->
-
-    <!-- Slide Titles -->
-    <string name="first_title">Welcome!</string>
-    <string name="second_title">Account Overview</string>
-    <string name="third_slide">Let Me Know When Something Changes</string>
-    <string name="fourth_slide">Dive Deeper</string>
-    <string name="fifth_slide">Set Up Notifications</string>
-
-    <!-- Slide Text -->
-    <string name="first_text">Hi there! I am Clawdia, your app guide and new financial advisor!</string>
-    <string name="second_text">Your Home Page will show account overview information for you. You can swipe left or right to view different quick breakdowns.
-</string>
-    <string name="third_text">Click the plus button on the home screen to update your balance with expenses or income.</string>
-    <string name="fourth_text">Click on the details page to show different income and outcome graphs as well as the history of your account.</string>
-    <string name="fifth_text">Set up notifications for upcoming expenses in the settings page. Have fun and remember, you are not alone in this.</string>
-
-    <!-- Navigations -->
-    <string name="skip_button">Skip</string>
-    <string name="next_button">Next</string>
-    <string name="start_button">Got it!</string>
-
-    <!--  on boarding > -->
 
 
 </resources>
