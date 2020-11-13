@@ -54,7 +54,8 @@ public class AnalyticsCharts extends Fragment {
     String UserID;
     String type;
     String category;
-    Double amount;
+    double amount;
+    double totalExpenses;
     String dayNum, month, year;
     ArrayList<String> categoryList;
     ArrayList<Double> categoryAmount;
@@ -89,6 +90,7 @@ public class AnalyticsCharts extends Fragment {
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                clearCharts();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     type = snapshot.child("mainCategories").getValue(String.class);
                     category = snapshot.child("subCategories").getValue(String.class);
@@ -142,6 +144,11 @@ public class AnalyticsCharts extends Fragment {
                 break;
             }
         }
+
+        totalExpenses = 0;
+        for (int i = 0; i < categoryAmount.size(); i++){
+            totalExpenses += categoryAmount.get(i);
+        }
     }
 
     public void setMonthList(){
@@ -168,10 +175,7 @@ public class AnalyticsCharts extends Fragment {
 
     public void setPieChart() {
         pieChart = v.findViewById(R.id.pieChart);
-        double totalExpenses = 0;
-        for (int i = 0; i < categoryAmount.size(); i++){
-            totalExpenses += categoryAmount.get(i);
-        }
+
 
         if (totalExpenses != 0){
             for (int i = 0; i < categoryList.size(); i++) {
@@ -241,6 +245,18 @@ public class AnalyticsCharts extends Fragment {
         currentYear = calendar.get(Calendar.YEAR);
         barGraphTitle.setText("Monthly Expenses in " + currentYear);
         lineGraphTitle.setText("Weekly Expenses in " + currentMonth);
+    }
+
+    public void clearCharts(){
+        categoryList.clear();
+        categoryAmount.clear();
+        categories.clear();
+        monthList.clear();
+        monthAmount.clear();
+        monthBar.clear();
+
+        setCategoryList();
+        setMonthList();
     }
 
 
