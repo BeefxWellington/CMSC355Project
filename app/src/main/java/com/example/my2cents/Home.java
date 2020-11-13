@@ -343,7 +343,6 @@ public class Home extends Fragment {
             String ID = databaseReference.push().getKey();
             passingModel PassingModel = new passingModel(mainCategoryValue,subCategoryValue,amountValue,timeStamp);
             databaseReference.child(UserID).child("AccountEntry").child(ID).setValue(PassingModel);
-            amount.setText(month);
             Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
         }
         else {
