@@ -59,9 +59,8 @@ public class Notifications extends Fragment {
         }
     }
 
-    public boolean allNotifications = true;
-    public boolean incomeNotifications = true;
-    public boolean expenseNotifications = true;
+    private boolean incomeNotifications = true;
+    private boolean expenseNotifications = true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,17 +73,16 @@ public class Notifications extends Fragment {
         @SuppressLint("UseSwitchCompatOrMaterialCode") final Switch income = (Switch) view.findViewById(R.id.switch2);
         @SuppressLint("UseSwitchCompatOrMaterialCode") final Switch expense = (Switch) view.findViewById(R.id.switch3);
 
+
         all.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {
-                    allNotifications = true;
                     incomeNotifications = true;
                     expenseNotifications = true;
                     income.setChecked(true);
                     expense.setChecked(true);
                 } else {
-                    allNotifications = false;
                     incomeNotifications = false;
                     expenseNotifications = false;
                     income.setChecked(false);
@@ -100,7 +98,6 @@ public class Notifications extends Fragment {
                     incomeNotifications = true;
                 } else {
                     incomeNotifications = false;
-                    allNotifications = false;
                     all.setChecked(false);
                 }
             }
@@ -113,16 +110,23 @@ public class Notifications extends Fragment {
                     expenseNotifications = true;
                 } else {
                     expenseNotifications = false;
-                    allNotifications = false;
                     all.setChecked(false);
                 }
             }
         });
 
         if (expenseNotifications && incomeNotifications) {
-            allNotifications = true;
             all.setChecked(true);
         }
+
+        Home homeFragment = new Home();
+
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("incomeNotifications", incomeNotifications);
+        bundle.putBoolean("expenseNotifications", expenseNotifications);
+
+        homeFragment.setArguments(bundle);
+
 
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,19 +135,9 @@ public class Notifications extends Fragment {
                 getFragmentManager().popBackStack();
             }
         });
+
         return view;
     }
 
-    public boolean getAllNotificationStatus () {
-        return allNotifications;
-    }
-
-    public boolean getIncomeNotificationStatus () {
-        return incomeNotifications;
-    }
-
-    public boolean getExpenseNotificationStatus () {
-        return expenseNotifications;
-    }
 
 }

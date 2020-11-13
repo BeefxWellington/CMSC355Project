@@ -107,7 +107,14 @@ public class Home extends Fragment {
                showDialog();
             }
         });
-                return v;
+
+        boolean incomeNotifications = getArguments().getBoolean("incomeNotifications");
+        boolean expenseNotifications = getArguments().getBoolean("expenseNotifications");
+
+        return v;
+
+
+
     }
 
     public void setModels(){
