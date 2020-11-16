@@ -13,11 +13,6 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Notifications#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class Notifications extends android.app.Fragment {
 
     boolean incomeNotifications = true;
