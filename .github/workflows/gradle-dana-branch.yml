@@ -3,9 +3,10 @@
 
 name: Java CI with Gradle
 
-on: 
+on:
   push:
-    branches: [ dana-branch ]
+    branches: [ dhruv-branch- ]
+  
 
 jobs:
   build:

@@ -6,25 +6,37 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity {
-    EditText User;
-    EditText Pass;
+    EditText email;
+    EditText password;
     TextView Register;
+    private FirebaseAuth firebaseAuth;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        User = (EditText)findViewById(R.id.userEditText);
-        Pass = (EditText)findViewById(R.id.pwEditText);
+        //User = (EditText)findViewById(R.id.userEditText);
+        //Pass = (EditText)findViewById(R.id.pwEditText);
 
         Register = (TextView)findViewById(R.id.fpwTextView);
+        firebaseAuth = FirebaseAuth.getInstance();
 
-        final EditText username, password;
 
-        username = findViewById(R.id.userEditText);
+
+
+        email = findViewById(R.id.emailEditText);
         password = findViewById(R.id.pwEditText);
 
         Button loginBtn = (Button) findViewById(R.id.loginBtn);
@@ -33,8 +45,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent startIntent = new Intent(getApplicationContext(), SecondActivity.class); //comment out these lines if enabling authentication
-                startActivity(startIntent); //comment out these lines if enabling authentication
+                validate(email.getText().toString(), password.getText() .toString());
+
 
                 /******************** Uncomment the following lines to enable username and password authentication in cooperation with "login" button **************************************************/
 //                String correct_username = "admin";
@@ -74,7 +86,21 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    public void validate(String userName, String userPassword){
+    public void validate(String email, String password){
+
+        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(MainActivity.this, "Successful", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent (MainActivity.this, SecondActivity.class));
+                }
+                else {
+                    Toast.makeText(MainActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
 
     }
 }

@@ -3,16 +3,27 @@ package com.example.my2cents;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.View;
+import android.view.*;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SearchView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import com.google.firebase.database.*;
+
+import java.sql.Ref;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 public class AnalyticsLog extends Fragment {
+
+    private static AnalyticsLog analyticsLog;
 
     View v;
     SearchView searchView;
@@ -27,8 +38,27 @@ public class AnalyticsLog extends Fragment {
     double[] balance;
     ArrayList<Log> logList;
     ArrayList<Log> filteredLog;
+    LogListAdapter adapter;
+
+    passingModel passingmodel;
+    Timestamp timeStamp;
+    private ArrayList<passingModel> testList = new ArrayList<>();
+
+    private Home home;
+    private ArrayList<passingModel> useList;
+    private analytics analyticsObject;
 
     public AnalyticsLog(){
+        if (analyticsLog != null) {
+            try {
+                throw new Exception("test message");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            analyticsLog = this;
+        }
     }
 
     @Override
@@ -40,7 +70,7 @@ public class AnalyticsLog extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        v = inflater.inflate(R.layout.analytics_log, container, false);
+        this.v = inflater.inflate(R.layout.analytics_log, container, false);
 
         searchView = v.findViewById(R.id.logSearch);
         listView = v.findViewById(R.id.logListView);
@@ -52,33 +82,57 @@ public class AnalyticsLog extends Fragment {
         return v;
     }
 
+    public void setTestList(ArrayList<passingModel> newTestList) {
+        testList = newTestList;
+    }
+
+    public void setBalance(double[] newSetBalance) {
+        balance = newSetBalance;
+    }
+
+    public void setLogListValues(String[] currentMonth, String[] currentDay, String[] currenttitle, String[] subCat, String[] mainCat, double[] currentAmount, double[] currentBalance) {
+        month = currentMonth;
+        day = currentDay;
+        title = currenttitle;
+        category = mainCat;
+        type = subCat;
+        amount = currentAmount;
+        balance = currentBalance;
+    }
 
     private void setLogList()  {
 
-        month = new String[]{"AUG", "AUG", "AUG", "SEP", "SEP", "SEP", "SEP", "SEP", "OCT", "OCT"};
-        day = new String[]{"18", "21", "28", "03", "11", "19", "23", "29", "05", "13"};
-        title = new String[]{"Book", "Shirt", "Paycheck", "Netflix", "Gas", "Eggs", "Electricity", "Water", "Sneakers", "Paycheck"};
-        category = new String[]{"Others", "Clothing", "Income", "Others", "Transportation", "Grocery", "Utilities", "Utilities", "Clothing", "Income"};
-        type = new String[]{"Deduction", "Deduction", "Incoming", "Deduction", "Deduction", "Deduction", "Deduction", "Deduction", "Deduction", "Incoming"};
-        amount = new double[]{15.50, 32.25, 800, 15.99, 32.75, 3.75, 145.50, 75.90, 45.75, 800};
-        balance = new double[]{784.5, 752.25, 1552.25, 1536.26, 1503.51, 1499.76, 1354.26, 1278.36, 1232.61, 2032.61};
+        home = Home.getInstance();
+        analyticsObject = analytics.getInstance();
+        useList = testList;
 
-        reverseStringArray(month, month.length);
-        reverseStringArray(day, day.length);
-        reverseStringArray(title, title.length);
-        reverseStringArray(category, category.length);
-        reverseStringArray(type, type.length);
-        reverseDoubleArray(amount, amount.length);
-        reverseDoubleArray(balance, balance.length);
+        this.logList = new ArrayList<>();
+        for (int i = 0; i < (useList.size()-1); i++) {
 
-        logList = new ArrayList<>();
+            passingmodel = useList.get(i);
+            timeStamp = passingmodel.getTimeStamp();
 
-        for (int i = 0; i < 10; i++){
-            @SuppressLint("DefaultLocale") Log log = new Log(month[i], day[i], title[i], category[i], type[i], String.format("%.2f", amount[i]), String.format("%.2f", balance[i]));
+            month = new String[]{timeStamp.getMonth()};
+            day = new String[]{timeStamp.getDay()};
+            title = new String[]{"test"};
+            category = new String[]{passingmodel.getMainCategories()};
+            type = new String[]{passingmodel.getSubCategories()};
+            amount = new double[]{Double.parseDouble(passingmodel.getAmount())};
+            //balance = new double[]{100.00};
+
+            reverseStringArray(month, month.length);
+            reverseStringArray(day, day.length);
+            reverseStringArray(title, title.length);
+            reverseStringArray(category, category.length);
+            reverseStringArray(type, type.length);
+            reverseDoubleArray(amount, amount.length);
+            reverseDoubleArray(balance, balance.length);
+
+
+            Log log = new Log(this.month[0], this.day[0], this.title[0], this.category[0], this.type[0], String.format("%.2f", this.amount[0]), String.format("%.2f", this.balance[0]));
             logList.add(log);
         }
-
-        LogListAdapter adapter = new LogListAdapter(this.getContext(), R.layout.analytics_log_list, logList);
+        adapter = new LogListAdapter(this.getContext(), R.layout.analytics_log_list, logList);
         listView.setAdapter(adapter);
     }
 
@@ -97,9 +151,9 @@ public class AnalyticsLog extends Fragment {
                 for (int i = 0; i < logList.size(); i++){
                     Log log = logList.get(i);
                     if(log.getMonth().toLowerCase().startsWith(s.toLowerCase()) ||
-                    log.getTitle().toLowerCase().startsWith(s.toLowerCase()) ||
-                    log.getCategory().toLowerCase().startsWith(s.toLowerCase()) ||
-                    log.getType().toLowerCase().startsWith(s.toLowerCase())){
+                            log.getTitle().toLowerCase().startsWith(s.toLowerCase()) ||
+                            log.getCategory().toLowerCase().startsWith(s.toLowerCase()) ||
+                            log.getType().toLowerCase().startsWith(s.toLowerCase())){
                         filteredLog.add(log);
                     }
 
@@ -131,7 +185,7 @@ public class AnalyticsLog extends Fragment {
             array[length - i - 1] = temp;
         }
     }
-    
+
     // Create method to get new balance for log list
     double getBalance(double balance, double amount, String type){
         double newBalance;
@@ -142,6 +196,13 @@ public class AnalyticsLog extends Fragment {
             newBalance = balance - amount;
         }
         return newBalance;
+    }
+
+    public static AnalyticsLog getInstance() {
+        if (analyticsLog == null) {
+            analyticsLog = new AnalyticsLog();
+        }
+        return analyticsLog;
     }
 
 }
