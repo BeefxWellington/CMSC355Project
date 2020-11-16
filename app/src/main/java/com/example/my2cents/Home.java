@@ -24,6 +24,13 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +56,14 @@ public class Home extends Fragment {
     private int balance = 0;
     TextView balanceAmount;
 
+    private FirebaseAuth firebaseAuth;
+    DatabaseReference databaseReference;
+    DatabaseReference income;
+    DatabaseReference expense;
+    double amount1;
+    boolean incomeNotifications;
+    boolean expenseNotifications;
+
     public Home() {
     }
 
@@ -56,6 +71,8 @@ public class Home extends Fragment {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         //Set info to display for card view
+        firebaseAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
         setModels();
     }
 
@@ -108,8 +125,82 @@ public class Home extends Fragment {
             }
         });
 
-        boolean incomeNotifications = getArguments().getBoolean("incomeNotifications");
-        boolean expenseNotifications = getArguments().getBoolean("expenseNotifications");
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        final FirebaseUser Users = firebaseAuth.getCurrentUser();
+
+        String id = Users.getUid();
+
+        income = databaseReference.child(id).child("Income");
+        expense = databaseReference.child(id).child("Expense");
+
+
+        incomeNotifications = getArguments().getBoolean("incomeNotifications");
+        expenseNotifications = getArguments().getBoolean("expenseNotifications");
+
+        income.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                if(incomeNotifications) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                        amount1 = Double.parseDouble(snapshot.child("amount").getValue(String.class));
+                    }
+                    notification("$" + amount1 + " was added to your account.");
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        expense.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                if (expenseNotifications) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                        amount1 = Double.parseDouble(snapshot.child("amount").getValue(String.class));
+                    }
+                    notification("$" + amount1 + " was deducted from your account.");
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         return v;
 
