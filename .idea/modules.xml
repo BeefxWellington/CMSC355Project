@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/My2Cents.iml" filepath="$PROJECT_DIR$/.idea/modules/My2Cents.iml" group="My2Cents" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="My2Cents/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/My2Cents.iml" filepath="$PROJECT_DIR$/.idea/modules/My2Cents.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/My2Cents.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/My2Cents.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/github.My2Cents.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/github.My2Cents.app.iml" />
     </modules>
   </component>
 </project>

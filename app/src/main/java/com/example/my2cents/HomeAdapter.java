@@ -13,9 +13,9 @@ import java.util.List;
 
 public class HomeAdapter extends PagerAdapter {
 
-    private List<HomeModel> models;
+    private final List<HomeModel> models;
     private LayoutInflater layoutInflater;
-    private Context context;
+    private final Context context;
 
     public HomeAdapter(List<HomeModel> models, Context context) {
         this.models = models;
