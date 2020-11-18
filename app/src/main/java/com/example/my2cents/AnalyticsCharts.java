@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -197,6 +198,7 @@ public class AnalyticsCharts extends Fragment {
         pieChart.getDescription().setEnabled(false);
         pieChart.setCenterText("Categories");
         pieChart.animate();
+        pieChart.invalidate();
     }
 
     public void setBarChart(){
@@ -215,6 +217,7 @@ public class AnalyticsCharts extends Fragment {
         barChart.setData(barData);
         barChart.getDescription().setEnabled(false);
         barChart.animate();
+        barChart.invalidate();
     }
 
     public void clearCharts(){
