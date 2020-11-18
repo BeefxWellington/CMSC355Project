@@ -123,19 +123,6 @@ public class Home extends Fragment {
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
         userRef = FirebaseDatabase.getInstance().getReference("Users").child(UserID).child("AccountEntry");
 
-        df = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z");
-        date = df.format(Calendar.getInstance().getTime());
-        String currentDay = date.substring(0, 3);
-        String dayNum = date.substring(5, 6);
-        String currentMonth = date.substring(7, 10);
-        String year = date.substring(11, 15);
-        String hour = date.substring(16, 18);
-        String min = date.substring(19, 21);
-        String sec = date.substring(22, 24);
-        timeStamp = new Timestamp(currentDay, currentMonth, year, dayNum, hour, min, sec);
-        this.timeStamp.setDay(date.substring(0, 3));
-        this.timeStamp.setMonth(date.substring(7, 10));
-
         amountDouble = 0;
         amountBalance = v.findViewById(R.id.balanceAmount);
         final AnalyticsLog analyticsLog = AnalyticsLog.getInstance();
@@ -148,6 +135,7 @@ public class Home extends Fragment {
                     dbAmount = datasnapshot1.child("amount").getValue(String.class);
                     dbMainCat = datasnapshot1.child("mainCategories").getValue(String.class);
                     dbSubCat = datasnapshot1.child("subCategories").getValue(String.class);
+                    timeStamp = datasnapshot1.child("timeStamp").getValue(Timestamp.class);
                     passModel = new passingModel(dbMainCat, dbSubCat, dbAmount, timeStamp);
                     testList.add(passModel);
                     amountDouble += Double.parseDouble(dbAmount);

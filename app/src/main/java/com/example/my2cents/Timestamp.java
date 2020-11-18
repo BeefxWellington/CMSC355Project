@@ -10,6 +10,10 @@ public class Timestamp {
     private String minute;
     private String seconds;
 
+    public Timestamp() {
+
+    }
+
     public Timestamp (String currentDay, String currentMonth, String currentYear, String currentDayNum, String currentHour, String currentMin, String currentSec) {
         this.day = currentDay;
         this.month = currentMonth;

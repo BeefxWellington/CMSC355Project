@@ -107,7 +107,7 @@ public class AnalyticsLog extends Fragment {
         useList = testList;
 
         this.logList = new ArrayList<>();
-        for (int i = 0; i < (useList.size()-1); i++) {
+        for (int i = 0; i < (useList.size()); i++) {
 
             passingmodel = useList.get(i);
             timeStamp = passingmodel.getTimeStamp();
