@@ -1,12 +1,13 @@
 package com.example.my2cents;
 
+import android.app.Activity;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.renderscript.Sampler;
 import android.text.TextUtils;
@@ -24,14 +25,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -99,13 +101,17 @@ public class Home extends Fragment {
 
     private double amountDouble;
 
-    private FirebaseAuth firebaseAuth;
-    DatabaseReference databaseReference;
-    DatabaseReference income;
-    DatabaseReference expense;
-    double amount1;
-    boolean incomeNotifications;
-    boolean expenseNotifications;
+    boolean incomeNotifications = true;
+    boolean expenseNotifications = true;
+
+
+
+    public interface ActToFrag {
+        public boolean getBool1();
+        public boolean getBool2();
+    }
+
+    ActToFrag actToFrag;
 
     public Home() {
         if (home != null) {
@@ -117,14 +123,18 @@ public class Home extends Fragment {
         }
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Set info to display for card view
-        firebaseAuth = FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
         setModels();
+
     }
+
+
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -206,87 +216,8 @@ public class Home extends Fragment {
             }
         });
 
-        firebaseAuth = FirebaseAuth.getInstance();
-
-        final FirebaseUser Users = firebaseAuth.getCurrentUser();
-
-        String id = Users.getUid();
-
-        income = databaseReference.child(id).child("Income");
-        expense = databaseReference.child(id).child("Expense");
-
-
-        incomeNotifications = getArguments().getBoolean("incomeNotifications");
-        expenseNotifications = getArguments().getBoolean("expenseNotifications");
-
-        income.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                if(incomeNotifications) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                        amount1 = Double.parseDouble(snapshot.child("amount").getValue(String.class));
-                    }
-                    notification("$" + amount1 + " was added to your account.");
-                }
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        expense.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                if (expenseNotifications) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                        amount1 = Double.parseDouble(snapshot.child("amount").getValue(String.class));
-                    }
-                    notification("$" + amount1 + " was deducted from your account.");
-                }
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
 
         return v;
-
-
-
     }
 
     public void setModels() {
@@ -387,6 +318,7 @@ public class Home extends Fragment {
             }
         });
 
+
         refNode.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -442,6 +374,11 @@ public class Home extends Fragment {
             passingModel PassingModel = new passingModel(mainCategoryValue,subCategoryValue,amountValue,timeStamp);
             databaseReference.child(UserID).child("AccountEntry").child(ID).setValue(PassingModel);
             Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+            if (mainCategoryValue.equals("Expense") && expenseNotifications) {
+                sendNotification("$" + amountValue + " deducted.", "Current balance: " + amountBalance.getText().toString());
+            } else if (mainCategoryValue.equals("Income") && incomeNotifications){
+                sendNotification("$" + amountValue + " added.", "Current balance: " + amountBalance.getText().toString());
+            }
         }
         else {
             Toast.makeText(getActivity(), "Fill all fields", Toast.LENGTH_SHORT).show();
@@ -450,6 +387,8 @@ public class Home extends Fragment {
         passModel.setAmount(amountValue);
         passModel.setMainCategories(mainCategoryValue);
         passModel.setSubCategories(subCategoryValue);
+
+
     }
 
     public static Home getInstance() {
@@ -459,24 +398,41 @@ public class Home extends Fragment {
         return home;
     }
 
-    public void notification(String message) {
-        NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            String channelId = "notification";
-            NotificationChannel notificationChannel = null;
-            notificationChannel = new NotificationChannel(channelId, "NOTIFICATION_CHANNEL_NAME", NotificationManager.IMPORTANCE_DEFAULT);
-            notificationManager.createNotificationChannel(notificationChannel);
-        }
-
+    public void sendNotification(String title, String message) {
+        NotificationManager notificationManager = (NotificationManager) getActivity().getSystemService(getActivity().NOTIFICATION_SERVICE);
         Intent intent = new Intent(getActivity(), MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(getActivity(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            String channelId = "notification";
+            NotificationChannel notificationChannel = new NotificationChannel(channelId, "NOTIFICATION_CHANNEL", NotificationManager.IMPORTANCE_DEFAULT);
+            notificationManager.createNotificationChannel(notificationChannel);
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), channelId)
+                    .setSmallIcon(R.drawable.my2centstransparent)
+                    .setColor(ContextCompat.getColor(getActivity(), R.color.logoRed))
+                    .setContentTitle(title)
+                    .setContentText(message)
+                    .setContentIntent(pendingIntent)
+                    .setAutoCancel(true);
+            notificationManager.notify(0, builder.build());
+        } else {
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext())
+                    .setSmallIcon(R.drawable.my2centstransparent)
+                    .setColor(ContextCompat.getColor(getActivity(), R.color.logoRed))
+                    .setContentTitle(title)
+                    .setContentText(message)
+                    .setContentIntent(pendingIntent)
+                    .setAutoCancel(true);
+            notificationManager.notify(0, builder.build());
+        }
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext())
-                .setSmallIcon(R.drawable.notif_icon)
-                .setContentTitle("My2Cents")
-                .setContentText(message)
-                .setAutoCancel(true)
-                .setContentIntent(pendingIntent);
-        notificationManager.notify(0, builder.build());
+    }
+
+
+    @Override
+    public void onAttach(@NonNull Activity activity) {
+        super.onAttach(activity);
+        actToFrag = (ActToFrag) activity;
+        incomeNotifications = actToFrag.getBool1();
+        expenseNotifications = actToFrag.getBool2();
     }
 }
