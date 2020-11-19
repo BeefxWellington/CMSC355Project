@@ -1,5 +1,6 @@
 package com.example.my2cents;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,8 @@ import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +28,7 @@ public class settings extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private FirebaseAuth firebaseAuth;
     public settings() {
         // Required empty public constructor
     }
@@ -54,6 +58,8 @@ public class settings extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        firebaseAuth = FirebaseAuth.getInstance();
+
 
     }
 
@@ -75,8 +81,18 @@ public class settings extends Fragment {
         Button b4 = (Button)view.findViewById(R.id.button_usersettings);
         b4.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_settings_to_userSettings2, null));
 
+        final Button signout = view.findViewById(R.id.signout);
+        signout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                firebaseAuth.signOut();
+                startActivity(new Intent(getActivity(), MainActivity.class));
+            }
+        });
         return view;
     }
+
 
 
 }

@@ -89,6 +89,26 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <Button
+        android:id="@+id/signout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:background="@color/white"
+        android:fontFamily="@font/avenirregular"
+        android:padding="5dp"
+        android:text="Sign Out"
+        android:onClick="logout"
+        android:textAlignment="viewStart"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toTopOf="@+id/textView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_passsettings"
+        />
+
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
@@ -100,7 +120,8 @@
         app:layout_constraintBottom_toTopOf="@+id/button_userguide"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingTop="30dp"/>
 
     <Button
         android:id="@+id/button_userguide"
