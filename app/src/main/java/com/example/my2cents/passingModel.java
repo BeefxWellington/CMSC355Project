@@ -10,16 +10,18 @@ public class passingModel {
     private String amount;
     private String time;
     private Timestamp timeStamp;
+    private String ID;
 
     public passingModel(){
 
     }
 
-    public passingModel(String mainCategories, String subCategories, String amount, Timestamp newTime) {
+    public passingModel(String newID, String mainCategories, String subCategories, String amount, Timestamp newTime) {
         this.mainCategories = mainCategories;
         this.subCategories = subCategories;
         this.amount = amount;
         this.timeStamp = newTime;
+        this.ID = newID;
     }
 
     public passingModel(String timeDate){
@@ -64,6 +66,14 @@ public class passingModel {
 
     public void setTimeStamp(Timestamp timeStamp) {
         this.timeStamp = timeStamp;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
     }
 }
 

@@ -63,6 +63,7 @@ public class Home extends Fragment {
     DatabaseReference userRef;
     private FirebaseAuth firebaseAuth;
     int sumTotalInc = 0;
+    private String ID;
 
     FirebaseDatabase rootNode;
     DatabaseReference refNode;
@@ -132,11 +133,12 @@ public class Home extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 testList.clear();
                 for (DataSnapshot datasnapshot1 : snapshot.getChildren()) {
+                    ID = datasnapshot1.getKey();
                     dbAmount = datasnapshot1.child("amount").getValue(String.class);
                     dbMainCat = datasnapshot1.child("mainCategories").getValue(String.class);
                     dbSubCat = datasnapshot1.child("subCategories").getValue(String.class);
                     timeStamp = datasnapshot1.child("timeStamp").getValue(Timestamp.class);
-                    passModel = new passingModel(dbMainCat, dbSubCat, dbAmount, timeStamp);
+                    passModel = new passingModel(ID, dbMainCat, dbSubCat, dbAmount, timeStamp);
                     testList.add(passModel);
                     amountDouble += Double.parseDouble(dbAmount);
                 }
@@ -311,7 +313,7 @@ public class Home extends Fragment {
         subCategoryValue = subCategories.getSelectedItem().toString();
         double currentBalanceDouble = 100.00;
 
-        passingModel passModel = new passingModel(mainCategoryValue,subCategoryValue,amountValue,timeStamp);
+        //passingModel passModel = new passingModel(mainCategoryValue,subCategoryValue,amountValue,timeStamp);
 
         df = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z");
         date = df.format(Calendar.getInstance().getTime());
@@ -329,7 +331,7 @@ public class Home extends Fragment {
         if (!TextUtils.isEmpty(amountValue) && !TextUtils.isEmpty(mainCategoryValue) && !TextUtils.isEmpty(subCategoryValue)) {
 
             String ID = databaseReference.push().getKey();
-            passingModel PassingModel = new passingModel(mainCategoryValue,subCategoryValue,amountValue,timeStamp);
+            passingModel PassingModel = new passingModel(ID, mainCategoryValue,subCategoryValue,amountValue,timeStamp);
             databaseReference.child(UserID).child("AccountEntry").child(ID).setValue(PassingModel);
             Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
         }

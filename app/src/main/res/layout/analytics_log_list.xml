@@ -59,7 +59,7 @@
 
             <TextView
                 android:id="@+id/logTitle"
-                android:text="Title - Category"
+                android:text="Category"
                 android:textColor="@color/gray"
                 android:textSize="17sp"
                 android:fontFamily="@font/avenirregular"
