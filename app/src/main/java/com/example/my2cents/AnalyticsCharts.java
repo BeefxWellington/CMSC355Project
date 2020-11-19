@@ -16,6 +16,7 @@ import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -224,8 +225,20 @@ public class AnalyticsCharts extends Fragment {
         barChart.animate();
         barChart.invalidate();
 
+        setAxis();
+    }
+
+    public void setAxis(){
+        double maxExpenses = 0;
+
         for(int i = 0; i < monthList.size(); i++){
             monthList.set(i, monthList.get(i).substring(0,3));
+            if (i == 0){
+                maxExpenses = monthAmount.get(i);
+            }
+            else if (i > 0 && monthAmount.get(i) > maxExpenses){
+                maxExpenses = monthAmount.get(i);
+            }
         }
         monthList.add(0, null);
         XAxis xaxis = barChart.getXAxis();
@@ -234,6 +247,8 @@ public class AnalyticsCharts extends Fragment {
         xaxis.setDrawGridLines(false);
         xaxis.setLabelCount(monthBar.size());
         xaxis.setTextSize(8f);
+        barChart.setVisibleYRange(0, (float) (maxExpenses + 100), YAxis.AxisDependency.LEFT);
+        barChart.setVisibleYRange(0, (float) (maxExpenses + 100), YAxis.AxisDependency.RIGHT);
         barChart.getAxisRight().setStartAtZero(true);
         barChart.getAxisLeft().setStartAtZero(true);
     }
