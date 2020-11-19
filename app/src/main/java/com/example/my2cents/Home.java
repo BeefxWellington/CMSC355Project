@@ -140,10 +140,15 @@ public class Home extends Fragment {
                     timeStamp = datasnapshot1.child("timeStamp").getValue(Timestamp.class);
                     passModel = new passingModel(ID, dbMainCat, dbSubCat, dbAmount, timeStamp);
                     testList.add(passModel);
-                    amountDouble += Double.parseDouble(dbAmount);
+                    if (dbMainCat.equals("Expense")) {
+                        amountDouble -= Double.parseDouble(dbAmount);
+                    }
+                    else {
+                        amountDouble += Double.parseDouble(dbAmount);
+                    }
                 }
                 double[] newSetBalance = new double[]{amountDouble};
-                amountBalance.setText("$" + Double.toString(amountDouble) + "0");
+                amountBalance.setText("$" + Double.toString(amountDouble));
                 analyticsLog.setTestList(testList);
                 analyticsLog.setBalance(newSetBalance);
                 //listAdapter.notifyDataSetChanged();

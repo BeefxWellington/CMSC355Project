@@ -38,16 +38,15 @@
         />
 
     <EditText
+        android:id="@+id/amountEt"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginHorizontal="10dp"
-        android:hint="Amount"
-        android:textColorHint="@color/black"
-        android:backgroundTint="@color/white"
+        android:layout_marginTop="100dp"
         android:background="@drawable/input_field"
-        android:layout_marginTop="50dp"
-        android:id="@+id/amountEt"
-        />
+        android:backgroundTint="@color/white"
+        android:hint="Amount"
+        android:textColorHint="@color/black" />
 
     <Button
         android:layout_width="250dp"
@@ -60,7 +59,7 @@
         android:fontFamily="@font/avenirregular"
         android:textSize="40dp"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="40dp"
         android:id="@+id/saveBtn"
 />
     <Button
