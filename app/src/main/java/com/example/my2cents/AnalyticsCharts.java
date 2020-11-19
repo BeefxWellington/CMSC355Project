@@ -14,12 +14,16 @@ import androidx.fragment.app.Fragment;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -214,10 +218,24 @@ public class AnalyticsCharts extends Fragment {
         barDataSet.setValueTextSize(10f);
 
         BarData barData = new BarData(barDataSet);
+        barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(months));
         barChart.setData(barData);
         barChart.getDescription().setEnabled(false);
         barChart.animate();
         barChart.invalidate();
+
+        for(int i = 0; i < monthList.size(); i++){
+            monthList.set(i, monthList.get(i).substring(0,3));
+        }
+        monthList.add(0, null);
+        XAxis xaxis = barChart.getXAxis();
+        xaxis.setValueFormatter(new IndexAxisValueFormatter(monthList));
+        xaxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xaxis.setDrawGridLines(false);
+        xaxis.setLabelCount(monthBar.size());
+        xaxis.setTextSize(8f);
+        barChart.getAxisRight().setStartAtZero(true);
+        barChart.getAxisLeft().setStartAtZero(true);
     }
 
     public void clearCharts(){
