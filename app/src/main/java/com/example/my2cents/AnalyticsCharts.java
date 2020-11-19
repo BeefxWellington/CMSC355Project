@@ -12,13 +12,19 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -197,6 +203,7 @@ public class AnalyticsCharts extends Fragment {
         pieChart.getDescription().setEnabled(false);
         pieChart.setCenterText("Categories");
         pieChart.animate();
+        pieChart.invalidate();
     }
 
     public void setBarChart(){
@@ -212,9 +219,38 @@ public class AnalyticsCharts extends Fragment {
         barDataSet.setValueTextSize(10f);
 
         BarData barData = new BarData(barDataSet);
+        barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(months));
         barChart.setData(barData);
         barChart.getDescription().setEnabled(false);
         barChart.animate();
+        barChart.invalidate();
+
+        setAxis();
+    }
+
+    public void setAxis(){
+        double maxExpenses = 0;
+
+        for(int i = 0; i < monthList.size(); i++){
+            monthList.set(i, monthList.get(i).substring(0,3));
+            if (i == 0){
+                maxExpenses = monthAmount.get(i);
+            }
+            else if (i > 0 && monthAmount.get(i) > maxExpenses){
+                maxExpenses = monthAmount.get(i);
+            }
+        }
+        monthList.add(0, null);
+        XAxis xaxis = barChart.getXAxis();
+        xaxis.setValueFormatter(new IndexAxisValueFormatter(monthList));
+        xaxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xaxis.setDrawGridLines(false);
+        xaxis.setLabelCount(monthBar.size());
+        xaxis.setTextSize(8f);
+        barChart.setVisibleYRange(0, (float) (maxExpenses + 100), YAxis.AxisDependency.LEFT);
+        barChart.setVisibleYRange(0, (float) (maxExpenses + 100), YAxis.AxisDependency.RIGHT);
+        barChart.getAxisRight().setStartAtZero(true);
+        barChart.getAxisLeft().setStartAtZero(true);
     }
 
     public void clearCharts(){
