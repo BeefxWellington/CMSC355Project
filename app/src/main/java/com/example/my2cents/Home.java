@@ -1,8 +1,6 @@
 package com.example.my2cents;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.renderscript.Sampler;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,6 +69,7 @@ public class Home extends Fragment {
         //Set info to display for card view
 
         setModels();
+
 
 
     }

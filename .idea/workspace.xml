@@ -54,7 +54,7 @@
   <component name="CodeInsightWorkspaceSettings">
     <option name="optimizeImportsOnTheFly" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[Pixel_3a_API_30_x86]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -76,9 +76,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="navigationResourceFile" />
+        <option value="layoutResourceFile" />
         <option value="resourceFile" />
         <option value="Class" />
-        <option value="layoutResourceFile" />
       </list>
     </option>
   </component>
@@ -103,8 +103,9 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res" />
-    <property name="memory.settings.postsync.last.time.stamp" value="1605322086542" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/drawable" />
+    <property name="memory.settings.postsync.last.time.stamp" value="1605904612585" />
     <property name="project.structure.last.edited" value="Dependencies" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -114,14 +115,15 @@
     <option name="LAST_EDITED_BUILD_TYPE" value="release" />
   </component>
   <component name="RecentsManager">
-    <key name="android.template.-1304892003">
-      <recent name="com.example.my2cents" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/src/main/res/drawable" />
+      <recent name="$PROJECT_DIR$/app/src/main/res" />
     </key>
     <key name="android.template.-1759094373">
       <recent name="com.example.my2cents" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/app/src/main/res" />
+    <key name="android.template.-1304892003">
+      <recent name="com.example.my2cents" />
     </key>
   </component>
   <component name="RunManager">
@@ -336,21 +338,22 @@
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="413" y="101" key="#app/0.23.1440.877@0.23.1440.877" timestamp="1603127116377" />
-    <state x="386" y="178" width="585" height="554" key="#com.intellij.ide.util.MemberChooser" timestamp="1603124072990">
-      <screen x="0" y="23" width="1440" height="877" />
+    <state x="386" y="165" width="585" height="554" key="#com.intellij.ide.util.MemberChooser" timestamp="1605901836833">
+      <screen x="0" y="23" width="1440" height="806" />
     </state>
     <state x="386" y="178" width="585" height="554" key="#com.intellij.ide.util.MemberChooser/-960.-15.960.681/0.23.1440.877@0.23.1440.877" timestamp="1603124072990" />
+    <state x="386" y="165" key="#com.intellij.ide.util.MemberChooser/0.23.1440.806@0.23.1440.806" timestamp="1605901836833" />
     <state x="386" y="178" key="#com.intellij.ide.util.MemberChooser/0.23.1440.877@0.23.1440.877" timestamp="1602734728701" />
     <state x="916" y="408" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1602730759348">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="-1230" y="1370" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.2560.1440/-3840.0.3840.2160@-3840.0.3840.2160" timestamp="1600509365367" />
     <state x="916" y="408" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1440.877@0.23.1440.877" timestamp="1602730759348" />
-    <state x="616" y="313" key="AndroidCreateResourceFileDialog" timestamp="1605325652258">
+    <state x="616" y="313" key="AndroidCreateResourceFileDialog" timestamp="1605900142143">
       <screen x="0" y="23" width="1440" height="806" />
     </state>
     <state x="-1380" y="1378" key="AndroidCreateResourceFileDialog/0.0.2560.1440/-3840.0.3840.2160@-3840.0.3840.2160" timestamp="1600496900644" />
-    <state x="616" y="313" key="AndroidCreateResourceFileDialog/0.23.1440.806@0.23.1440.806" timestamp="1605325652258" />
+    <state x="616" y="313" key="AndroidCreateResourceFileDialog/0.23.1440.806@0.23.1440.806" timestamp="1605900142143" />
     <state x="575" y="316" key="AndroidCreateXmlResourceDialog" timestamp="1603342431701">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
@@ -425,6 +428,10 @@
     </state>
     <state x="364" y="202" key="VcsDiffUtil.ChangesDialog/-1280.23.1280.697/0.23.1440.877@0.23.1440.877" timestamp="1603341395900" />
     <state x="364" y="202" key="VcsDiffUtil.ChangesDialog/0.23.1440.877@0.23.1440.877" timestamp="1603325399162" />
+    <state x="552" y="210" key="chooseDestDirectoryDialog" timestamp="1605899671041">
+      <screen x="0" y="23" width="1440" height="806" />
+    </state>
+    <state x="552" y="210" key="chooseDestDirectoryDialog/0.23.1440.806@0.23.1440.806" timestamp="1605899671041" />
     <state x="54" y="84" width="1332" height="758" key="com.android.tools.idea.avdmanager.AvdListDialog" timestamp="1602113334775">
       <screen x="0" y="23" width="1440" height="877" />
     </state>

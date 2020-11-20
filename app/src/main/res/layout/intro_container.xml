@@ -11,10 +11,11 @@
     android:padding="20dp">
 
     <ImageView
+        android:id="@+id/intro_pic"
         android:layout_width="260dp"
         android:layout_height="260dp"
         android:layout_margin="15dp"
-        android:android:adjustViewBounds="true"
+        android:adjustViewBounds="true"
         android:contentDescription="@string/app_name"
         />
 
