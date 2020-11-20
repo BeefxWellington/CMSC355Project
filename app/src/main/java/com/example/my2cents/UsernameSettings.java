@@ -43,6 +43,7 @@ public class UsernameSettings extends Fragment {
                     Toast.makeText(getActivity(), "Please enter your password to confirm changes.", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getActivity(), "Successfully changed username!", Toast.LENGTH_SHORT).show();
+                    ((SecondActivity)getActivity()).onBackPressed();
 
                 }
             }

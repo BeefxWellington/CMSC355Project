@@ -48,6 +48,7 @@ public class PasswordSettings extends Fragment {
                     Toast.makeText(getActivity(), "Please make sure your passwords match.", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getActivity(), "Successfully changed password!", Toast.LENGTH_SHORT).show();
+                    ((SecondActivity)getActivity()).onBackPressed();
                 }
             }
         });

@@ -116,6 +116,7 @@ public class Notifications extends Fragment {
                 expenseNotifications = sharedPreferences.getBoolean("expenseSwitch", true);
                 fragToAct.passBooleans(incomeNotifications, expenseNotifications);
 
+                ((SecondActivity)getActivity()).onBackPressed();
 
             }
         });
