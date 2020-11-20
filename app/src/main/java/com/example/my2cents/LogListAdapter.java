@@ -50,7 +50,7 @@ public class LogListAdapter extends ArrayAdapter<Log> {
         tvTitle.setText(title + " - " + category);
         tvType.setText(type);
         tvAmount.setText(amount);
-        tvBalance.setText(balance);
+        tvBalance.setText("Balance: " + balance);
 
         return convertView;
     }

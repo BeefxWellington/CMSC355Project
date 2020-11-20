@@ -5,8 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,6 +22,8 @@ import androidx.fragment.app.Fragment;
  */
 public class PasswordSettings extends Fragment {
 
+    EditText email;
+    private FirebaseAuth firebaseAuth;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -53,6 +62,7 @@ public class PasswordSettings extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        firebaseAuth = FirebaseAuth.getInstance();
     }
 
     @Override
@@ -61,12 +71,31 @@ public class PasswordSettings extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_password_settings, container, false);
         Button b1 = (Button) view.findViewById(R.id.changepassword);
+        email = view.findViewById(R.id.emailReset);
+        firebaseAuth = FirebaseAuth.getInstance();
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getFragmentManager().popBackStack();
+                String mail = email.getText().toString();
+                firebaseAuth.sendPasswordResetEmail(mail).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getContext(), "One Moment",Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getContext(), "Error",Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+               getFragmentManager().popBackStack();
+
+
             }
         });
+
         return view;
     }
 }
