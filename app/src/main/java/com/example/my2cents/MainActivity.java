@@ -3,6 +3,7 @@ package com.example.my2cents;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //User = (EditText)findViewById(R.id.userEditText);
         //Pass = (EditText)findViewById(R.id.pwEditText);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
 
         Register = (TextView)findViewById(R.id.fpwTextView);
         firebaseAuth = FirebaseAuth.getInstance();

@@ -22,6 +22,9 @@ import com.google.firebase.auth.FirebaseAuth;
  */
 public class PasswordSettings extends Fragment {
 
+    EditText newPassword;
+    EditText currentPassword;
+    EditText confirmPassword;
     EditText email;
     private FirebaseAuth firebaseAuth;
     // TODO: Rename parameter arguments, choose names that match
@@ -37,23 +40,6 @@ public class PasswordSettings extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PasswordSettings.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PasswordSettings newInstance(String param1, String param2) {
-        PasswordSettings fragment = new PasswordSettings();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,22 +51,38 @@ public class PasswordSettings extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_password_settings, container, false);
         Button b1 = (Button) view.findViewById(R.id.changepassword);
+       /* newPassword = (EditText) view.findViewById(R.id.newPasswordEditText);
+        currentPassword = (EditText) view.findViewById(R.id.currentPasswordEditText);
+        confirmPassword = (EditText) view.findViewById(R.id.confirmPasswordEditText); */
         email = view.findViewById(R.id.emailReset);
         firebaseAuth = FirebaseAuth.getInstance();
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+               /* if (newPassword.getText().toString().isEmpty()) {
+                    Toast.makeText(getActivity(), "Please enter a new password.", Toast.LENGTH_SHORT).show();
+                } else if (currentPassword.getText().toString().isEmpty()) {
+                    Toast.makeText(getActivity(), "Please enter your current password to confirm changes.", Toast.LENGTH_SHORT).show();
+                } else if (confirmPassword.getText().toString().isEmpty() ||
+                        !confirmPassword.getText().toString().equals(newPassword.getText().toString())){
+                    Toast.makeText(getActivity(), "Please make sure your passwords match.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "Successfully changed password!", Toast.LENGTH_SHORT).show();
+                    ((SecondActivity)getActivity()).onBackPressed();
+                } */
                 String mail = email.getText().toString();
                 firebaseAuth.sendPasswordResetEmail(mail).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(getContext(), "One Moment",Toast.LENGTH_SHORT).show();
+                        ((SecondActivity)getActivity()).onBackPressed();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -90,7 +92,7 @@ public class PasswordSettings extends Fragment {
                     }
                 });
 
-               getFragmentManager().popBackStack();
+              // getFragmentManager().popBackStack();
 
 
             }

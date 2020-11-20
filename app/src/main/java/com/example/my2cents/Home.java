@@ -1,6 +1,13 @@
 package com.example.my2cents;
 
+import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.renderscript.Sampler;
 import android.text.TextUtils;
@@ -17,6 +24,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -63,6 +72,7 @@ public class Home extends Fragment {
     DatabaseReference userRef;
     private FirebaseAuth firebaseAuth;
     int sumTotalInc = 0;
+    private String ID;
 
     FirebaseDatabase rootNode;
     DatabaseReference refNode;
@@ -91,6 +101,18 @@ public class Home extends Fragment {
 
     private double amountDouble;
 
+    boolean incomeNotifications = true;
+    boolean expenseNotifications = true;
+
+
+
+    public interface ActToFrag {
+        public boolean getBool1();
+        public boolean getBool2();
+    }
+
+    ActToFrag actToFrag;
+
     public Home() {
         if (home != null) {
             try {
@@ -101,12 +123,18 @@ public class Home extends Fragment {
         }
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Set info to display for card view
         setModels();
+
     }
+
+
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -132,16 +160,22 @@ public class Home extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 testList.clear();
                 for (DataSnapshot datasnapshot1 : snapshot.getChildren()) {
+                    ID = datasnapshot1.getKey();
                     dbAmount = datasnapshot1.child("amount").getValue(String.class);
                     dbMainCat = datasnapshot1.child("mainCategories").getValue(String.class);
                     dbSubCat = datasnapshot1.child("subCategories").getValue(String.class);
                     timeStamp = datasnapshot1.child("timeStamp").getValue(Timestamp.class);
-                    passModel = new passingModel(dbMainCat, dbSubCat, dbAmount, timeStamp);
+                    passModel = new passingModel(ID, dbMainCat, dbSubCat, dbAmount, timeStamp);
                     testList.add(passModel);
-                    amountDouble += Double.parseDouble(dbAmount);
+                    if (dbMainCat.equals("Expense")) {
+                        amountDouble -= Double.parseDouble(dbAmount);
+                    }
+                    else {
+                        amountDouble += Double.parseDouble(dbAmount);
+                    }
                 }
                 double[] newSetBalance = new double[]{amountDouble};
-                amountBalance.setText("$" + Double.toString(amountDouble) + "0");
+                amountBalance.setText("$" + Double.toString(amountDouble));
                 analyticsLog.setTestList(testList);
                 analyticsLog.setBalance(newSetBalance);
                 //listAdapter.notifyDataSetChanged();
@@ -175,6 +209,7 @@ public class Home extends Fragment {
                 showDialog();
             }
         });
+
 
         return v;
     }
@@ -413,6 +448,7 @@ public class Home extends Fragment {
             }
         });
 
+
         refNode.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -447,7 +483,7 @@ public class Home extends Fragment {
         subCategoryValue = subCategories.getSelectedItem().toString();
         double currentBalanceDouble = 100.00;
 
-        passingModel passModel = new passingModel(mainCategoryValue,subCategoryValue,amountValue,timeStamp);
+        //passingModel passModel = new passingModel(mainCategoryValue,subCategoryValue,amountValue,timeStamp);
 
         df = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z");
         date = df.format(Calendar.getInstance().getTime());
@@ -465,9 +501,14 @@ public class Home extends Fragment {
         if (!TextUtils.isEmpty(amountValue) && !TextUtils.isEmpty(mainCategoryValue) && !TextUtils.isEmpty(subCategoryValue)) {
 
             String ID = databaseReference.push().getKey();
-            passingModel PassingModel = new passingModel(mainCategoryValue,subCategoryValue,amountValue,timeStamp);
+            passingModel PassingModel = new passingModel(ID, mainCategoryValue,subCategoryValue,amountValue,timeStamp);
             databaseReference.child(UserID).child("AccountEntry").child(ID).setValue(PassingModel);
             Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+            if (mainCategoryValue.equals("Expense") && expenseNotifications) {
+                sendNotification("$" + amountValue + " deducted.", "Current balance: " + amountBalance.getText().toString());
+            } else if (mainCategoryValue.equals("Income") && incomeNotifications){
+                sendNotification("$" + amountValue + " added.", "Current balance: " + amountBalance.getText().toString());
+            }
         }
         else {
             Toast.makeText(getActivity(), "Fill all fields", Toast.LENGTH_SHORT).show();
@@ -476,6 +517,8 @@ public class Home extends Fragment {
         passModel.setAmount(amountValue);
         passModel.setMainCategories(mainCategoryValue);
         passModel.setSubCategories(subCategoryValue);
+
+
     }
 
     public static Home getInstance() {
@@ -485,4 +528,41 @@ public class Home extends Fragment {
         return home;
     }
 
+    public void sendNotification(String title, String message) {
+        NotificationManager notificationManager = (NotificationManager) getActivity().getSystemService(getActivity().NOTIFICATION_SERVICE);
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getActivity(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            String channelId = "notification";
+            NotificationChannel notificationChannel = new NotificationChannel(channelId, "NOTIFICATION_CHANNEL", NotificationManager.IMPORTANCE_DEFAULT);
+            notificationManager.createNotificationChannel(notificationChannel);
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), channelId)
+                    .setSmallIcon(R.drawable.my2centstransparent)
+                    .setColor(ContextCompat.getColor(getActivity(), R.color.logoRed))
+                    .setContentTitle(title)
+                    .setContentText(message)
+                    .setContentIntent(pendingIntent)
+                    .setAutoCancel(true);
+            notificationManager.notify(0, builder.build());
+        } else {
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext())
+                    .setSmallIcon(R.drawable.my2centstransparent)
+                    .setColor(ContextCompat.getColor(getActivity(), R.color.logoRed))
+                    .setContentTitle(title)
+                    .setContentText(message)
+                    .setContentIntent(pendingIntent)
+                    .setAutoCancel(true);
+            notificationManager.notify(0, builder.build());
+        }
+
+    }
+
+
+    @Override
+    public void onAttach(@NonNull Activity activity) {
+        super.onAttach(activity);
+        actToFrag = (ActToFrag) activity;
+        incomeNotifications = actToFrag.getBool1();
+        expenseNotifications = actToFrag.getBool2();
+    }
 }

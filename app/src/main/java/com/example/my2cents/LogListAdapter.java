@@ -1,6 +1,7 @@
 package com.example.my2cents;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,9 +46,16 @@ public class LogListAdapter extends ArrayAdapter<Log> {
         TextView tvAmount = (TextView) convertView.findViewById(R.id.logAmount);
         TextView tvBalance = (TextView) convertView.findViewById(R.id.logBalance);
 
+        if (category.equals("Expense")) {
+            tvAmount.setTextColor(Color.parseColor("#ff0000")); //set color to red
+        }
+        else {
+            tvAmount.setTextColor(Color.parseColor("#47d147")); //set color to green
+        }
+
         tvMonth.setText(month);
         tvDay.setText(day);
-        tvTitle.setText(title + " - " + category);
+        tvTitle.setText(category);
         tvType.setText(type);
         tvAmount.setText(amount);
         tvBalance.setText("Balance: " + balance);

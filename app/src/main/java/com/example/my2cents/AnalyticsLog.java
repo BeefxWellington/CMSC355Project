@@ -1,12 +1,17 @@
 package com.example.my2cents;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.*;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -77,6 +82,41 @@ public class AnalyticsLog extends Fragment {
 
         setLogList();
         searchLog();
+
+        String UserID = "pgnjJooFMAdnARk2LqV8pOFxGjs2";
+        final DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users").child(UserID).child("AccountEntry");
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                final int cursorPosition = position;
+                final AlertDialog dialog = new AlertDialog.Builder(getActivity())
+                        .setTitle("Are you sure you want to delete this item?")
+                        .setMessage("This will remove the item from the database permanently")
+                        .setPositiveButton("Yes", null)
+                        .setNegativeButton("Cancel", null)
+                        .show();
+
+                dialog.getButton(dialog.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#AA2E41"));
+
+                Button yesButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                yesButton.setTextColor(Color.parseColor("#AA2E41"));
+                yesButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        logList.remove(cursorPosition);
+                        adapter = new LogListAdapter(getContext(), R.layout.analytics_log_list, logList);
+                        listView.setAdapter(adapter);
+                        Toast.makeText(getActivity(), "Item Successfully Deleted", Toast.LENGTH_SHORT).show();
+                        userRef.child(useList.get(cursorPosition).getID()).setValue(null);
+                        dialog.dismiss();
+                    }
+                });
+
+
+                return false;
+            }
+        });
 
         // Inflate the layout for this fragment
         return v;
