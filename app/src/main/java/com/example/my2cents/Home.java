@@ -55,7 +55,6 @@ public class Home extends Fragment {
     List<HomeModel> models;
     TabLayout tabLayout;
     FloatingActionButton fab1;
-    Context context;
     Spinner typeSpinner;
     Spinner cateSpinner;
     EditText amount;
@@ -64,14 +63,10 @@ public class Home extends Fragment {
     Spinner mainCategories;
     Spinner subCategories;
     TextView amountBalance;
-    TextView secondAmount;
+
 
     DatabaseReference databaseReference;
-    DatabaseReference databaseReference1;
-    DatabaseReference databaseReference2;
     DatabaseReference userRef;
-    private FirebaseAuth firebaseAuth;
-    int sumTotalInc = 0;
     private String ID;
 
     FirebaseDatabase rootNode;
@@ -100,6 +95,8 @@ public class Home extends Fragment {
     private passingModel passModel;
 
     private double amountDouble;
+    private double startingBalance;
+    private double totalExpenses;
 
     boolean incomeNotifications = true;
     boolean expenseNotifications = true;
@@ -215,150 +212,46 @@ public class Home extends Fragment {
     }
 
     public void setModels() {
-//        secondAmount = getActivity().findViewById(R.id.secondAmount);
 //
-//        userRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                for(DataSnapshot ds : dataSnapshot.getChildren()){
-//                    String amount = ds.child("amount").getValue(String.class);
-//                    pValue = Integer.parseInt(String.valueOf(amount));
-//                    sumExp += pValue;
-//                    final int sumTotalExps = sumExp;
-//                    // pValue = Integer.parseInt(String.valueOf(amountExpense));
-//                    //sumExp += pValue;
-//
-//                    secondAmount.setText(String.valueOf(sumExp));
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-      /*  public void setModels() {
-            models = new ArrayList<>();
+        String UserID;
+        UserID = "pgnjJooFMAdnARk2LqV8pOFxGjs2";
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+        userRef = FirebaseDatabase.getInstance().getReference("Users").child(UserID).child("AccountEntry");
+        startingBalance = 0;
+        totalExpenses = 0;
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-            //Add temporary strings
-            models.add(new HomeModel("Month Summary",
-                    "Starting Balance", "Total Expenses", "Upcoming Deductions",
-                    String.valueOf(sumTotalInc), stringExpense , "3",
-                    null, null, null));
+                for (DataSnapshot datasnapshot1 : snapshot.getChildren()) {
+                    ID = datasnapshot1.getKey();
+                    dbAmount = datasnapshot1.child("amount").getValue(String.class);
+                    dbMainCat = datasnapshot1.child("mainCategories").getValue(String.class);
 
-            models.add(new HomeModel("Recent Expenses",
-                    "Title - Category", "Title - Category", "Title - Category",
-                    "$000.00", "$000.00", "$000.00",
-                    "MM/DD/YYYY", "MM/DD/YYYY", "MM/DD/YYYY"));
+                    if (dbMainCat.equals("Income")) {
+                        startingBalance += Double.parseDouble(dbAmount);
+                    }
+                    if (dbMainCat.equals("Expense")){
+                        totalExpenses += Double.parseDouble(dbAmount);
 
-            models.add(new HomeModel("Upcoming Deductions",
-                    "Title - Category", "Title - Category", "Title - Category",
-                    "$000.00", "$000.00", "$000.00",
-                    "MM/DD/YYYY", "MM/DD/YYYY", "MM/DD/YYYY"));
-            final FirebaseUser Users = firebaseAuth.getCurrentUser();
-            String UserId = Users.getUid();
-            String UserID;
-            UserID = "pgnjJooFMAdnARk2LqV8pOFxGjs2";
-            databaseReference1 = databaseReference.child(UserId).child("Income");
-            databaseReference2 = databaseReference.child(UserId).child("Expense");
-            //amountBalance.setText(UserId);
-
-            databaseReference2.addValueEventListener(new ValueEventListener() {
-
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    int sumExp=0;
-
-                    int pValue = 0;
-                    for(DataSnapshot ds : dataSnapshot.getChildren()){
-                        String amount = ds.child("amount").getValue(String.class);
-                        pValue = Integer.parseInt(String.valueOf(amount));
-                        sumExp += pValue;
-                        final int sumTotalExp = sumExp;
-                        // pValue = Integer.parseInt(String.valueOf(price));
-                        //sumExp += pValue;
-
-                        //amountBalance.setText(String.valueOf(sumExp));
-                        databaseReference1.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                int sumInc=0;
-
-                                int pValue = 0;
-                                for(DataSnapshot ds : dataSnapshot.getChildren()){
-                                    Map<String,Object> map = (Map<String, Object>) ds.getValue();
-                                    Object amountIncome = map.get("amount");
-
-                                    pValue = Integer.parseInt(String.valueOf(amountIncome));
-                                    sumInc += pValue;
-                                    sumTotalInc = sumInc;
-                                    int currentBalance = sumTotalInc - sumTotalExp;
-                                    amountBalance.setText(String.valueOf(currentBalance));
-                                }
-                                models.get(0).setFirstAmount(String.valueOf(sumTotalInc));
-
-                                viewPager.setAdapter(adapter);
-                            }
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
-                        });
                     }
 
                 }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                }
-            });
+                models.get(0).setFirstAmount("$" + String.valueOf(startingBalance));
+                viewPager.setAdapter(adapter);
+                models.get(0).setSecondAmount("$" + String.valueOf(totalExpenses));
 
-            //databaseReference1 = databaseReference.child(UserId).child("Income");
-            //databaseReference2 = databaseReference.child(UserId).child("Expense");
-            //amountBalance.setText(UserId);
+                adapter = new HomeAdapter(models, getContext());
+                viewPager.setAdapter(adapter);
+            }
 
-            databaseReference2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                    int sumExp= 0;
-
-                    int pValue = 0;
-                    for (DataSnapshot ds : dataSnapshot.getChildren()){
-                        String amount = ds.child("amount").getValue(String.class);
-                        pValue = Integer.parseInt(String.valueOf(amount));
-                        sumExp += pValue;
-                        final int sumTotalExps = sumExp;
-                        // pValue = Integer.parseInt(String.valueOf(amountExpense));
-                        //sumExp += pValue;
-                        //secondAmount.getText().toString();
-
-                        stringExpense = String.valueOf(sumTotalExps);
-
-
-                    }
-                    models.get(0).setSecondAmount(stringExpense);
-
-                    adapter = new HomeAdapter(models, getContext());
-                    viewPager.setAdapter(adapter);
-                }
-
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-
-
-
-
-        }*/
-
-
-
+            }
+        });
 
 
 
