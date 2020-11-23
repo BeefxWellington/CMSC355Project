@@ -1,6 +1,7 @@
 package com.example.my2cents;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -8,6 +9,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.renderscript.Sampler;
 import android.text.TextUtils;
@@ -16,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -63,6 +67,8 @@ public class Home extends Fragment {
     Spinner mainCategories;
     Spinner subCategories;
     TextView amountBalance;
+    EditText datePicker;
+    DatePickerDialog.OnDateSetListener setListener;
 
 
     DatabaseReference databaseReference;
@@ -277,14 +283,6 @@ public class Home extends Fragment {
 
 
 
-
-
-
-
-
-
-
-
     // alert dialog that shows when floating action button is clicked
     public void showDialog() {
         rootNode = FirebaseDatabase.getInstance();
@@ -300,6 +298,7 @@ public class Home extends Fragment {
         subCategories = view2.findViewById(R.id.categorySpinner);
         amount = view2.findViewById(R.id.amountEt);
         save = view2.findViewById(R.id.saveBtn);
+        datePicker = view2.findViewById((R.id.date_et));
 
         final AlertDialog builder = alertDialog.create();
 
@@ -331,6 +330,28 @@ public class Home extends Fragment {
             typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             cateSpinner.setAdapter(categoryAdapter);
         }
+        // data picker
+        Calendar calendar = Calendar.getInstance();
+        final int year = calendar.get(Calendar.YEAR);
+        final int month = calendar.get(Calendar.MONTH);
+        final int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        datePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), android.R.style.Theme_Holo_Light_Dialog_MinWidth,setListener,year,month,day);
+                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                datePickerDialog.show();
+            }
+        });
+        setListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month = month+1;
+                String Date = day+"/"+month+"/"+year;
+                datePicker.setText(Date);
+            }
+        };
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
