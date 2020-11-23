@@ -1,5 +1,6 @@
 package com.example.my2cents;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -38,6 +39,7 @@ public class Home extends Fragment {
     List<HomeModel> models;
     TabLayout tabLayout;
     FloatingActionButton fab1;
+    FloatingActionButton help;
     Spinner typeSpinner;
     Spinner cateSpinner;
     EditText amount;
@@ -113,6 +115,14 @@ public class Home extends Fragment {
 
             }
 
+        });
+
+        help = v.findViewById(R.id.helpbttn);
+        help.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                Intent onboardingIntent = new Intent(getContext(), onboarding.class);
+                startActivity(onboardingIntent);
+            }
         });
 
         return v;
@@ -336,6 +346,7 @@ public class Home extends Fragment {
         else {
             Toast.makeText(getActivity(), "Fill all fields", Toast.LENGTH_SHORT).show();
         }
+
 
 
     }

@@ -105,7 +105,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/drawable" />
-    <property name="memory.settings.postsync.last.time.stamp" value="1605904612585" />
+    <property name="memory.settings.postsync.last.time.stamp" value="1606100511520" />
     <property name="project.structure.last.edited" value="Dependencies" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -115,15 +115,21 @@
     <option name="LAST_EDITED_BUILD_TYPE" value="release" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/app/src/main/res/drawable" />
-      <recent name="$PROJECT_DIR$/app/src/main/res" />
+    <key name="android.template.-1304892003">
+      <recent name="com.example.my2cents" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/src/main/res/drawable-ldpi" />
+    </key>
+    <key name="android.template.1099724963">
+      <recent name="com.example.my2cents" />
     </key>
     <key name="android.template.-1759094373">
       <recent name="com.example.my2cents" />
     </key>
-    <key name="android.template.-1304892003">
-      <recent name="com.example.my2cents" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/src/main/res/drawable" />
+      <recent name="$PROJECT_DIR$/app/src/main/res" />
     </key>
   </component>
   <component name="RunManager">
@@ -338,22 +344,25 @@
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="413" y="101" key="#app/0.23.1440.877@0.23.1440.877" timestamp="1603127116377" />
-    <state x="386" y="165" width="585" height="554" key="#com.intellij.ide.util.MemberChooser" timestamp="1605901836833">
-      <screen x="0" y="23" width="1440" height="806" />
+    <state x="386" y="165" width="585" height="554" key="#com.intellij.ide.util.MemberChooser" timestamp="1606104212374">
+      <screen x="0" y="23" width="1440" height="808" />
     </state>
     <state x="386" y="178" width="585" height="554" key="#com.intellij.ide.util.MemberChooser/-960.-15.960.681/0.23.1440.877@0.23.1440.877" timestamp="1603124072990" />
     <state x="386" y="165" key="#com.intellij.ide.util.MemberChooser/0.23.1440.806@0.23.1440.806" timestamp="1605901836833" />
+    <state x="386" y="165" key="#com.intellij.ide.util.MemberChooser/0.23.1440.808@0.23.1440.808" timestamp="1606104212374" />
     <state x="386" y="178" key="#com.intellij.ide.util.MemberChooser/0.23.1440.877@0.23.1440.877" timestamp="1602734728701" />
-    <state x="916" y="408" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1602730759348">
-      <screen x="0" y="23" width="1440" height="877" />
+    <state x="654" y="227" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1606105718109">
+      <screen x="0" y="23" width="1440" height="808" />
     </state>
     <state x="-1230" y="1370" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.2560.1440/-3840.0.3840.2160@-3840.0.3840.2160" timestamp="1600509365367" />
+    <state x="654" y="227" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1440.808@0.23.1440.808" timestamp="1606105718109" />
     <state x="916" y="408" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1440.877@0.23.1440.877" timestamp="1602730759348" />
-    <state x="616" y="313" key="AndroidCreateResourceFileDialog" timestamp="1605900142143">
-      <screen x="0" y="23" width="1440" height="806" />
+    <state x="616" y="314" key="AndroidCreateResourceFileDialog" timestamp="1606101699024">
+      <screen x="0" y="23" width="1440" height="808" />
     </state>
     <state x="-1380" y="1378" key="AndroidCreateResourceFileDialog/0.0.2560.1440/-3840.0.3840.2160@-3840.0.3840.2160" timestamp="1600496900644" />
     <state x="616" y="313" key="AndroidCreateResourceFileDialog/0.23.1440.806@0.23.1440.806" timestamp="1605900142143" />
+    <state x="616" y="314" key="AndroidCreateResourceFileDialog/0.23.1440.808@0.23.1440.808" timestamp="1606101699024" />
     <state x="575" y="316" key="AndroidCreateXmlResourceDialog" timestamp="1603342431701">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
