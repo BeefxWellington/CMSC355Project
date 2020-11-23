@@ -38,9 +38,6 @@ public class settings extends Fragment {
         passwordSettings = (Button)view.findViewById(R.id.button_passsettings);
         passwordSettings.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_settings_to_passwordSettings2, null));
 
-        userGuide = (Button)view.findViewById(R.id.button_userguide);
-        userGuide.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_settings_to_userGuide2, null));
-
         usernameSettings = (Button)view.findViewById(R.id.button_usersettings);
         usernameSettings.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_settings_to_userSettings2, null));
 
