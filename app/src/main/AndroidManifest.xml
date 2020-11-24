@@ -9,12 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".onboarding"
+            android:label="@string/title_activity_onboarding"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".SplashScreen">
-            <!-- under SplashScreen is the code to make the splash appear
-            for a short amount of time. Actual time is in the .java file. -->
+
+            <!--
+            under SplashScreen is the code to make the splash appear
+            for a short amount of time. Actual time is in the .java file.
+            -->
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity> <!-- end splash -->
