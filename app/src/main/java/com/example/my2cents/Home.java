@@ -60,6 +60,8 @@ public class Home extends Fragment {
     List<HomeModel> models;
     TabLayout tabLayout;
     FloatingActionButton fab1;
+    FloatingActionButton help;
+    Context context;
     Spinner typeSpinner;
     Spinner cateSpinner;
     EditText amount;
@@ -214,6 +216,14 @@ public class Home extends Fragment {
             public void onClick(View view) {
 
                 showDialog();
+            }
+        });
+
+        help = v.findViewById(R.id.helpbttn);
+        help.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                Intent onboardingIntent = new Intent(getContext(), onboarding.class);
+                startActivity(onboardingIntent);
             }
         });
 

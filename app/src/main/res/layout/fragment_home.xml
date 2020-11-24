@@ -117,4 +117,20 @@
         app:srcCompat="@android:drawable/ic_input_add"
         android:contentDescription="TODO" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/helpbttn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="76dp"
+        android:backgroundTint="@color/red"
+        android:clickable="true"
+        android:focusable="true"
+        android:outlineAmbientShadowColor="@color/red"
+        android:tint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_help" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
