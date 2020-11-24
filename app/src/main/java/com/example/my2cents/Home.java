@@ -47,6 +47,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.sql.Array;
 import java.sql.Time;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -69,7 +70,8 @@ public class Home extends Fragment {
     TextView amountBalance;
     EditText datePicker;
     DatePickerDialog.OnDateSetListener setListener;
-
+    int selectedMonth, selectedYear, selectedDay;
+    int numOfUpcomingdeductions;
 
     DatabaseReference databaseReference;
     DatabaseReference userRef;
@@ -89,6 +91,7 @@ public class Home extends Fragment {
     private DateFormat df;
     private String date;
     private Timestamp timeStamp;
+    private String upcomingDeductions;
 
     private String amountValue;
     private String mainCategoryValue;
@@ -168,7 +171,8 @@ public class Home extends Fragment {
                     dbMainCat = datasnapshot1.child("mainCategories").getValue(String.class);
                     dbSubCat = datasnapshot1.child("subCategories").getValue(String.class);
                     timeStamp = datasnapshot1.child("timeStamp").getValue(Timestamp.class);
-                    passModel = new passingModel(ID, dbMainCat, dbSubCat, dbAmount, timeStamp);
+                    upcomingDeductions = datasnapshot1.child("upcomingDedctions").getValue(String.class);
+                    passModel = new passingModel(ID, dbMainCat, dbSubCat, dbAmount, timeStamp, upcomingDeductions);
                     testList.add(passModel);
                     if (dbMainCat.equals("Expense")) {
                         amountDouble -= Double.parseDouble(dbAmount);
@@ -225,6 +229,7 @@ public class Home extends Fragment {
         userRef = FirebaseDatabase.getInstance().getReference("Users").child(UserID).child("AccountEntry");
         startingBalance = 0;
         totalExpenses = 0;
+        numOfUpcomingdeductions=0;
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -233,7 +238,7 @@ public class Home extends Fragment {
                     ID = datasnapshot1.getKey();
                     dbAmount = datasnapshot1.child("amount").getValue(String.class);
                     dbMainCat = datasnapshot1.child("mainCategories").getValue(String.class);
-
+                    String upcomingDate = datasnapshot1.child("upcomingDeductions").getValue(String.class);
                     if (dbMainCat.equals("Income")) {
                         startingBalance += Double.parseDouble(dbAmount);
                     }
@@ -241,8 +246,22 @@ public class Home extends Fragment {
                         totalExpenses += Double.parseDouble(dbAmount);
 
                     }
+                    if (upcomingDate != null){
+                        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                        Date date = null;
+                        try {
+                            date = dateFormat.parse(upcomingDate);
+                            if (date.after(Calendar.getInstance().getTime())){
+                                numOfUpcomingdeductions++;
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
 
                 }
+
+                models.get(0).setThirdAmount(String.valueOf(numOfUpcomingdeductions));
 
 
                 models.get(0).setFirstAmount("$" + String.valueOf(startingBalance));
@@ -348,8 +367,12 @@ public class Home extends Fragment {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month = month+1;
-                String Date = day+"/"+month+"/"+year;
+                String Date = dayOfMonth+"/"+month+"/"+year;
                 datePicker.setText(Date);
+                selectedMonth = month;
+                selectedYear = year;
+                selectedDay = dayOfMonth;
+                upcomingDeductions = Date;
             }
         };
 
@@ -399,6 +422,16 @@ public class Home extends Fragment {
 
         //passingModel passModel = new passingModel(mainCategoryValue,subCategoryValue,amountValue,timeStamp);
 
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH, selectedDay);
+        calendar.set(Calendar.YEAR, selectedYear);
+        calendar.set(Calendar.MONTH, selectedMonth- 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+
+
+
         df = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z");
         date = df.format(Calendar.getInstance().getTime());
         String day = date.substring(0, 3);
@@ -415,7 +448,7 @@ public class Home extends Fragment {
         if (!TextUtils.isEmpty(amountValue) && !TextUtils.isEmpty(mainCategoryValue) && !TextUtils.isEmpty(subCategoryValue)) {
 
             String ID = databaseReference.push().getKey();
-            passingModel PassingModel = new passingModel(ID, mainCategoryValue,subCategoryValue,amountValue,timeStamp);
+            passingModel PassingModel = new passingModel(ID, mainCategoryValue,subCategoryValue,amountValue,timeStamp, upcomingDeductions);
             databaseReference.child(UserID).child("AccountEntry").child(ID).setValue(PassingModel);
             Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
             if (mainCategoryValue.equals("Expense") && expenseNotifications) {

@@ -11,17 +11,21 @@ public class passingModel {
     private String time;
     private Timestamp timeStamp;
     private String ID;
+    private String upcomingDeductions;
 
     public passingModel(){
 
     }
 
-    public passingModel(String newID, String mainCategories, String subCategories, String amount, Timestamp newTime) {
+
+
+    public passingModel(String newID, String mainCategories, String subCategories, String amount, Timestamp newTime, String upcomingDeductions) {
         this.mainCategories = mainCategories;
         this.subCategories = subCategories;
         this.amount = amount;
         this.timeStamp = newTime;
         this.ID = newID;
+        this.upcomingDeductions  = upcomingDeductions;
     }
 
     public passingModel(String timeDate){
@@ -74,6 +78,14 @@ public class passingModel {
 
     public void setID(String ID) {
         this.ID = ID;
+    }
+
+    public String getUpcomingDeductions() {
+        return upcomingDeductions;
+    }
+
+    public void setUpcomingDeductions(String upcomingDeductions) {
+        this.upcomingDeductions = upcomingDeductions;
     }
 }
 
