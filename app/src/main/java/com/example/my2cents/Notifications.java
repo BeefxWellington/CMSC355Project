@@ -22,13 +22,10 @@ import androidx.fragment.app.Fragment;
 public class Notifications extends Fragment {
 
     public interface FragToAct {
-        public void passBooleans (boolean b1, boolean b2);
+        public void passSwitchState (boolean b1, boolean b2);
     }
 
     FragToAct fragToAct;
-
-    boolean incomeNotifications = true;
-    boolean expenseNotifications = true;
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -45,7 +42,6 @@ public class Notifications extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -53,6 +49,7 @@ public class Notifications extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_notifications, container, false);
+
         saveNotifications = (Button) view.findViewById(R.id.savenotifications);
 
         all = (Switch) view.findViewById(R.id.switch1);
@@ -112,9 +109,8 @@ public class Notifications extends Fragment {
 
                 Toast.makeText(getActivity(), "Saved!", Toast.LENGTH_SHORT).show();
 
-                incomeNotifications = sharedPreferences.getBoolean("incomeSwitch", true);
-                expenseNotifications = sharedPreferences.getBoolean("expenseSwitch", true);
-                fragToAct.passBooleans(incomeNotifications, expenseNotifications);
+                fragToAct.passSwitchState(sharedPreferences.getBoolean("incomeSwitch", true),
+                        sharedPreferences.getBoolean("expenseSwitch", true));
 
 
             }

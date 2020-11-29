@@ -13,7 +13,6 @@ public class settings extends Fragment {
 
     Button notificationSettings;
     Button passwordSettings;
-    Button userGuide;
     Button usernameSettings;
 
     public settings() {
