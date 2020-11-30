@@ -3,16 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="20dp">
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="20dp"
         android:textColor="@color/white"
         android:text="Input"
-        android:textSize="50sp"
+        android:textSize="40sp"
         android:fontFamily="@font/agnetha"
 />
     <androidx.appcompat.widget.AppCompatSpinner
@@ -46,7 +47,9 @@
         android:backgroundTint="@color/white"
         android:background="@drawable/input_field"
         android:layout_marginTop="20dp"
+        android:textSize="15sp"
         android:id="@+id/amountEt"
+        android:paddingLeft="23dp"
         />
 
     <EditText
@@ -58,36 +61,38 @@
         android:backgroundTint="@color/white"
         android:background="@drawable/input_field"
         android:layout_marginTop="20dp"
+        android:textSize="15sp"
         android:id="@+id/date_et"
+        android:paddingLeft="23dp"
         />
 
 
     <Button
-        android:layout_width="100dp"
-        android:layout_height="50dp"
+        android:layout_width="120dp"
+        android:layout_height="45dp"
         android:layout_gravity="center"
         android:text="Save"
         android:background="@drawable/buttonbg"
         android:backgroundTint="@color/white"
         android:textColor="@color/red"
         android:fontFamily="@font/avenirregular"
-        android:textSize="20dp"
+        android:textSize="18sp"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="80dp"
         android:id="@+id/saveBtn"
 />
     <Button
-        android:layout_width="100dp"
-        android:layout_height="50dp"
+        android:layout_width="120dp"
+        android:layout_height="45dp"
         android:layout_gravity="center"
         android:text="Cancel"
         android:textColor="@color/red"
         android:background="@drawable/buttonbg"
         android:backgroundTint="@color/white"
         android:fontFamily="@font/avenirregular"
-        android:textSize="20dp"
+        android:textSize="18sp"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:layout_marginBottom="10dp"
         android:id="@+id/cancelBtn"
         />
