@@ -1,6 +1,6 @@
 name: Push on commit
 
-on: [anna-branch]
+on: [ push ]
 
 jobs:
   build:
