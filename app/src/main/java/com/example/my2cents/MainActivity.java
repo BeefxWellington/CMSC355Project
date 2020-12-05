@@ -48,32 +48,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                validate(email.getText().toString(), password.getText() .toString());
-
-
-                /******************** Uncomment the following lines to enable username and password authentication in cooperation with "login" button **************************************************/
-//                String correct_username = "admin";
-//                String correct_password = "password";
-//                //validate inputs
-//                if (TextUtils.isEmpty(username.getText().toString()) || TextUtils.isEmpty(password.getText().toString())) {
-//                    Toast.makeText(MainActivity.this, "Insufficient data provided", Toast.LENGTH_LONG).show();
-//                }
-//                else if (username.getText().toString().equals(correct_username)) {
-//                    //check password
-//                    if (password.getText().toString().equals(correct_password)) {
-//                        Toast.makeText(MainActivity.this, "Successful Login",Toast.LENGTH_LONG).show();
-//
-//                        //It will move to next screen after successful sign on
-//                        Intent startIntent = new Intent(getApplicationContext(), SecondActivity.class);
-//                        startActivity(startIntent);
-//                    }
-//                    else {
-//                        Toast.makeText(MainActivity.this, "Invalid username/password",Toast.LENGTH_LONG).show();
-//                    }
-//                }
-//                else {
-//                    Toast.makeText(MainActivity.this, "Invalid username/password", Toast.LENGTH_LONG).show();
-//                }
+                validate(email.getText().toString(), password.getText().toString());
             }
         });
 
@@ -83,10 +58,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, RegisterActivity.class));
             }
         });
-
-
-
-
 
     }
     public void validate(String email, String password){
@@ -103,7 +74,5 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 }
