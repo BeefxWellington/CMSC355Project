@@ -11,9 +11,9 @@ import androidx.navigation.Navigation;
 
 public class settings extends Fragment {
 
-    Button notificationSettings;
-    Button passwordSettings;
-    Button usernameSettings;
+    private Button notificationSettings;
+    private Button passwordSettings;
+    private Button usernameSettings;
 
     public settings() {
         // Required empty public constructor

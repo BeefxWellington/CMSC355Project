@@ -18,8 +18,8 @@ public class SecondActivity extends AppCompatActivity implements Notifications.F
 
     private FirebaseAuth  firebaseAuth;
 
-    boolean b1;
-    boolean b2;
+    private boolean b1;
+    private boolean b2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

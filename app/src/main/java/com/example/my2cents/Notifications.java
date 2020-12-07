@@ -30,10 +30,10 @@ public class Notifications extends Fragment {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
-    @SuppressLint("UseSwitchCompatOrMaterialCode") Switch all;
-    @SuppressLint("UseSwitchCompatOrMaterialCode") Switch income;
-    @SuppressLint("UseSwitchCompatOrMaterialCode") Switch expense;
-    Button saveNotifications;
+    private @SuppressLint("UseSwitchCompatOrMaterialCode") Switch all;
+    private @SuppressLint("UseSwitchCompatOrMaterialCode") Switch income;
+    private @SuppressLint("UseSwitchCompatOrMaterialCode") Switch expense;
+    private Button saveNotifications;
 
     public Notifications() {
         // Required empty public constructor

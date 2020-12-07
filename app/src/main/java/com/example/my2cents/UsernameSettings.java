@@ -6,15 +6,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 public class UsernameSettings extends Fragment {
 
-    EditText username;
-    EditText password;
-    Button changeUsername;
+    private EditText username;
+    private EditText password;
+    private Button changeUsername;
+    private Button goBack;
 
 
     public UsernameSettings() {
@@ -34,6 +36,8 @@ public class UsernameSettings extends Fragment {
         changeUsername = (Button) view.findViewById(R.id.changeusername);
         username = (EditText) view.findViewById(R.id.usernameEditText);
         password = (EditText) view.findViewById(R.id.passwordEditText);
+        goBack = (Button) view.findViewById(R.id.buttonGoBack);
+
         changeUsername.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,6 +51,15 @@ public class UsernameSettings extends Fragment {
                 }
             }
         });
+
+        goBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
+
         return view;
     }
+
 }
