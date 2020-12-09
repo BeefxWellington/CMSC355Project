@@ -9,58 +9,65 @@
 
     <Switch
         android:id="@+id/switch1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="40dp"
+        android:checked="true"
+        android:theme="@style/Switch"
         android:fontFamily="@font/avenirregular"
         android:text="All Notifications"
         android:textColor="@android:color/secondary_text_light"
-        android:textSize="20sp"
-        android:layout_marginLeft="20dp"
+        android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="UseSwitchCompatOrMaterialXml"
-        android:checked="true"
-        android:theme="@style/Switch"/>
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     <Switch
         android:id="@+id/switch2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="25dp"
+        android:paddingLeft="25dp"
+        android:layout_marginRight="40dp"
+        android:checked="true"
+        android:theme="@style/Switch"
         android:fontFamily="@font/avenirregular"
         android:text="Income Added"
         android:textColor="@android:color/secondary_text_light"
-        android:textSize="20sp"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switch1"
-        tools:ignore="UseSwitchCompatOrMaterialXml"
-        android:checked="true"
-        android:theme="@style/Switch"/>
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     <Switch
         android:id="@+id/switch3"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
         android:layout_marginTop="20dp"
-        android:fontFamily="@font/avenirregular"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="40dp"
+        android:paddingLeft="25dp"
+        android:checked="true"
+        android:theme="@style/Switch"
         android:text="Expense Deducted"
+        android:fontFamily="@font/avenirregular"
         android:textColor="@android:color/secondary_text_light"
-        android:textSize="20sp"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switch2"
-        tools:ignore="UseSwitchCompatOrMaterialXml"
-        android:checked="true"
-        android:theme="@style/Switch"/>
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
 
 
     <Button
         android:id="@+id/savenotifications"
         android:layout_width="375dp"
         android:layout_height="60dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/rounded_button"
         android:text="Save Settings"
         android:textColor="@color/white"
@@ -71,4 +78,4 @@
         app:layout_constraintTop_toBottomOf="@+id/switch3" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>

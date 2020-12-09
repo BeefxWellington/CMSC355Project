@@ -115,8 +115,8 @@ public class Home extends Fragment {
 
 
     public interface ActToFrag {
-        public boolean getBool1();
-        public boolean getBool2();
+        public boolean getIncomeSwitchState();
+        public boolean getExpenseSwitchState();
     }
 
     ActToFrag actToFrag;
@@ -139,8 +139,6 @@ public class Home extends Fragment {
         setModels();
 
     }
-
-
 
 
 
@@ -462,9 +460,13 @@ public class Home extends Fragment {
             databaseReference.child(UserID).child("AccountEntry").child(ID).setValue(PassingModel);
             Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
             if (mainCategoryValue.equals("Expense") && expenseNotifications) {
-                sendNotification("$" + amountValue + " deducted.", "Current balance: " + amountBalance.getText().toString());
-            } else if (mainCategoryValue.equals("Income") && incomeNotifications){
-                sendNotification("$" + amountValue + " added.", "Current balance: " + amountBalance.getText().toString());
+                sendNotification("1", "EXPENSE_NOTIFICATIONS",
+                        "$" + amountValue + " deducted.",
+                        "Current balance: " + amountBalance.getText().toString());
+            } else if (mainCategoryValue.equals("Income") && incomeNotifications) {
+                sendNotification("2", "INCOME NOTIFICATIONS",
+                        "$" + amountValue + " added.",
+                        "Current balance: " + amountBalance.getText().toString());
             }
         }
         else {
@@ -485,33 +487,26 @@ public class Home extends Fragment {
         return home;
     }
 
-    public void sendNotification(String title, String message) {
+
+    public void sendNotification(String channelId, String channelName, String title, String message) {
         NotificationManager notificationManager = (NotificationManager) getActivity().getSystemService(getActivity().NOTIFICATION_SERVICE);
         Intent intent = new Intent(getActivity(), MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(getActivity(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        NotificationCompat.Builder builder;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            String channelId = "notification";
-            NotificationChannel notificationChannel = new NotificationChannel(channelId, "NOTIFICATION_CHANNEL", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationChannel notificationChannel = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT);
             notificationManager.createNotificationChannel(notificationChannel);
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), channelId)
-                    .setSmallIcon(R.drawable.my2centstransparent)
-                    .setColor(ContextCompat.getColor(getActivity(), R.color.logoRed))
-                    .setContentTitle(title)
-                    .setContentText(message)
-                    .setContentIntent(pendingIntent)
-                    .setAutoCancel(true);
-            notificationManager.notify(0, builder.build());
+            builder = new NotificationCompat.Builder(getContext(), channelId);
         } else {
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext())
-                    .setSmallIcon(R.drawable.my2centstransparent)
-                    .setColor(ContextCompat.getColor(getActivity(), R.color.logoRed))
-                    .setContentTitle(title)
-                    .setContentText(message)
-                    .setContentIntent(pendingIntent)
-                    .setAutoCancel(true);
-            notificationManager.notify(0, builder.build());
+            builder = new NotificationCompat.Builder(getContext());
         }
-
+        builder.setSmallIcon(R.drawable.my2centstransparent)
+                .setColor(ContextCompat.getColor(getActivity(), R.color.logoRed))
+                .setContentTitle(title)
+                .setContentText(message)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
+        notificationManager.notify(0, builder.build());
     }
 
 
@@ -519,7 +514,7 @@ public class Home extends Fragment {
     public void onAttach(@NonNull Activity activity) {
         super.onAttach(activity);
         actToFrag = (ActToFrag) activity;
-        incomeNotifications = actToFrag.getBool1();
-        expenseNotifications = actToFrag.getBool2();
+        incomeNotifications = actToFrag.getIncomeSwitchState();
+        expenseNotifications = actToFrag.getExpenseSwitchState();
     }
 }

@@ -22,10 +22,11 @@ import com.google.firebase.auth.FirebaseAuth;
  */
 public class PasswordSettings extends Fragment {
 
-    EditText newPassword;
-    EditText currentPassword;
-    EditText confirmPassword;
-    EditText email;
+    private EditText newPassword;
+    private EditText currentPassword;
+    private EditText confirmPassword;
+    private EditText email;
+    private Button goBack;
     private FirebaseAuth firebaseAuth;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -63,6 +64,8 @@ public class PasswordSettings extends Fragment {
         confirmPassword = (EditText) view.findViewById(R.id.confirmPasswordEditText); */
         email = view.findViewById(R.id.emailReset);
         firebaseAuth = FirebaseAuth.getInstance();
+        goBack = (Button) view.findViewById(R.id.buttonGoBack);
+
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,6 +98,13 @@ public class PasswordSettings extends Fragment {
               // getFragmentManager().popBackStack();
 
 
+            }
+        });
+
+        goBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
             }
         });
 

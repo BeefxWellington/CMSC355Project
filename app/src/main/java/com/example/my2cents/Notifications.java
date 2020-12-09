@@ -22,21 +22,18 @@ import androidx.fragment.app.Fragment;
 public class Notifications extends Fragment {
 
     public interface FragToAct {
-        public void passBooleans (boolean b1, boolean b2);
+        public void passSwitchState (boolean b1, boolean b2);
     }
 
     FragToAct fragToAct;
 
-    boolean incomeNotifications = true;
-    boolean expenseNotifications = true;
-
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
-    @SuppressLint("UseSwitchCompatOrMaterialCode") Switch all;
-    @SuppressLint("UseSwitchCompatOrMaterialCode") Switch income;
-    @SuppressLint("UseSwitchCompatOrMaterialCode") Switch expense;
-    Button saveNotifications;
+    private @SuppressLint("UseSwitchCompatOrMaterialCode") Switch all;
+    private @SuppressLint("UseSwitchCompatOrMaterialCode") Switch income;
+    private @SuppressLint("UseSwitchCompatOrMaterialCode") Switch expense;
+    private Button saveNotifications;
 
     public Notifications() {
         // Required empty public constructor
@@ -45,7 +42,6 @@ public class Notifications extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -53,6 +49,7 @@ public class Notifications extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_notifications, container, false);
+
         saveNotifications = (Button) view.findViewById(R.id.savenotifications);
 
         all = (Switch) view.findViewById(R.id.switch1);
@@ -69,12 +66,18 @@ public class Notifications extends Fragment {
         all.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                editor.putBoolean("allSwitch", b).commit();
                 if (b) {
-                    editor.putBoolean("allSwitch", b).commit();
                     income.setChecked(true);
                     expense.setChecked(true);
-                } else {
-                    editor.putBoolean("allSwitch", b).commit();
+                }
+            }
+        });
+
+        all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!all.isChecked()) {
                     income.setChecked(false);
                     expense.setChecked(false);
                 }
@@ -84,10 +87,12 @@ public class Notifications extends Fragment {
         income.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                editor.putBoolean("incomeSwitch", b).commit();
                 if (b) {
-                    editor.putBoolean("incomeSwitch", b).commit();
+                    if (b && expense.isChecked()) {
+                        all.setChecked(true);
+                    }
                 } else {
-                    editor.putBoolean("incomeSwitch", b).commit();
                     all.setChecked(false);
                 }
             }
@@ -96,10 +101,12 @@ public class Notifications extends Fragment {
         expense.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                editor.putBoolean("expenseSwitch", b).commit();
                 if (b) {
-                    editor.putBoolean("expenseSwitch", b).commit();
+                    if (b && income.isChecked()) {
+                        all.setChecked(true);
+                    }
                 } else {
-                    editor.putBoolean("expenseSwitch", b).commit();
                     all.setChecked(false);
                 }
             }
@@ -109,14 +116,12 @@ public class Notifications extends Fragment {
         saveNotifications.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Toast.makeText(getActivity(), "Saved!", Toast.LENGTH_SHORT).show();
 
-                incomeNotifications = sharedPreferences.getBoolean("incomeSwitch", true);
-                expenseNotifications = sharedPreferences.getBoolean("expenseSwitch", true);
-                fragToAct.passBooleans(incomeNotifications, expenseNotifications);
-
+                fragToAct.passSwitchState(sharedPreferences.getBoolean("incomeSwitch", true),
+                        sharedPreferences.getBoolean("expenseSwitch", true));
                 ((SecondActivity)getActivity()).onBackPressed();
+
 
             }
         });
@@ -132,4 +137,3 @@ public class Notifications extends Fragment {
         fragToAct = (FragToAct) context;
     }
 }
-

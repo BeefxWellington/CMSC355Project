@@ -23,10 +23,9 @@ public class settings extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    Button notificationSettings;
-    Button passwordSettings;
-    Button userGuide;
-    Button usernameSettings;
+    private Button notificationSettings;
+    private Button passwordSettings;
+    private Button usernameSettings;
 
     private FirebaseAuth firebaseAuth;
     public settings() {

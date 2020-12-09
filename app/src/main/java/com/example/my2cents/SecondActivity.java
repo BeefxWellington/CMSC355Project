@@ -18,8 +18,8 @@ public class SecondActivity extends AppCompatActivity implements Notifications.F
 
     private FirebaseAuth  firebaseAuth;
 
-    boolean bool1;
-    boolean bool2;
+    private boolean b1;
+    private boolean b2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,21 +36,21 @@ public class SecondActivity extends AppCompatActivity implements Notifications.F
 
     }
 
-    @Override
-    public void passBooleans(boolean b1, boolean b2) {
-        bool1 = b1;
-        bool2 = b2;
-    }
-
 
     @Override
-    public boolean getBool1 () {
-        return bool1;
+    public void passSwitchState(boolean b1, boolean b2) {
+        this.b1 = b1;
+        this.b2 = b2;
     }
 
     @Override
-    public boolean getBool2 () {
-        return bool2;
+    public boolean getIncomeSwitchState () {
+        return b1;
+    }
+
+    @Override
+    public boolean getExpenseSwitchState () {
+        return b2;
     }
 
 

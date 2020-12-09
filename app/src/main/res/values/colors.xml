@@ -15,7 +15,7 @@
     <color name="black">#000000</color>
     <color name="shadow">#707070</color>
     <color name="green">#47d147</color>
-
+    <color name="transparent">#00000000</color>
     <color name="yellow">#C79B23</color>
 
 </resources>
